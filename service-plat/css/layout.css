@@ -1,0 +1,410 @@
+@charset "utf-8";
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,
+code,form,fieldset,legend,input,textarea,button,p,
+blockquote,th,td,address,label{
+	margin: 0;
+	padding: 0;
+	font-family:tahoma,"microsoft yahei","\5FAE\8F6F\96C5\9ED1",
+	"黑体","宋体",sans-serif;
+}
+body {
+	position: relative;
+	background: #fff;
+	color: #333;
+	font-size: 14px;
+	line-height: 1.5;
+}
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+ul li{
+	list-style: none;
+}
+a{
+	color: #333;
+	text-decoration: none;
+}
+
+/*container*/
+#container{
+	width: 1920px;
+	height: 3833px;
+}
+.juzhong{
+	width: 1200px;
+	margin: 0 auto;
+}
+
+/*header*/
+.login{
+	height: 32px;
+	line-height: 32px;
+	background: #f5f5f5;
+	
+}
+.login p{
+	float: right;
+	padding-right:350px ;
+	color: #666666;
+	overflow: hidden;
+}
+.login p span{
+	margin: 0 10px;
+}
+
+.name{
+	height: 120px;
+	margin-top: 24px;
+	
+}
+.name form{
+	float: right;
+}
+.name .shuru{
+	width: 284px;
+	height: 48px;
+	line-height: 48px;
+	color: #a9a9a9;
+	padding: 16px;
+	border: 2px solid #009470;
+	border-right: none;
+	margin-right: 0px;
+}
+.name .search{
+	width: 60px;
+	height: 49px;
+	background: url(../img/css_sprites.png) right top no-repeat;
+	border: none;
+	cursor: pointer;
+}
+.name form p{
+	margin-top: 13px;
+	color: #666666;
+}
+
+.nav{
+	border-top: 4px solid #ff9c00;
+}
+.nav_list{
+	
+	background: #009470;
+}
+.nav_list ul{
+	height: 42px;
+	line-height: 42px;
+	
+}
+.nav_list ul li{
+	float: left;
+	line-height: 42px;
+	width: 14%;
+	font-size: 16px;
+	text-align: center;
+	
+}
+.nav_list ul li a{
+	display: block;
+	color: #ffffff;
+}
+
+.choice{
+	height: 172px;
+	background: url(../img/choice_bg.png);
+	margin-top: 43px;
+}
+.choice ul li{
+	float: left;
+	width: 115px;
+	height: 115px;
+	border: 2px solid #009470;
+	margin: 30px 0 27px 45px;
+	background: #FFFFFF;
+	border-radius: 10px;
+}
+.choice ul li a i{
+	display: block;
+	width: 54px;
+	height: 54px;
+	margin: 16px 28px 0 28px;
+	background: url(../img/css_sprites.png);
+	background-repeat: no-repeat;
+}
+.choice ul li a[data-type="sheshi"] i{
+	background-position: 0 0 ;
+}
+.choice ul li a[data-type="baoming"] i{
+	background-position: -54px 0px ;
+}
+.choice ul li a[data-type="zuzhi"] i{
+	background-position: -110px 0px ;
+}
+.choice ul li a[data-type="zhidao"] i{
+	background-position: -166px 0px ;
+}
+.choice ul li a[data-type="huodong"] i{
+	background-position: -222px 0px ;
+}
+.choice ul li a[data-type="jisuan"] i{
+	background-position: -278px 0px ;
+}
+.choice ul li a[data-type="cepin"] i{
+	background-position: -336px 0px ;
+}
+.choice ul li a p{
+	color: #009470;
+	text-align: center;
+	padding-top: 12px;
+}
+
+/*main*/
+/*box*/
+.box{
+	height: 457px;
+	padding-top: 56px;
+}
+.box-left{
+	float: left;
+	width: 850px;
+	overflow: hidden;
+}
+.box-ltop span{
+	display: block;
+	height: 32px;
+	line-height: 32px;padding-left: 45px;
+	color: #999999;
+}
+.box-ltop span.ball{
+	background: url(../img/css_sprites.png) -534px -180px no-repeat;
+}
+.box-ltop span strong{
+	font-size: 24px;
+	margin-right: 32px;
+	font-weight: normal;
+}
+
+.box-list ul li {
+	width: 405px;
+	height: 132px;
+	margin-top: 25px;
+	margin-bottom: 15px;
+	float: left;
+}
+.box-list ul li img{
+	width:172px;
+	height: 130px;
+	float: left;
+	display: block;
+}
+.list-text{
+	margin-left: 192px;
+}
+.list-text strong{
+	height: 18px;
+}
+.list-text p{
+	color: #9a9a9a;
+	margin-top: 10px;
+}
+.list-text input{
+	width: 100px;
+	height: 32px;
+	margin-top: 16px;
+	border: none;
+	background: #009470;
+	color: #ffffff;
+	cursor: pointer;
+}
+.box-list i{
+	margin-top: 5px;
+	margin-left: 405px;
+}
+.box-list i input{
+	width: 16px;
+	height: 8px;
+	cursor: pointer;
+	border: none;
+	
+}
+.box-list .green{
+	background: url(../img/css_sprites.png) -556px -151px;	
+}
+.box-list .white{
+	background: url(../img/css_sprites.png) -556px -162px no-repeat;	
+	margin-left: 8px;
+}
+
+.box-right{
+	float: right;
+	width: 350px;
+}
+.box-rtop{
+	height: 40px;
+	border-bottom: 2px solid #009470;
+}
+.box-rtop span{
+	display: block;
+	font-size: 18px;
+	width: 105px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: #FFFFFF;
+	background: #009470;
+}
+.more{
+	float: right;	
+	margin: 12px 0;
+	padding-right: 30px;
+	font-size: 10px;
+	color: #009470;
+	background: url(../img/css_sprites.png) right -133px no-repeat;
+}
+.news-list{
+	margin-top: 20px;
+}
+.news-list ul li a{
+	margin-bottom: 24px;
+	display: block;
+}
+.news-list ul li strong{
+	font-weight: normal;
+	color: #999999;
+}
+.news-list ul li i{
+	color: #9A9A9A;
+	float: right;
+	font-style: normal;
+}
+
+/*box2*/
+.box2{
+	height: 441px;
+	width: 1920px;
+	background: #efeef3;
+	padding-top: 55px;
+}
+.box-ltop span.clock-gray{
+	background: url(../img/css_sprites.png) -534px -214px no-repeat;
+}
+
+.box2-con{
+	margin-top: 25px;
+	width: 1220px;
+}
+.box2-con ul li{
+	width: 284px;
+	height: 264px;
+	margin-right:20px ;
+	background: #ffffff;
+	float: left;
+}
+.box2-con ul li img{
+	display: block;
+	height: 214px;
+}
+.box2-con ul li p{
+	height: 16px;
+	margin-top: 17px;
+	margin-bottom: 17px;
+	font-size: 14px;
+	margin-left: 35px;
+}
+.box2-con ul li p span{
+	margin-left: 13px;
+	color: #acacac;
+}
+ 
+/*box3*/
+.box3{
+	height: 581px;
+	padding-top: 60px;
+}
+.box-ltop span.clock{
+	background: url(../img/css_sprites.png) -534px -248px no-repeat;
+}
+.sports-list{
+	width: 790px;
+	height: 85px;
+	margin-top: 25px;
+	background: #009470;
+}
+.sports-list ul li{
+	float: left;
+	width: 12.5%;
+	text-align: center;
+}
+.sports-list ul li a i{
+	display: block;
+	width: 40px;
+	height: 40px;
+	margin: 12px auto 4px;
+	background: url(../img/css_sprites.png);
+	background-repeat: no-repeat;
+}
+.sports-list ul li a[data-type="all"] i{
+    background-position: -158px -180px;
+}
+.sports-list ul li a[data-type="swim"] i{
+    background-position: -198px -180px;
+}
+.sports-list ul li a[data-type="basket"] i{
+    background-position: -238px -180px;
+}
+.sports-list ul li a[data-type="foot"] i{
+    background-position: -278px -180px;
+}
+.sports-list ul li a[data-type="tennis"] i{
+    background-position: -318px -180px;
+}
+.sports-list ul li a[data-type="pingpang"] i{
+    background-position: -359px -180px;
+}
+.sports-list ul li a[data-type="badmin"] i{
+    background-position: -398px -180px;
+}
+.sports-list ul li a[data-type="yujia"] i{
+    background-position: -438px -180px;
+}
+.sports-list ul li span{
+	color: #FFFFFF;
+}
+.sports-list .first{
+	color: #ff9b00;
+}
+
+.box3-con{
+	height: 286px;
+	margin: 30px 0 63px;
+}
+.box3-con ul li{
+	float: left;
+	margin-right: 53px;
+}
+
+
+.box4{
+	height: 503px;
+	width: 1920px;
+	background: #efeef3;
+	padding-top: 55px;
+}
+.box-ltop span.room{
+	background: url(../img/css_sprites.png) -534px -284px no-repeat;
+}
+
+.box5{
+	height: 525px;
+	padding-top: 60px;
+}
+
+.box-ltop span.people{
+	background: url(../img/css_sprites.png) -534px -320px no-repeat;
+}
+
+/*footer*/
+#footer{
+	height: 406px;
+	color: #222222;
+}
