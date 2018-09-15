@@ -543,7 +543,7 @@ img{
 }
 .box5-rcon ul{
 	margin-top: 20px;
-	width: 350px;
+	width: 349px;
 	overflow: hidden;	
 	border-top: 1px solid #cdcdcd;
 	border-left:1px solid #cdcdcd;
@@ -551,7 +551,7 @@ img{
 .box5-rcon ul li{
 	position: relative;
 	float: left;
-	width: 33.3%;
+	width: 116px;
 	height: 118px;
 	border-right: 1px solid #cdcdcd;
 	border-bottom: 1px solid #cdcdcd;

@@ -62,6 +62,10 @@ a{
 .name form{
 	float: right;
 }
+.name form input{
+	float: right;
+	display: block;
+}
 .name .shuru{
 	width: 284px;
 	height: 48px;
@@ -378,9 +382,15 @@ a{
 	height: 286px;
 	margin: 30px 0 63px;
 }
+.box3-con ul{
+	overflow: hidden;
+}
 .box3-con ul li{
 	float: left;
 	margin-right: 53px;
+}
+.box3-con ul li img{
+	border: 2px solid #009470;
 }
 
 
