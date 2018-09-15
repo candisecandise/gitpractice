@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>检测器产品</title>
+	<link rel="stylesheet" href="css/common.css"/>
+</head>
+<body>
+	<div class="p-20 flex flex-column main min-width">
+		<header class="m-b-10">
+			<div class="title">系统总览</div>
+			<table class="head-table" width="100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<th width="25%">告警概况<a href="#">点击查看</a></th>
+					<th width="25%">告警概况<a href="#">点击查看</a></th>
+					<th width="25%">告警概况<a href="#">点击查看</a></th>
+					<th width="25%">告警概况<a href="#">点击查看</a></th>
+				</tr>
+				<tr>
+					<td>共有告警<a class="blue">696543</a>条，今日新增<a class="green">3982</a></td>
+					<td>共<a class="blue">6</a>台检测器，<a class="gray">0</a>台禁用</td>
+					<td>共有<a class="blue">18</a>类，共计<a class="blue">99</a>条策略</td>
+					<td>共<a class="gray">0</a>台检测器待审核</td>
+				</tr>
+			</table>
+		</header>
+		<div class="flex-1 m-b-10 flex">
+			<div class="flex-1 m-r-10 bg chart">
+				<div class="chart-title">
+					告警类型统计
+				</div>
+				<div id="chart1" class="main"></div>
+			</div>
+			<div class="flex-2 m-r-10 bg chart">
+				<div class="chart-title">
+					告警态势（近30天）
+				</div>
+				<div id="chart2" class="main"></div>
+			</div>
+			<div class="flex-1 bg chart">
+				<div class="chart-title">
+					检测器接入情况
+				</div>
+				<div id="chart3" class="main"></div>
+			</div>
+		</div>
+		<div class="flex-1-5 flex">
+			<div class="flex-1 m-r-10 bg chart">
+				<div class="chart-title">
+					检测器告警 TOP10
+				</div>
+				<div id="chart4" class="main"></div>
+			</div>
+			<div class="flex-1 bg chart">
+				<div class="chart-title">
+					告警级别
+				</div>
+				<div id="chart5" class="main"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/chart/echarts.min.js"></script>
+	<script type="text/javascript" src="js/chart/echarts-gl.min.js"></script>
+	<!-- <script type="text/javascript" src="js/chart/chartskin.js"></script> -->
+	<script type="text/javascript" src="js/chart/vintage.js"></script>
+	<script type="text/javascript" src="js/chart/chart.js"></script>
+	<script type="text/javascript">
+	// window.addEventListener("resize", function () {
+ //            chart1.resize();
+	// 		chart2.resize();
+	// 		chart3.resize();
+	// 		chart4.resize();
+	// 		chart5.resize();
+ //    });
+  
+	//不增加会导致 chart1 chart4 无法自适应
+	window.addEventListener('resize', function () {
+    	chart3.resize()
+	})
+	window.addEventListener('resize', function () {
+	    chart5.resize()
+	})
+	window.onresize = (function(){
+			chart1.resize();
+			chart2.resize();
+			chart3.resize();
+			chart4.resize();
+			chart5.resize();
+	})
+	
+	</script>
+</body>
+</html>
