@@ -1,7 +1,8 @@
 import css from '../css/common.css' ; //相对路径??
-var echarts = require("echarts")
-var $ = require("jquery");
-// alert("hello world");
+// var echarts = require("echarts")
+// var $ = require("jquery");
+// import js from '../page/page2.js'
+require("../page/page2.js")
 
 var option1 = {
     tooltip:{
