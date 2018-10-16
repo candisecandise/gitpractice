@@ -1,0 +1,12 @@
+/*输入项样式*/
+input.vf_inCorrect,textarea.vf_inCorrect{box-shadow:0 1px 2px rgba(3,139,0,0.2) inset;border-color:#90b983;color:#2d7c14;}
+input.vf_inError,textarea.vf_inError{box-shadow:0 1px 2px rgba(139,23,0,0.2) inset,0 0 5px rgba(139,23,0,0.6);border-color:#d46060;color:#b40000;}
+.vf_Normal,.vf_Correct,.vf_Error,.vf_Focus{vertical-align:middle;display:inline-block;padding:3px;font-size:12px;margin-left:5px; background:#eee;}
+.vf_Normal{color:#777;}
+.vf_Focus{color:#000;}/*提示*/
+.vf_Correct{color:#20800d;display:none;}/*验证通过*/
+.vf_Error{color:#f00;}/*错误*/
+/*自定义样式*/
+input.inTestClass,textarea.inTestClass{box-shadow:0 0 2px rgba(0,0,0,0.3) inset,0 0 5px rgba(139,23,0,0.6);border-color:#00f;color:#eee;background-color:#333;}
+.TestClass_OK{color:#fff;background-color:#080;}
+.TestClass_Err{color:#fff;background-color:#c00;}
