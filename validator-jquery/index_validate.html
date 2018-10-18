@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>validate example</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="./js/jquery-1.11.1.js"></script>
+    <script src="./js/jquery.validate.js"></script>
+    <script src="./js/messages_zh.js"></script>
+    <script src="./js/additional-methods.js"></script>
+    <script src="./js/jquery.metadata.js"></script>
+    <script>
+
+        $().ready(function() {
+            $("#formId").validate({
+                // css 类名
+                errorClass:"myerror",
+                // 错误标签
+                errorElement:"label",
+                // 显示或隐藏信息
+                errorContainer: "ol.container",
+                // 错误信息统一存放的容器
+                errorLabelContainer: $("#formId ol.container"),
+                // errorElement 上一层标签
+                wrapper:"li",
+                submitHandler:function(form){
+                    console.log("已提交")
+                    // form.submit();
+                    $(form).ajaxSubmit();  
+                    }    
+                });
+            });
+
+
+    </script>
+</head>
+<body>
+	<form action="" method="get" id="formId">
+        <p>     
+            <label for="username">用户名</label>
+            <input  id="username" name="username" class="{ required :true, byteRangeLength :[1,4] }"/>
+        </p>
+        <p> 
+            <label for="password">密码</label></td>
+            <input type="text" id="pass"  name="password" class="{ required : true , minlength : 5 }">
+        </p>  
+        
+        <input name="submit" type="submit" value="确定提交">
+        <ol class="container">无法提交，表单错误信息如下</ol>
+    
+    
+    </form>
+
+    
+</body>
+</html>

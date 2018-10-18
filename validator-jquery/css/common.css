@@ -1,0 +1,12 @@
+
+.myerror{
+	color: red;
+	
+}
+input.myerror{
+	border: 1px solid red;
+}
+#formId ol.container{
+	display: none;
+	color: red;
+}

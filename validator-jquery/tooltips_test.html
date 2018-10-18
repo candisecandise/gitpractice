@@ -1,0 +1,81 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/validate.css">
+<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/jquery.metadata.js"></script>
+<!-- <script type="text/javascript" src="js/additional-methods.js"></script> -->
+<script type="text/javascript" src="js/tooltips.js"></script>
+<script type="text/javascript">
+    //中文字两个字节
+    jQuery.validator.addMethod(
+        "maxlength",
+        function(value, element, param) {
+            var length = value.length;
+            for(var i = 0; i < value.length; i++){
+                if(value.charCodeAt(i) > 127){
+                    length++;
+                }
+            }
+            return this.optional(element) || (length <= param);
+        },
+        $.validator.format("请确保输入的值在{0}个字节以内(一个中文字算2个字节)")
+    );
+    //非中文
+    jQuery.validator.addMethod(
+    	"isNoChinese",
+    	function(value, element) {
+    		var length = value.length;
+    		for(var i = 0; i < value.length; i++){
+    			if(value.charCodeAt(i) > 127){
+    				length++;
+    			}
+    		}
+    		return this.optional(element) || (length == value.length);//成立则返回成功，否则输出下面错误信息
+    	},
+    	$.validator.format("输入不允许存在中文")
+    );
+ 
+    $(function(){
+        $("#myform").validate();
+    });
+    </script>
+ 
+</head>
+<body>
+ 
+<form id="myform" method="post" action=""> 
+	<p>
+        <label for="nochinese">不带中文：</label>
+        <input id="nochinese" name="nochinese" type="text" class="{ required :true, maxlength :19, isNoChinese :true, messages :{required:'请输入内容'} }"/>
+    </p>
+		
+	<p>
+        <label for="myname">用户名：</label>
+        <!-- id和name最好同时写上 -->
+        <input id="myname" name="myname" class="required" />
+    </p>
+    <p>
+        <label for="email">E-Mail：</label>
+        <input id="email" name="email" class="required email" />
+    </p>
+    <p>
+        <label for="password">登陆密码：</label>
+        <input id="password" name="password" type="password"
+            class="{ required :true, minlength :5 }" />
+    </p>
+    <p>
+        <label for="confirm_password">确认密码：</label>
+        <input id="confirm_password" name="confirm_password" type="password"
+            class="{ required :true, minlength :5, equalTo :'#password' }" />
+    </p> 
+    
+    <p>
+        <input class="submit" type="submit" value="立即注册" />
+    </p>
+ 
+</form>
+ 
+ 
+<body>
+</html>
