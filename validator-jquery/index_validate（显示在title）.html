@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>validate example</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="./js/jquery-1.11.1.js"></script>
+    <script src="./js/jquery.validate.js"></script>
+    <script src="./js/messages_zh.js"></script>
+    <script src="./js/additional-methods.js"></script>
+    <script src="./js/jquery.metadata.js"></script>
+    <script>
+        $.validator.setDefaults({
+            // css 类名
+            errorClass:"myerror",
+            // 错误标签
+            errorElement:"div",
+            errorPlacement: function(error, element) {
+                var h = element.outerHeight();
+                var w = element.outerWidth();
+                element.hover(function(){
+                    console.log(1)
+                    // 滑过添加错误提示
+                    error.insertAfter(element);
+                    error.removeClass("hide");
+                    error.addClass("show");
+                    error.css({   
+                        'height':h,
+                        'width':w,
+                        'top': h,
+                        'left': w,
+                    });
+                },function(){
+                    console.log(2)
+                    // 滑走没有错误提示
+                    error.removeAttr("style");
+                    error.addClass("hide")
+                })
+            },
+
+        });
+        $().ready(function() {
+            $("#formId").validate({
+                rules:{
+                    username:{
+                        required:true
+                    },
+                    password:{
+                        required:true,
+                        af:true,
+                    }
+                },
+                submitHandler:function(form){
+                    console.log("已提交")
+                    // form.submit();
+                    $(form).ajaxSubmit();  
+                },
+                // focusCleanup:true 
+            });    
+        });
+       
+
+    </script>
+</head>
+<body>
+	<form action="" method="get" id="formId">
+        <div class="form-row">     
+            <label for="username">用户名</label>
+            <div class="input-parent"><input  id="username" name="username" class=""/></div>
+            <!-- <label for="">我在后面</label> -->
+        </div>
+        <div class="form-row"> 
+            <label for="password">密码</label></td>
+            <div class="input-parent"><input type="text" id="pass"  name="password" class=""></div>
+        </div>  
+        <input name="submit" type="submit" value="确定提交" >
+    </form>    
+</body>
+</html>

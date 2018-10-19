@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>validate example</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="./js/jquery-1.11.1.js"></script>
+    <script src="./js/jquery.validate.js"></script>
+    <script src="./js/additional-methods.js"></script>
+    <script>
+
+        $().ready(function() {
+            $("#formId").validate({
+                rules:{
+                    username:{
+                        required:true
+                    },
+                    password:{
+                        required:true,
+                        af:true,
+                    }
+                },
+                // css 类名
+                errorClass:"myerror",
+                // 错误标签
+                errorElement:"label",
+                // 第二种方法：js，需要class 中添加 hide
+                errorPlacement: function(error, element) {
+                    if(element.hasClass("hide")){
+                        // 不做任何操作，或者加入 display none 的样式
+                        // $(".hide").next().css("display","none");
+                    }else{
+                        error.appendTo( element.parent() );
+                    }
+                    // $(".hide").next().css("display","none");
+                },
+                submitHandler:function(form){
+                    console.log("已提交")
+                    // form.submit();
+                    $(form).ajaxSubmit();  
+                },
+                messages:{
+                    // 第一种方法，修改messages
+                    // password:""
+                } 
+            });
+
+            
+        });
+       
+
+    </script>
+</head>
+<body>
+	<form action="" method="get" id="formId">
+        <p>     
+            <label for="username">用户名</label>
+            <input  id="username" name="username" class=""/>
+        </p>
+        <p> 
+            <label for="password">密码</label></td>
+            <input type="text" id="pass"  name="password" class="hide">
+        </p>  
+        <input name="submit" type="submit" value="确定提交">
+    
+    
+    </form>
+
+    
+</body>
+</html>

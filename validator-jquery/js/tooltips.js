@@ -31,13 +31,13 @@ $.validator.setDefaults({
           error.css({display:'block',opacity:'0.6',top: pos.top - actualHeight, left: pos.left + pos.width-10 });
       }
     },
-    highlight: function(element, errorClass) {
-        //高亮显示
-        $(element).addClass(errorClass);
-        $(element).parents('li:first').children('label').addClass(errorClass);
-    },
-    unhighlight:function(element, errorClass){
-        $(element).removeClass(errorClass);
-        $(element).parents('li:first').children('label').removeClass(errorClass);
-    }
+    // highlight: function(element, errorClass) {
+    //     //高亮显示
+    //     $(element).addClass(errorClass);
+    //     $(element).parents('li:first').children('label').addClass(errorClass);
+    // },
+    // unhighlight:function(element, errorClass){
+    //     $(element).removeClass(errorClass);
+    //     $(element).parents('li:first').children('label').removeClass(errorClass);
+    // }
 });
