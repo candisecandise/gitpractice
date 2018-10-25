@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<style>
+		body,ul,li,div{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		body{
+			padding: 10px
+		}
+		li{
+			list-style: none;
+		}
+		ul{
+			background-color: #D19275;
+		}
+		.nav{
+			position: relative;
+			padding: 10px 20px;
+			overflow: hidden;
+		}
+		.nav i{
+			position: absolute;
+			display: inline-block;
+			width: 20px;
+			height: 25px;
+			background:url("img/arrow.png");
+			cursor: pointer;
+		}
+		.nav .arrow-l{
+			left: 0;
+			background-position: 0 0;
+		}
+		.nav .arrow-r{
+			background-position: -20px 0;
+		}
+		.ll{
+			float: left;
+			height: 100%;
+			/*width: 550px;*/
+			/*不换行*/
+			white-space:nowrap;
+			/*隐藏*/
+			overflow: hidden;
+		}
+		.ll .title{
+			/*设置动画需要*/
+			position: relative;
+			display: inline-block;
+			/*width: 5000px;*/
+			/*不换行*/
+			white-space:nowrap;
+			overflow: hidden;
+		}
+		.ll a{
+			display: inline-block;
+			padding: 2px 5px;
+			text-decoration: none;
+			border: 1px solid #fff;
+			color: #fff;
+		}
+		.ll a:hover{
+			opacity: 0.8;
+		}
+		
+		.lr{
+			float: right;
+			width: 200px;
+			background-color: #D19275;
+			margin-right: 10px;
+			margin-left: 10px;
+		}
+		.lr div{
+			padding: 2px 5px;
+			color: #fff;
+			border: 1px solid #fff;
+		}
+		
+	</style>
+</head>
+<body>
+	<script>
+		// 刷新左右箭头的显示
+		function arrowRefresh(){
+			var lastchild = ".title>a:last-child()";
+			var firstchild = ".title>a:first-child()";
+			var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
+			var firstchild_l = $(firstchild).offset().left;
+			var ll_lw = $(".ll").offset().left + $(".ll").width();
+			var ll_l = $(".ll").offset().left;
+			var t_width = $(".title").width();
+			var l_width = $(".ll").width();
+			// 判断左边箭头
+			if(ll_l > firstchild_l){
+				$(".arrow-l").show();
+			}else{
+				$(".arrow-l").hide();
+				// 如果标题1超过，移动到最左边
+				if(ll_l < firstchild_l){
+					$(".title").stop().animate({left:'0'})
+				}
+			};
+			// 判断右边箭头
+			if(ll_lw >= lastchild_l){
+				console.log("arrow-r hide1");
+				$(".arrow-r").hide();
+			}else if(t_width == l_width){
+				// 存在一种bug情况，lastchild_l > ll_lw 但是，ll 和 title 宽度已经一样
+				console.log("arrow-r hide2");
+				$(".arrow-r").hide();
+			}else{
+
+				$(".arrow-r").show();
+				var w = $(".ll").width()+20+'px';
+				$(".arrow-r").css("left",w);
+			}
+		}
+
+		// 计算 div li 的宽度
+		function nav(){
+			var nav_l = $(".nav").offset().left;
+			var lr_l = $(".lr").offset().left - nav_l;
+			var lastchild = ".title>a:last-child()";
+			var firstchild = ".title>a:first-child()";
+			// div 宽度 加上padding
+			var title_w = $(lastchild).offset().left - $(firstchild).offset().left + $(lastchild).outerWidth()
+			$(".title").width(title_w);
+			// 计算li.ll的宽度 加上padding
+			var ll_pw = title_w + 50;
+			if(lr_l >= ll_pw){
+				$(".ll").width(title_w);
+			}else{
+				$(".ll").width(lr_l - 50);
+				var ll_lw = $(".ll").offset().left + $(".ll").width();
+				var ll_l = $(".ll").offset().left;
+
+				// 点击事件
+				$(".arrow-r").click(function(){
+					var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
+					// if(arrow_r < lastchild_l){
+					if(ll_lw < lastchild_l){
+						$(".title").stop().animate({
+							left:'-=100px'
+						},200,function(){
+							arrowRefresh();
+						});
+					}
+				});
+				$(".arrow-l").click(function(){
+					var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
+					var firstchild_l = $(firstchild).offset().left;
+					if(ll_l > firstchild_l){
+						$(".title").stop().animate({
+							left:'+=100px'
+						},200,function(){
+							arrowRefresh();
+						});
+					}
+				})
+			}
+		}
+		
+		$().ready(function(){
+			nav();
+			arrowRefresh();
+		});
+		$(window).resize(function() {
+			nav();
+			arrowRefresh();
+		});
+	</script>
+	<ul class="nav">
+		<i class="arrow-l"></i>
+		<li class="ll">
+			<div class="title">
+				<!-- inline 默认有间距 -->
+				<a href="#">标题111</a>
+				<a href="#">标题22</a>
+				<a href="#">标题33</a>
+				<a href="#">标题444</a>
+				<a href="#">标题5</a>
+				<a href="#">标题6666</a>
+				<a href="#">标题777</a>
+				<a href="#">标题8</a>
+				<a href="#">标题999</a>
+				<a href="#">标题10</a>
+			</div>
+		</li>
+		<i class="arrow-r"></i>
+		<li class="lr">
+			<div>我在右边</div>
+		</li>
+	</ul>
+</body>
+</html>
