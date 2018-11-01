@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导航栏翻转</title>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<link rel="stylesheet" href="css/common.css">
+	<style>
+		.nav{
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: 10000;
+			background-color:#ddd; 
+			height: 50px;
+		}
+		.nav>div{
+			position: absolute;
+			color: #9e9e9e;
+			width: 218px;
+			height: 100%;
+			top: 0;
+			background-color: #fff;
+			cursor: pointer;	
+		}
+		.nav>div>a{
+			/*绝对定位就会从上到下*/
+			position: absolute;
+			width: 100%;
+			/*block就会从下到上*/
+			/*display: block;*/
+			/*a要设置高度，不然会出错*/
+			height: 50px;
+			color: #9e9e9e;
+			transition: transform .2s;
+			transform-style: preserve-3d;
+		}
+		.nav>div div{
+			position: absolute;
+			width: 100%;
+			/*display: block;*/
+			padding-left: 20px;
+			height: 50px;
+			/*加上 translateZ 视觉效果较好*/
+			transform: translateZ(25px);
+		}
+		.nav>div div h1{
+			font-size: 16px;
+			line-height: 30px;
+			letter-spacing: 1px;
+		}
+		.nav>div div span{
+			display: inline-block;
+			width: 16px;
+			height: 3px;
+			background-color: #c7c7c7;
+		}
+		.nav>div div:last-child{
+			background-color: #000;
+			color: #fff;
+			transform: rotateX(90deg) translateZ(25px);
+		}
+		.nav>div div:last-child span{
+			background-color: #e74c4c;
+		}
+		.nav>div:hover a{
+			transform: rotateX(-90deg) ;
+		}
+	</style>
+</head>
+<body>
+	<nav class="nav">
+		<div style="left: 0">
+			<a href="#">
+				<div>
+					<h1>TOOL</h1>
+					<span></span>
+				</div>
+				<div>
+					<h1>TOOL</h1>
+					<span></span>
+				</div>
+			</a>
+		</div>
+		<div style="left: 220px">
+			<a href="#">
+				<div>
+					<h1>WORK</h1>
+					<span></span>
+				</div>
+				<div>
+					<h1>WORK</h1>
+					<span></span>
+				</div>
+			</a>
+		</div>
+	</nav>
+</body>
+</html>
