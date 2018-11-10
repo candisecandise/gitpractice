@@ -23,18 +23,18 @@
                     // 滑过添加错误提示
                     error.insertAfter(element);
                     error.removeClass("hide");
-                    error.addClass("show");
+                    // error.addClass("show");
+                    error.addClass("tooltip arrow-left");
                     error.css({   
-                        'height':h,
-                        'width':w,
-                        'top': h,
+                        // 'height':h,
+                        'top': h/2,
                         'left': w,
                     });
                 },function(){
                     console.log(2)
                     // 滑走没有错误提示
-                    error.removeAttr("style");
-                    error.addClass("hide")
+                    // error.removeAttr("style");
+                    error.addClass("hide");
                 })
             },
 

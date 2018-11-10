@@ -31,6 +31,10 @@
             <td width="50px" style="text-align: right;">密码</td>
             <td><input  id="password2" value="${password}" /></td>
         </tr>
+        <tr>
+            <td width="50px" style="text-align: right;">密码</td>
+            <td><input   value="" /></td>
+        </tr>
     </table>
 </div>
 </body>

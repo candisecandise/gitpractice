@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>validate example</title>
+    <meta charset="UTF-8">
+    <title>validate example</title>
     <link rel="stylesheet" href="./css/common.css">
     <script src="./js/jquery-1.11.1.js"></script>
     <script src="./js/jquery.validate.js"></script>
@@ -12,59 +12,32 @@
     <script>
         $.validator.setDefaults({
             // css 类名
-            // errorClass:"myerror",
+            errorClass:"myerror",
             // 错误标签
-            // errorElement:"div",
-           
+            errorElement:"div",
             errorPlacement: function(error, element) {
-                console.log("error")
-
-                error.appendTo( element.parent() );
-                
+                var h = element.outerHeight();
+                var w = element.outerWidth();
                 element.hover(function(){
+                    console.log(1)
                     // 滑过添加错误提示
-                   error.show();
-                    var h = element.outerHeight();
-                    var w = element.outerWidth();
-                    // console.log(w);
-                    // console.log(h);
-                    error.css({
-                        // 'position': 'absolute',
-                        'display': 'block !important',
-                        // 'padding': '2px',
-                        // 'border': '1px solid red',
-                        // 'font-size':'12px',
-                        // 'border-radius': '4px',
+                    error.insertAfter(element);
+                    error.removeClass("hide");
+                    error.addClass("show");
+                    error.css({   
                         'height':h,
-                        'width':'100%',
+                        'width':w,
                         'top': h,
                         'left': w,
-                        // 'z-index':'10'
                     });
                 },function(){
+                    console.log(2)
                     // 滑走没有错误提示
-                    error.hide();
-
+                    error.removeAttr("style");
+                    error.addClass("hide")
                 })
             },
-             showErrors: function(map, list) {
-        // there's probably a way to simplify this
-        var focussed = document.activeElement;
-        if (focussed && $(focussed).is("input, textarea")) {
-            $(this.currentForm).tooltip("close", {
-                currentTarget: focussed
-            }, true)
-        }
-        this.currentElements.removeAttr("title").removeClass("ui-state-highlight");
-        $.each(list, function(index, error) {
-            $(error.element).attr("title", error.message).addClass("ui-state-highlight");
-        });
-        if (focussed && $(focussed).is("input, textarea")) {
-            $(this.currentForm).tooltip("open", {
-                target: focussed
-            });
-        }
-    }
+
         });
         $().ready(function() {
             $("#formId").validate({
@@ -90,10 +63,11 @@
     </script>
 </head>
 <body>
-	<form action="" method="get" id="formId">
+    <form action="" method="get" id="formId">
         <div class="form-row">     
             <label for="username">用户名</label>
             <div class="input-parent"><input  id="username" name="username" class=""/></div>
+            <!-- <label for="">我在后面</label> -->
         </div>
         <div class="form-row"> 
             <label for="password">密码</label></td>

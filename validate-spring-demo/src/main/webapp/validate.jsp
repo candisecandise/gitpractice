@@ -27,51 +27,62 @@
                     },
                 },
                 // meta: "validate",
-                submitHandler:function(){
+                submitHandler:function(form){
                     alert("提交事件!");
-                    ajaxForm("#formId");
+                    //   js 原生方法提交
+                    document.getElementById("formId").submit();
+                    //  jquery 提交需要用form
+                    // form.submit();
+                    // ajax 提交
+                    // ajaxForm("#formId");
                 }
             });
         });
         function ajaxForm(form) {
-            $.ajax({
-                url: '${pageContext.request.contextPath}/validateForm',
-                // async: false,//同步，会阻塞操作
-                type: 'POST',//PUT DELETE POST
-                data: $(form).serialize(),
-                dataType:'text',
-                success: function (result) {
-                    if (result=='success') {
-                        alert("修改成功");
-                        // window.location.reload();
-                        // window.open("success.jsp","_blank");
-                        closeLayer();
-                        // 直接上层
-                        parent.location.reload(true);
-                        <%--read('#count2','#username2','#password2',"${pageContext.request.contextPath}/refreshForm");--%>
-                    } else {
-                        alert("修改失败1")
-                    }
-                },
-                error: function () {
-                    alert("修改失败2")
-                },
-                complete: function (msg) {
-                    console.log('完成了');
-                },
-            })
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/validateForm',
+                    // async: false,//同步，会阻塞操作
+                    type: 'POST',//PUT DELETE POST
+                    data: $(form).serialize(),
+                    dataType:'text',
+                    success: function (result) {
+                        if (result=='success') {
+                            alert("修改成功");
+                            // window.location.reload();
+                            // window.open("success.jsp","_blank");
+                            closeLayer();
+                            // 直接上层
+                            // parent.location.reload(true);
+                            // 父页面执行 read 方法
+                            parent.read('#count2','#username2','#password2',"${pageContext.request.contextPath}/refreshForm");
+                        } else {
+                            alert("修改失败1")
+                        }
+                    },
+                    error: function () {
+                        alert("修改失败2")
+                    },
+                    complete: function (msg) {
+                        console.log('完成了');
+                    },
+                })
         }
         function submitForm(form) {
+            alert("提交")
+            $("#formId").submit();
+            // js 原生方法提交 不走 submithandler
+            // document.getElementById("formId").submit();
             // if($("#formId").validate().form()){
-            if($(form).valid()){
-                $(form).submit();
-            }
+            // if($(form).valid()){
+            // jquery 提交方法，会走到 submithandler
+            //     $(form).submit();
+            // }
         }
 
     </script>
 </head>
 <body>
-<form action="" method="get" id="formId">
+<form action="${pageContext.request.contextPath}/validateForm" method="get" id="formId" enctype="multipart/form-data">
     <table>
         <tr>
             <td width="50px" style="text-align: right;"><label for="username">用户名</label></td>
@@ -82,8 +93,8 @@
             <td><input type="text" id="password"  name="password"></td>
         </tr>
         <tr>
-            <%--<td colspan="2"><input name="Submit" type="submit" value="确定提交"></td>--%>
-            <td colspan="2"><a onclick="submitForm('#formId')">提交</a></td>
+            <td colspan="2"><input  name="aaa" type='buttom' value="确定提交"  onclick="submitForm('#formId')"></td>
+            <%--<td colspan="2"><a id="aaa" onclick="submitForm('#formId')">提交</a></td>--%>
         </tr>
         <%--<tr>--%>
             <%--<td colspan="2"><a onclick="()">读取</a></td>--%>

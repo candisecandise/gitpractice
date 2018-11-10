@@ -19,6 +19,36 @@ $.extend( $.validator.messages, {
 } );
 
 
+$.validator.setDefaults({
+            // css 类名
+            errorClass:"myerror",
+            // 错误标签
+            errorElement:"div",
+            errorPlacement: function(error, element) {
+                var h = element.outerHeight();
+                var w = element.outerWidth();
+                element.hover(function(){
+                    console.log(1)
+                    // 滑过添加错误提示
+                    error.insertAfter(element);
+                    error.removeClass("hide");
+                    // error.addClass("show");
+                    error.addClass("tooltip arrow-left");
+                    error.css({   
+                        // 'height':h,
+                        'top': h/2,
+                        'left': w,
+                    });
+                },function(){
+                    console.log(2)
+                    // 滑走没有错误提示
+                    // error.removeAttr("style");
+                    error.addClass("hide");
+                })
+            },
+
+        });
+
 jQuery.validator.addMethod("isZipCode", function(value, element) {   
     var tel = /^[0-9]{6}$/;
     return this.optional(element) || (tel.test(value));
@@ -45,5 +75,5 @@ jQuery.validator.addMethod("af",function(value,element,params){
     return false;
    }
 
-},"必须是一个字母,且a-f");
+},"必须是一个字母,必须是一个字母,且a-f");
 

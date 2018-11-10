@@ -26,7 +26,7 @@
                 errorElement:"label",
                 // 第二种方法：js，需要class 中添加 hide
                 errorPlacement: function(error, element) {
-                    if(element.hasClass("hide")){
+                    if(element.hasClass("hide-class")){
                         // 不做任何操作，或者加入 display none 的样式
                         // $(".hide").next().css("display","none");
                     }else{
@@ -59,7 +59,7 @@
         </p>
         <p> 
             <label for="password">密码</label></td>
-            <input type="text" id="pass"  name="password" class="hide">
+            <input type="text" id="pass"  name="password" class="hide-class">
         </p>  
         <input name="submit" type="submit" value="确定提交">
     
