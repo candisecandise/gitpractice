@@ -1,5 +1,5 @@
 var geoCoordMap = {
-    '上海': [121.4648,31.2891],
+    '南京': [121.4648,31.2891],
     '东莞': [113.8953,22.901],
     '东营': [118.7073,37.5513],
     '中山': [113.4229,22.478],
@@ -116,7 +116,7 @@ var geoCoordMap = {
 };
 
 var BJData = [
-    [{name:'北京'}, {name:'上海',value:95}],
+    [{name:'北京'}, {name:'南京',value:95}],
     [{name:'北京'}, {name:'广州',value:90}],
     [{name:'北京'}, {name:'大连',value:80}],
     [{name:'北京'}, {name:'南宁',value:70}],
@@ -129,16 +129,16 @@ var BJData = [
 ];
 
 var SHData = [
-    [{name:'上海'},{name:'包头',value:95}],
-    [{name:'上海'},{name:'昆明',value:90}],
-    [{name:'上海'},{name:'广州',value:80}],
-    [{name:'上海'},{name:'郑州',value:70}],
-    [{name:'上海'},{name:'长春',value:60}],
-    [{name:'上海'},{name:'重庆',value:50}],
-    [{name:'上海'},{name:'长沙',value:40}],
-    [{name:'上海'},{name:'北京',value:30}],
-    [{name:'上海'},{name:'丹东',value:20}],
-    [{name:'上海'},{name:'大连',value:10}]
+    [{name:'南京'},{name:'包头',value:95}],
+    [{name:'南京'},{name:'昆明',value:90}],
+    [{name:'南京'},{name:'广州',value:80}],
+    [{name:'南京'},{name:'郑州',value:70}],
+    [{name:'南京'},{name:'长春',value:60}],
+    [{name:'南京'},{name:'重庆',value:50}],
+    [{name:'南京'},{name:'长沙',value:40}],
+    [{name:'南京'},{name:'北京',value:30}],
+    [{name:'南京'},{name:'丹东',value:20}],
+    [{name:'南京'},{name:'大连',value:10}]
 ];
 
 var GZData = [
@@ -160,12 +160,12 @@ var convertData = function (data) {
     var res = [];
     for (var i = 0; i < data.length; i++) {
         var dataItem = data[i];
-        var fromCoord = geoCoordMap[dataItem[0].name];
-        var toCoord = geoCoordMap[dataItem[1].name];
+        var fromCoord = geoCoordMap[dataItem[1].name];
+        var toCoord = geoCoordMap[dataItem[0].name];
         if (fromCoord && toCoord) {
             res.push({
-                fromName: dataItem[0].name,
-                toName: dataItem[1].name,
+                // fromName: dataItem[0].name,
+                // toName: dataItem[1].name,
                 coords: [fromCoord, toCoord]
             });
         }
@@ -175,58 +175,65 @@ var convertData = function (data) {
 
 var color = ['#a6c84c', '#ffa022', '#46bee9'];
 var series = [];
-[['北京', BJData], ['上海', SHData], ['广州', GZData]].forEach(function (item, i) {
-    series.push({
-        name: item[0] + ' Top10',
-        type: 'lines',
-        zlevel: 1,
-        effect: {
-            show: true,
-            period: 6,
-            trailLength: 0.7,
-            color: '#fff',
-            symbolSize: 3
-        },
-        lineStyle: {
-            normal: {
-                color: color[i],
-                width: 0,
-                curveness: 0.2
-            }
-        },
-        data: convertData(item[1])
-    },
+[['北京', BJData], ['南京', SHData], ['广州', GZData]].forEach(function (item, i) {
+    series.push(
+    // {
+    //     name: item[0],
+    //     type: 'lines',
+    //     zlevel: 1,
+    //     effect: {
+    //         show: true,
+    //         period: 6,
+    //         trailLength: 0.7,
+    //         color: '#fff',
+    //         symbolSize: 3
+    //     },
+    //     lineStyle: {
+    //         normal: {
+    //             color: color[i],
+    //             width: 0,
+    //             curveness: 0.2
+    //         }
+    //     },
+    //     data: convertData(item[1]),
+    //     //不起作用？？ 
+    //     animation:false,
+    // },
+    // {
+    //     name: item[0],
+    //     type: 'lines',
+    //     zlevel: 2,
+    //     symbol: ['none', 'arrow'],
+    //     symbolSize: 10,
+    //     effect: {
+    //         show: true,
+    //         period: 6,
+    //         trailLength: 0,
+    //         symbol: 'arrow',
+    //         symbolSize: 15
+    //     },
+    //     lineStyle: {
+    //         normal: {
+    //             color: color[i],
+    //             width: 1,
+    //             opacity: 0.6,
+    //             curveness: 0.2
+    //         }
+    //     },
+    //     data: convertData(item[1]),
+    //     animation:false,
+    // },
     {
-        name: item[0] + ' Top10',
-        type: 'lines',
-        zlevel: 2,
-        symbol: ['none', 'arrow'],
-        symbolSize: 10,
-        effect: {
-            show: true,
-            period: 6,
-            trailLength: 0,
-            symbol: planePath,
-            symbolSize: 15
-        },
-        lineStyle: {
-            normal: {
-                color: color[i],
-                width: 1,
-                opacity: 0.6,
-                curveness: 0.2
-            }
-        },
-        data: convertData(item[1])
-    },
-    {
-        name: item[0] + ' Top10',
+        name:  item[0], 
         type: 'effectScatter',
+        // 使用的坐标系
         coordinateSystem: 'geo',
         zlevel: 2,
+        // 涟漪特效     
         rippleEffect: {
-            brushType: 'stroke'
+            brushType: 'fill    '
         },
+        // 图形上的文本标签
         label: {
             normal: {
                 show: true,
@@ -242,47 +249,70 @@ var series = [];
                 color: color[i]
             }
         },
+        // map 映射
         data: item[1].map(function (dataItem) {
+            // console.log("fffff"+geoCoordMap[dataItem[1].name].concat([dataItem[1].value]));
             return {
-                name: dataItem[1].name,
-                value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+                name: dataItem[1].name, //显示每个维度对应的名称
+                // value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+                value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value]),
+                // 自定义 tooltip
+                tooltip:{formatter:'{b}->{a}:'+dataItem[1].value}
             };
-        })
+        }),
+        animation:false,
+        // tooltip:{
+        //     // 怎么去掉坐标
+        //     formatter:'{b}:{c5}->{a}'
+        // }
     });
 });
 option = {
-	backgroundColor:'#95b4d6',
+	backgroundColor:'#f5f3f0',
 	title:{
 		text:'大数据实时监控',
 		subtext:'数据截止2018年11月9日',
-		left:'right',
+		// left:'left',
+        left:10,
+        top:10,
 		textStyle:{
-			color:'#fff'
+            fontSize:24,
+			color:'#125993'
 		},
 		subtextStyle:{
-			color:'#c9c8c8'
+            fontSize:12,
+            color:'#9da2a3'
+			// color:'#c9c8c8
 		}
 	},
 	tooltip:{
 		// 提示框触发类型
 		trigger:'item'
 	},
-	// 不显示？？
 	legend: {
         orient: 'vertical',
         top: 'bottom',
-        left: 'right',
-        data:['北京 Top10', '上海 Top10', '广州 Top10'],
+        left: 20,
+        // bottom 没用？？
+        bottom: 20,
+        data:[  '北京', '南京', '广州'],
         textStyle: {
-            color: '#fff'
+            color: '#4a4a4a'
         },
-        selectedMode: 'single'
+        // selectedMode: 'single',
+        selected:{
+            // 显示
+            "北京":true,
+            "南京":true,
+            "广州":true,
+        }
     },
     geo: {
         map: 'china',
         label: {
         	// 高亮
             emphasis: {
+                // 不显示标签
                 show: false
             }
         },
@@ -325,3 +355,39 @@ option = {
 // };
 // // 使用刚指定的配置项和数据显示图表。
 // myChart.setOption(option);
+
+// pie
+option2 = {
+    backgroundColor:'whitesmoke',
+    title : {
+        text: '连接数占比',
+        subtext: '纯属虚构',
+        left:'left',
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    // legend: {
+    //     orient: 'vertical',
+    //     left: 'left',
+    //     data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+    // },
+    series : [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            // 数组
+            data:[],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};

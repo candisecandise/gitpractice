@@ -7,14 +7,84 @@
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/echarts.min.js"></script>
 	<script src="js/map/china.js"></script>
-	
 	<script src="js/map.js"></script>
+	<script src="js/json.js"></script>
 </head>
 <body>
-	<div id="main"></div>
+	<div class="main">
+		<div id="map">
+		</div>
+		<!-- 不能放在map中！ -->
+		<div class="sort-table">
+			<div class="title"><i onclick="tableHide()">></i><span>连接数排序</span></div>
+			<div class="sort-info">
+				<div class="sort-type"><span class="chooses">国家</span><span>单位</span></div>
+				<div class="htable">
+					<table>
+						<thead>
+							<tr><td width="50%">名称</td><td width="50%">连接数</td></tr>
+						</thead>
+					</table>
+					<!-- 放到div中 table才有滚动条 -->
+					<div class="btable btable1">
+						<table>
+							<tbody>
+								<tr><td>美国</td><td>1000</td></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div id="linkpie"></div>
+			</div>
+
+		</div>
+	</div>
+	
+	
 	<script>
-		var chart = echarts.init(document.getElementById('main'));
-	    chart.setOption(option);
+		function tableHide(){
+			$('.sort-info').toggle();
+		}
+		// 有返回值 方法还是 function
+		function appendlink(data){
+			$('.btable table tbody').html("");
+			var datas = [];
+			for(var d in data){
+				// 追加元素
+				var h = '<tr><td>'+d+'</td><td>'+data[d]+'</td></tr>'
+				$('.btable table tbody').append(h);
+				// push键值对
+				datas.push({
+					'value':data[d],
+					'name':d
+				});
+			}
+			return datas
+		}
+		$(function (){
+			var chart = echarts.init(document.getElementById('map'));
+	    	chart.setOption(option);
+	    	var chart2 = echarts.init(document.getElementById('linkpie'));
+	    	chart2.setOption(option2);
+	    	datas = appendlink(linkdata1);
+	    	chart2.setOption({series : [{data:datas,}]})
+			$(".sort-type span").mouseover(function(){
+				var linkdata = {};
+				var datas = [];
+				$(this).siblings().removeClass("chooses");	
+	    		$(this).addClass('chooses');
+	    		if($(this).text()=='国家'){
+	    			datas = appendlink(linkdata1);
+	    		}else{
+	    			datas = appendlink(linkdata2)
+	    		}
+				chart2.setOption({
+				    series : [{data:datas,}]
+				})
+	    	});
+	    	
+		})
+		
 	</script>
 </body>
 </html>

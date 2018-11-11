@@ -1,0 +1,43 @@
+疑惑
+lines 的 tooltip怎么显示数据，可以显示么？？
+lines effectScatter data 不是只需要coords 为什么例子里还有 fromname value 什么的
+
+padding的百分比是不是相当于line-height？
+overflow:hidden auto;？
+
+收获
+https://blog.csdn.net/Alcantara/article/details/78186504
+行内元素和行内块级元素会避开浮动元素，就像块级元素中的文本会避开浮动元素一样，input 和 button 也是（因为input button 是行内块级元素）
+
+mouseover 和 mousenter
+触发 mouseover：鼠标指针穿过被选元素或其子元素
+触发 mouseenter：鼠标指针穿过被选元素
+
+遍历对象
+https://blog.csdn.net/u010377383/article/details/80573617
+
+js {} 和 [] 区别，遍历方法
+var aaa = {'a1':20,'a2':30}对象 遍历：for(var key in aaa){console.log(aaa[key])}
+var aaa = [a1,20,30,a2]数组 遍历：for(var i=0;i<aaa.length;i++){console.log(aaa[i])}
+
+push 和 concat 区别
+push 添加元素，参数是数组还是会把数组整个作为一个元素添加，改变现有数组
+concat  合并数组，参数是数组会把数组作为多个元素添加，不会改变现有数组
+
+datas 是数组，linkdata1是对
+{
+	    					'value':linkdata1[d],
+	    					'name':d
+	    				}
+是json格式（键值对）
+var datas = [];
+for(var d in linkdata1){
+	    				// push json 格式的元素
+	    				datas.push({
+	    					'value':linkdata1[d],
+	    					'name':d
+	    				});
+					};
+
+// 有返回值 方法还是 function
+function appendlink(data){var datas = [];return datas}
