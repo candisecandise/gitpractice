@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{
+			/*图片放大不会超过父元素*/
+			overflow: hidden;
+		}
+		div img{
+			transform: scale(1);
+			transition: .4s;
+		}
+		div:hover img{
+			transform: scale(1.2);
+		}
+	</style>
+</head>
+<body>
+	<div style="height: 50px;width: 50px">
+		<img src="./img/cat.png" alt="cat" style="width: 100%;height: 100%">
+	</div>
+</body>
+</html>
