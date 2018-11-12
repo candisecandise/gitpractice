@@ -7,8 +7,7 @@
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/echarts.min.js"></script>
 	<script src="js/map/china.js"></script>
-	<script src="js/map.js"></script>
-	<script src="js/json.js"></script>
+	
 </head>
 <body>
 	<div class="main">
@@ -16,7 +15,7 @@
 		</div>
 		<!-- 不能放在map中！ -->
 		<div class="sort-table">
-			<div class="title"><i onclick="tableHide()">></i><span>连接数排序</span></div>
+			<div class="stitle"><i onclick="tableHide('link')">></i><span>连接数排序</span></div>
 			<div class="sort-info">
 				<div class="sort-type"><span class="chooses">国家</span><span>单位</span></div>
 				<div class="htable">
@@ -34,16 +33,38 @@
 						</table>
 					</div>
 				</div>
-				<div id="linkpie"></div>
+				<div id="linkpie" style="width: 100%;height: 176px"></div>
 			</div>
-
+		</div>
+		<div class="port-chart">
+			<div class="stitle ctitle"><i onclick="tableHide('port')">></i><span>端口分布图</span></div>
+			<div class="port-info chart">
+				<div id="portBar" style="width: 100%;height: 100%"></div>
+			</div>
+		</div>
+		<div class="flow-chart">
+			<div class="stitle ctitle"><i onclick="tableHide('flow')">></i><span>流量趋势图</span></div>
+			<div class="flow-info chart">
+				<div id="flowLine" style="width: 100%;height: 100%"></div>
+			</div>
 		</div>
 	</div>
 	
-	
+	<script src="js/map.js"></script>
+	<script src="js/json.js"></script>
 	<script>
-		function tableHide(){
-			$('.sort-info').toggle();
+		function tableHide(type){
+			if(type == 'link'){
+				$('.sort-info').toggle();
+			}
+			if(type == 'port'){
+				$('.port-info').toggle();
+			}
+			if(type == 'flow'){
+				$('.flow-info').toggle();
+			}
+			portChart.resize();
+			flowChart.resize();
 		}
 		// 有返回值 方法还是 function
 		function appendlink(data){
@@ -62,12 +83,8 @@
 			return datas
 		}
 		$(function (){
-			var chart = echarts.init(document.getElementById('map'));
-	    	chart.setOption(option);
-	    	var chart2 = echarts.init(document.getElementById('linkpie'));
-	    	chart2.setOption(option2);
 	    	datas = appendlink(linkdata1);
-	    	chart2.setOption({series : [{data:datas,}]})
+	    	linkChart.setOption({series : [{data:datas,}]})
 			$(".sort-type span").mouseover(function(){
 				var linkdata = {};
 				var datas = [];
@@ -78,13 +95,17 @@
 	    		}else{
 	    			datas = appendlink(linkdata2)
 	    		}
-				chart2.setOption({
+				linkChart.setOption({
 				    series : [{data:datas,}]
 				})
 	    	});
-	    	
 		})
-		
+		window.addEventListener("resize", function () {
+			chart.resize();
+			linkChart.resize();
+            portChart.resize();
+			flowChart.resize();
+        });
 	</script>
 </body>
 </html>

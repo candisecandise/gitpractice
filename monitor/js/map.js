@@ -357,11 +357,11 @@ option = {
 // myChart.setOption(option);
 
 // pie
-option2 = {
+linkOption = {
     backgroundColor:'whitesmoke',
     title : {
         text: '连接数占比',
-        subtext: '纯属虚构',
+        // subtext: '纯属虚构',
         left:'left',
     },
     tooltip : {
@@ -391,3 +391,186 @@ option2 = {
         }
     ]
 };
+portOption = {
+    title : {
+        text: '源端口目的端口分布图',
+        subtext: '2018/11/12 下午2:44:44',
+        left:'left',
+    },
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+  
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    yAxis:  {
+        type: 'value'
+    },
+    xAxis: {
+        type: 'category',
+        data: ['8080','8081','8082','8083','8084','8085','8086']
+    },
+    series: [
+        {
+            name: '9090',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [820, 832, 901, 934, 1290, 1330, 1320]
+            
+        },
+        {
+            name: '9091',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [150, 212, 201, 154, 190, 330, 410]
+            
+        },
+        {
+            name: '9092',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name: '9093',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name: '9094',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [320, 302, 301, 334, 390, 330, 320]
+        }
+    ]
+};
+flowOption = {
+    title: {
+        text: '流量趋势图',
+        subtext: '2018/11/12 下午2:44:44',
+        left:'left',
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    // legend: {
+    //     data:['最高气温','最低气温']
+    // },
+    toolbox: {
+        show: true,
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            dataView: {readOnly: false},
+            magicType: {type: ['line', 'bar']},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis:  {
+        type: 'category',
+        boundaryGap: false,
+        data: ['美国','英国','泰国','俄罗斯','日本','新加坡','南非']
+    },
+    yAxis: {
+        type: 'value',
+        axisLabel: {
+            formatter: '{value} °C'
+        }
+    },
+    series: [
+        {
+            name:'上行流量',
+            type:'line',
+            data:[11, 11, 15, 13, 12, 13, 10],
+            markPoint: {
+                data: [
+                    {type: 'max', name: '最大值'},
+                    {type: 'min', name: '最小值'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'}
+                ]
+            }
+        },
+        {
+            name:'下行流量',
+            type:'line',
+            data:[1, -2, 2, 5, 3, 2, 0],
+            markPoint: {
+                data: [
+                    {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: '平均值'},
+                    [{
+                        symbol: 'none',
+                        x: '90%',
+                        yAxis: 'max'
+                    }, {
+                        symbol: 'circle',
+                        label: {
+                            normal: {
+                                position: 'start',
+                                formatter: '最大值'
+                            }
+                        },
+                        type: 'max',
+                        name: '最高点'
+                    }]
+                ]
+            }
+        }
+    ]
+};
+var portChart = echarts.init(document.getElementById('portBar'));
+portChart.setOption(portOption);
+var flowChart = echarts.init(document.getElementById('flowLine'));
+flowChart.setOption(flowOption);
+var chart = echarts.init(document.getElementById('map'));
+chart.setOption(option);
+var linkChart = echarts.init(document.getElementById('linkpie'));
+linkChart.setOption(linkOption);
