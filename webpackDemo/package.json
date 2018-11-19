@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "startdemo1": "webpack --config demo1/webpack.config.js --mode development",
+    "startdemo2": "webpack --config demo2/webpack.config.js --mode development",
+    "startdemo4": "webpack --config demo4/webpack.config.js --mode development",
     "watch": "webpack --watch --config config/webpack.config.js --mode development",
     "start": "webpack --config config/webpack.config.js --mode development",
     "startpro": "webpack --config config/webpack.config.js --mode production",
