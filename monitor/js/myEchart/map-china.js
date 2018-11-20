@@ -330,31 +330,6 @@ option = {
     },
     series: series
 }
-// var myChart = echarts.init(document.getElementById('main'));
-// // 指定图表的配置项和数据
-// option = {
-//     tooltip : {
-//         trigger: 'item',
-//         formatter: '{b}'
-//     },
-//     series : [
-//         {
-//             name: '中国',
-//             type: 'map',
-//             mapType: 'china',
-//             selectedMode : 'multiple',
-//             itemStyle:{
-//                 normal:{label:{show:true}},
-//                 emphasis:{label:{show:true}}
-//             },
-//             data:[
-//                 {name:'广东',selected:true}
-//             ]
-//         }
-//     ]
-// };
-// // 使用刚指定的配置项和数据显示图表。
-// myChart.setOption(option);
 
 // pie
 linkOption = {
@@ -368,11 +343,6 @@ linkOption = {
         trigger: 'item',
         formatter: "{a} <br/>{b} : {c} ({d}%)"
     },
-    // legend: {
-    //     orient: 'vertical',
-    //     left: 'left',
-    //     data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-    // },
     series : [
         {
             name: '访问来源',

@@ -226,6 +226,7 @@ option = {
         },
 
     },
+    // 地理坐标系组件
     geo: {
         map: "world",
         label: {
