@@ -105,29 +105,36 @@ body,html{
 .btable tr:hover{
 	font-size: bold;
 }
-/*端口分布*/
-.port-chart,.flow-chart{
+/*chartbox*/
+.chartbox{
 	position: absolute;
 	left: 0;
-	top: 30%;
 	z-index: 1000;
 }
+.port-chart{
+	top:9%;
+}
+.flow-chart{
+	top: 39%;
+}
+.country-chart{
+	top:69%;
+}
+/*chartbox title*/
 .ctitle{
-	height: 184px;
+	height: 220px;
 	background-color: rgba(44, 37, 37, 0.9);
 	padding-right: 5px;
 	border-radius: 0px 8px 8px 0px;
 	display: inline-block;
 }
-.flow-chart{
-	top: 54%;
-}
+/*chartbox chart*/
 .chart{
 	display: none;
 	float: left;
 	position: relative;
 	width: 500px;
-	height: 182px;
+	height: 220px;
 	padding: 5px;
 	background: rgba(255, 255, 255, 0.8);
 	border: 1px solid rgb(221, 221, 221);

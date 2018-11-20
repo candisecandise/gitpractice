@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+	<script>
+		// 转义 \
+		var data = "\"add\":[{\"risk\":9,\"rule_id\":}],\"del\":[223456789123456789,323456789123456789],\"update\":[111]";
+		
+		var rulereg = /"rule_id":(\d+)/g;
+		// // 没找到就不会走下面的方法，找到了就会走，但如果是* 本来也没有数字，也不会匹配到什么，走了也不会错
+		// var newdata = data.replace(rulereg,function(){
+		// 	console.log("arguments"+arguments[1]);
+		// 	return "\"rule_id\":" + "\"" + arguments[1] + "\"";
+		// })
+		// console.log("newdata: "+ newdata);
+		// console.log(data);
+
+		var delreg = /"del":\[(\d+,?)+\]/g;
+		var dels = delreg.exec(data);
+		var reg22 = /(\d+),?/g;
+		var del = dels[0].replace(reg22,function(){
+			// console.log(arguments[0]);
+			return  "\"" + arguments[1] + "\",";
+		})
+		var newdel=del.toString();
+		newdel=newdel.substring(0,newdel.length-1)
+		// console.log("newdel:"+ newdel);
+
+		var newdata2 = data.replace(delreg,function(){
+			d = "\"del\":" + "\[" + newdel + "\]";
+			// console.log("1"+arguments[0]);
+			return  "\"del\":" + "\[" + newdel + "\]";
+		})
+		// console.log("newdata2:"+ newdata2);
+
+		var str = '2017-01-06';
+str = str.replace(/-(\d+)/g,function(){
+    console.log(arguments)
+    return 11
+})
+console.log(str);
+		
+
+	</script>
+</body>
+</html>
