@@ -97,6 +97,22 @@ var convertData = function(data) {
     return res;
 };
 
+// 用函数
+var placeData = function(data) {
+    var res = [];
+     res.push({
+        name: data,
+        value: geoCoordMap[data].concat([10000])
+    });
+    console.log(res)
+    return res;
+    // 报错！！
+    // return [
+    //     name: data,
+    //     value: geoCoordMap[data].concat([10000])
+    // ];
+};
+
 var series = [];
 [["上海", SJData]].forEach(function(item, i) {
     series.push( {
@@ -128,6 +144,7 @@ var series = [];
                 color:'#FF6E00'
             },
             data: item[1].map(function(dataItem) {
+                
                 return {
                     name: dataItem[0].name,
                     value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value])
@@ -165,10 +182,23 @@ var series = [];
                     color: "#0bc7f3"
                 }
             },
-            data: [{
-                name: item[0],
-                value: geoCoordMap[item[0]].concat([100])
-            }]
+            // data: [{
+            //     name: item[0],
+            //     // 10000表示被攻击的数量
+            //     value: geoCoordMap[item[0]].concat([10000])
+            // }]
+            // 匿名函数！！！ 
+            // data: (function(data){
+            //     console.log(geoCoordMap[data].concat([10000]))
+                // return {  // return 只能 return {} ？？？
+            //         name: data,
+            //         value: geoCoordMap[data].concat([10000])
+            //     };
+            // })(item[0])
+            data:placeData(item[0])
+
+            
+
         }
     );
 });
@@ -204,27 +234,27 @@ option = {
             //根据业务自己拓展要显示的内容
             var res = "";
             var name = params.name;
-            var value = params.value[params.seriesIndex + 1];
+            console.log(params.value);
+            var value = params.value[2];
+            console.log(value);
             res =
-                "<span style='color:#fff;'>" +
-                name + "->上海" +
+                "<span style='color:#fff;'>" + name +
+                // "->上海" +
                 "</span><br/>数据：" +
                 value;
             return res;
         }
     },
     // 视觉映射组件
-    visualMap: {
-        //图例值控制
-        min: 0,
+    visualMap: { //图例值控制
+        min: 1000,
         max: 10000,
-        show: false,
+        right:0,
         calculable: true,
-        // color: ["#0bc7f3"],
+        // color: ['#ff3333', 'orange', 'yellow', 'lime', 'aqua'],
         textStyle: {
-            color: "#fff"
-        },
-
+            color: '#125993'
+        }
     },
     // 地理坐标系组件
     geo: {

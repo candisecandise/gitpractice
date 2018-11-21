@@ -289,6 +289,8 @@ option = {
         },
         // selectedMode: 'single',
     },
+    top:10,
+    left:10,
     geo: {
         map: 'china',
         label: {

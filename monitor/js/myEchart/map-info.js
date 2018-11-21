@@ -93,30 +93,85 @@ option = {
                 {name: '江苏',value: randomData() },
                 
             ]
+        },
+        {
+            name: '在线',
+            type: 'map',
+            mapType: 'china',
+            roam: true,
+            label: {
+                normal: {
+                    show: true,
+                    formatter: function (params) {
+                        console.log(params.data);
+                        var value1 = params.data.value[0];
+                        var value2 = params.data.value[1];
+                        // console.log(value);
+                        var all =  '{up|未处置}\n{valueUp|' + value1 + '}' + '\n' +
+                         '{up|涉密告警}\n{valueDown|' + value2 + '}';
+                        console.log(all);
+                        return all
+                    },
+                    position: 'inside',
+                    backgroundColor: '#fff',
+                    padding: [4, 5],
+                    borderRadius: 3,
+                    borderWidth: 1,
+                    borderColor: 'rgba(0,0,0,0.5)',
+                    color: '#777',
+                    rich: {
+                        valueUp: {
+                            color: 'blue',
+                            fontSize: 14,
+                            align: 'center',
+                        },
+                        valueDown: {
+                            color: 'red',
+                            fontSize: 14,
+                            align: 'center',
+                        },
+                        up: {
+                            height: 14,
+                            color:'black',
+                            align: 'center',
+                        },
+                    }
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            tooltip:{
+                formatter:'{b}:{a}'
+            },
+             data: [
+                {name: '浙江',value: randomData() },
+                {name: '江西',value: randomData() },
+                {name: '湖北',value: randomData() },
+                {name: '广西',value: randomData() },
+                {name: '甘肃',value: randomData() },
+                {name: '山西',value: randomData() },
+                {name: '内蒙古',value: randomData() },
+                {name: '陕西',value: randomData() },
+                {name: '吉林',value: randomData() },
+                {name: '福建',value: randomData() },
+                {name: '贵州',value: randomData() },
+                {name: '广东',value: randomData() },
+                {name: '青海',value: randomData() },
+                {name: '西藏',value: randomData() },
+                {name: '四川',value: randomData() },
+                {name: '宁夏',value: randomData() },
+                {name: '海南',value: randomData() },
+                {name: '台湾',value: randomData() },
+                {name: '香港',value: randomData() },
+                {name: '澳门',value: randomData() }
+                
+            ]
         }
     ]
 };
 
-// {name: '浙江',value: randomData() },
-//                 {name: '江西',value: randomData() },
-//                 {name: '湖北',value: randomData() },
-//                 {name: '广西',value: randomData() },
-//                 {name: '甘肃',value: randomData() },
-//                 {name: '山西',value: randomData() },
-//                 {name: '内蒙古',value: randomData() },
-//                 {name: '陕西',value: randomData() },
-//                 {name: '吉林',value: randomData() },
-//                 {name: '福建',value: randomData() },
-//                 {name: '贵州',value: randomData() },
-//                 {name: '广东',value: randomData() },
-//                 {name: '青海',value: randomData() },
-//                 {name: '西藏',value: randomData() },
-//                 {name: '四川',value: randomData() },
-//                 {name: '宁夏',value: randomData() },
-//                 {name: '海南',value: randomData() },
-//                 {name: '台湾',value: randomData() },
-//                 {name: '香港',value: randomData() },
-//                 {name: '澳门',value: randomData() }}
+
 
 
 function randomData() {
