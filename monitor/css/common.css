@@ -8,6 +8,8 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 	font-weight: normal;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	outline: none;
+	text-decoration: none;
+	list-style: none;
 }
 * {
 	-webkit-box-sizing: border-box;
@@ -23,6 +25,45 @@ body,html{
 	position:relative;
 	height: 100%;
 	width: 100%;
+}
+.date{
+	font-size: 14px;
+	position: absolute;
+	left: 40px;
+	top: 10px;
+	z-index: 1000;
+	background-color: rgba(44, 37, 37, 0.9);
+	color: #fff;
+	/*height: 30px;
+	line-height: 30px;*/
+	padding:6px 10px;
+	border-radius: 4px;
+}
+.date-btn{
+	display: inline-block;
+}
+.date-btn button{
+	color: #fff;
+	background: transparent;
+	border: 2px solid #000;
+	cursor: pointer;
+	padding: 1px 2px;
+}
+.date-btn button:hover{
+	color: #000;
+	border-color: #ddd;
+	background-color: #ddd;
+}
+.date-btn button.btnc{
+	color: #000;
+	border-color: #ddd;
+	background-color: #ddd;
+}
+.date input,.layui-input{
+	margin: 0 6px;
+	width: 160px;
+	height: 30px;
+	display: inline-block;
 }
 #map{
 	/*min-height: 500px;*/
@@ -81,14 +122,12 @@ body,html{
 	color: 	white;
 	background-color: rgba(0, 0, 0, 0.2);
 }
-.htable{
+.htable table thead td{
 	background-color: rgba(0, 0, 0, 0.2);
+	font-weight: bold;
 }
 .htable table,.btable table{
 	width: 100%;
-}
-.htable thead{
-	font-size: bold;
 }
 .btable{
 	max-height: 250px;
@@ -110,15 +149,16 @@ body,html{
 	position: absolute;
 	left: 0;
 	z-index: 1000;
+	height: 100%
 }
 .port-chart{
-	top:9%;
+	top:100px;
 }
 .flow-chart{
-	top: 39%;
+	top: 320px;
 }
 .country-chart{
-	top:69%;
+	top:540px;
 }
 /*chartbox title*/
 .ctitle{
@@ -134,7 +174,7 @@ body,html{
 	float: left;
 	position: relative;
 	width: 500px;
-	height: 220px;
+	height: 40%;
 	padding: 5px;
 	background: rgba(255, 255, 255, 0.8);
 	border: 1px solid rgb(221, 221, 221);

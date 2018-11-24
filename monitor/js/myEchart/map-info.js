@@ -1,219 +1,148 @@
-
-// var weatherIcons = {
-//     up: './data/asset/img/arrow-up.png',
-//     down: './data/asset/img/arrow-down.png'
-// };
-
 option = {
-    title: {
-        text: '系统分布图',
-        subtext: '纯属虚构',
-        left: 'left'
-    },
-    tooltip: {
-        trigger: 'item'
-    },
-    // 视觉映射组件
-    visualMap: {
-        min: 0,
-        max: 1000,
-        left: 'left',
-        top: 'bottom',
-        text: ['高','低'],
-        calculable: true
-    },
-    animation: true,
-    animationDurationUpdate: 1000,
-    animationEasingUpdate: 'cubicInOut',
-    series: [
-        {
-            name: '在线',
-            type: 'map',
-            mapType: 'china',
-            roam: true,
-            label: {
-                normal: {
-                    show: true,
-                    formatter: function (params) {
-                        console.log(params.data);
-                        var value1 = params.data.value[0];
-                        var value2 = params.data.value[1];
-                        // console.log(value);
-                        var all =  '{up|未处置}\n{valueUp|' + value1 + '}' + '\n' +
-                         '{up|涉密告警}\n{valueDown|' + value2 + '}';
-                        console.log(all);
-                        return all
-                    },
-                    position: 'inside',
-                    backgroundColor: '#fff',
-                    padding: [4, 5],
-                    borderRadius: 3,
-                    borderWidth: 1,
-                    borderColor: 'rgba(0,0,0,0.5)',
-                    color: '#777',
-                    rich: {
-                        valueUp: {
-                            color: 'blue',
-                            fontSize: 14,
-                            align: 'center',
-                        },
-                        valueDown: {
-                            color: 'red',
-                            fontSize: 14,
-                            align: 'center',
-                        },
-                        up: {
-                            height: 14,
-                            color:'black',
-                            align: 'center',
-                        },
-                    }
-                },
-                emphasis: {
-                    show: true
-                }
+    backgroundColor:'#fafafa',
+    title : [{
+        text: '国家连接排序图',
+        // subtext: '纯属虚构',
+        left:'left',
+        top:10,
+        textStyle:{
+            fontSize:24
+        }
+    },{
+        text: '流量趋势图',
+        // subtext: '纯属虚构',
+        left:'60%',
+        top:20,
+    },{
+        text: '端口流量排序图',
+        // subtext: '纯属虚构',
+        left:'60%',
+        top:'52%'
+    }],
+    // TO-DO
+    tooltip : [{
+        trigger: 'axis',
+    }],
+    grid: [{
+        left:10,
+        top:'12%',
+        width:'56%',
+        height:'85%',
+        containLabel: true
+    },{
+        left: '60%',
+        top:'14%',
+        width:'30%',
+        height:'34%',
+        containLabel: true
+    }],
+    xAxis: [{
+        gridIndex:0,
+        type : 'category',
+        data: ['美国','英国','泰国','俄罗斯','日本','新加坡','南非'],
+        axisTick: {
+            alignWithLabel: true
+        }
+    },{
+        gridIndex:1,
+        type: 'category',
+        boundaryGap: false,
+        axisLabel:{
+            interval:0
+        },
+        data: ['11-09','11-10','11-11','11-12','11-13','11-14','11-15']
+    }],
+    yAxis: [{
+        gridIndex:0,
+        type : 'value',
+        name:'连接数',
+    },{
+        gridIndex:1,
+        type : 'value',
+        name:'连接数',
+    }],
+    series : [{
+        xAxisIndex:0,
+        yAxisIndex:0,
+        name:'国家流量统计',
+        type:'bar',
+        barWidth: '60%',
+        data:[8000, 7000, 6000, 4000, 3000, 2000, 1000],
+        itemStyle:{
+             color: function (params) {
+                var colorList = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'];
+                return colorList[params.dataIndex];
             },
-            tooltip:{
-                formatter:'{b}:{a}'
-            },
-             data: [
-                {name: '北京',value: randomData() },
-                {name: '天津',value: randomData() },
-                {name: '上海',value: randomData() },
-                {name: '重庆',value: randomData() },
-                {name: '河北',value: randomData() },
-                {name: '河南',value: randomData() },
-                {name: '云南',value: randomData() },
-                {name: '辽宁',value: randomData() },
-                {name: '黑龙江',value: randomData() },
-                {name: '湖南',value: randomData() },
-                {name: '安徽',value: randomData() },
-                {name: '山东',value: randomData() },
-                {name: '新疆',value: randomData() },
-                {name: '江苏',value: randomData() },
-                
+        }
+    },{
+        xAxisIndex:1,
+        yAxisIndex:1,
+        name:'上行流量',
+        type:'line',
+        stack: '流量',
+        data:[8000, 9000, 5000, 7000, 3000, 4000, 5000],
+        markPoint: {
+            data: [
+                {type: 'max', name: '最大值'},
+                {type: 'min', name: '最小值'}
             ]
         },
-        {
-            name: '在线',
-            type: 'map',
-            mapType: 'china',
-            roam: true,
-            label: {
-                normal: {
-                    show: true,
-                    formatter: function (params) {
-                        console.log(params.data);
-                        var value1 = params.data.value[0];
-                        var value2 = params.data.value[1];
-                        // console.log(value);
-                        var all =  '{up|未处置}\n{valueUp|' + value1 + '}' + '\n' +
-                         '{up|涉密告警}\n{valueDown|' + value2 + '}';
-                        console.log(all);
-                        return all
-                    },
-                    position: 'inside',
-                    backgroundColor: '#fff',
-                    padding: [4, 5],
-                    borderRadius: 3,
-                    borderWidth: 1,
-                    borderColor: 'rgba(0,0,0,0.5)',
-                    color: '#777',
-                    rich: {
-                        valueUp: {
-                            color: 'blue',
-                            fontSize: 14,
-                            align: 'center',
-                        },
-                        valueDown: {
-                            color: 'red',
-                            fontSize: 14,
-                            align: 'center',
-                        },
-                        up: {
-                            height: 14,
-                            color:'black',
-                            align: 'center',
-                        },
-                    }
-                },
-                emphasis: {
-                    show: true
-                }
+        markLine: {
+            label:{
+                show:false,
+                position:'start',
             },
-            tooltip:{
-                formatter:'{b}:{a}'
-            },
-             data: [
-                {name: '浙江',value: randomData() },
-                {name: '江西',value: randomData() },
-                {name: '湖北',value: randomData() },
-                {name: '广西',value: randomData() },
-                {name: '甘肃',value: randomData() },
-                {name: '山西',value: randomData() },
-                {name: '内蒙古',value: randomData() },
-                {name: '陕西',value: randomData() },
-                {name: '吉林',value: randomData() },
-                {name: '福建',value: randomData() },
-                {name: '贵州',value: randomData() },
-                {name: '广东',value: randomData() },
-                {name: '青海',value: randomData() },
-                {name: '西藏',value: randomData() },
-                {name: '四川',value: randomData() },
-                {name: '宁夏',value: randomData() },
-                {name: '海南',value: randomData() },
-                {name: '台湾',value: randomData() },
-                {name: '香港',value: randomData() },
-                {name: '澳门',value: randomData() }
-                
+            data: [
+                {type: 'average', name: '平均值'}
             ]
         }
-    ]
-};
-
-
-
-
-function randomData() {
-    var a = Math.random();
-    var b = Math.random();
-    // var c = [[Math.round(a * 1000), a > 0.6],[Math.round(b * 1000), b > 0.6]];
-    // var c = [Math.round(a * 1000), a > 0.6];
-    var c = [Math.round(a * 10000), Math.round(b * 1000)];
-    return c;
-}
-
-var myChart = echarts.init(document.getElementById('info'));
-myChart.setOption(option);
-
-setTimeout(function () {
-
-    myChart.on('mouseup', function (params) {
-        if (!down) {
-            return;
+    },{
+        xAxisIndex:1,
+        yAxisIndex:1,
+        name:'下行流量',
+        type:'line',
+        stack: '流量',
+        data:[3000, 2000, 3000, 4000, 2000, 1000, 2000],
+        markPoint: {
+            data: [
+                {type: 'max', name: '最大值'},
+                {type: 'min', name: '最小值'}
+            ]
+        },
+        markLine: {
+            label:{
+                show:false,
+                position:'start',
+            },
+            data: [
+                {type: 'average', name: '平均值'}
+            ]
         }
-        down = false;
-
-        var e = params.event;
-
-        var geoCoord = myChart.convertFromPixel('series', [e.offsetX, e.offsetY]);
-
-        myChart.setOption({
-            series: [{
-                center: geoCoord,
-                zoom: 4,
-                animationDurationUpdate: 1000,
-                animationEasingUpdate: 'cubicInOut'
-            }]
-        });
-    });
-
-    var down;
-    myChart.on('mousedown', function () {
-        down = true;
-    });
-    myChart.on('mousemove', function () {
-        down = false;
-    });
-
-}, 0);
+    },{
+        name: '端口流量统计',
+        type: 'pie',
+        radius : '30%',
+        center: ['80%', '78%'],
+        // 数组
+        data:[
+            {value:8000, name:'8080-9090'},
+            {value:7000, name:'8081-9091'},
+            {value:6000, name:'8082-9092'},
+            {value:5000, name:'8083-9093'},
+            {value:4000, name:'8084-9094'}
+        ],
+        itemStyle: {
+            emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        },
+        tooltip:{
+            trigger: 'item',
+            formatter: "{b} <br/>{a} : {c} ({d}%)"
+        }
+    }],
+};
+var chart = echarts.init(document.getElementById('allchart'));
+chart.setOption(option);

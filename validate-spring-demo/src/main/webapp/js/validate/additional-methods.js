@@ -3,7 +3,7 @@ jQuery.validator.addMethod("isZipCode", function(value, element) {
     return this.optional(element) || (tel.test(value));
 }, "请正确填写您的邮政编码");
 
-// 字节长度验证
+// 字节长度验证·
 jQuery.validator.addMethod("byteRangeLength", function(value, element, param) {
     var length = value.length;
     for (var i = 0; i < value.length; i++) {

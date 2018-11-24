@@ -16,19 +16,26 @@
             // 错误标签
             errorElement:"div",
             errorPlacement: function(error, element) {
-                var h = element.outerHeight();
-                var w = element.outerWidth();
+                var h = $(element).outerHeight();
+                var w = $(element).outerWidth();
+                
+                var left = $(element).offset().left + w;
+                var top = $(element).offset().top + h;
+                
                 element.hover(function(){
                     console.log(1)
+                    console.log($(element).attr("name"))
                     // 滑过添加错误提示
+                    console.log("h "+h +",w" + w);
+                    console.log("left "+left +",top" + top)
                     error.insertAfter(element);
                     error.removeClass("hide");
-                    error.addClass("show");
+                    error.addClass("tooltip arrow-left");
                     error.css({   
-                        'height':h,
-                        'width':w,
-                        'top': h,
-                        'left': w,
+                        // 'height':h,
+                        // 'width':w,
+                        'top': top,
+                        'left': left,
                     });
                 },function(){
                     console.log(2)

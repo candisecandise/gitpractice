@@ -106,11 +106,6 @@ var placeData = function(data) {
     });
     console.log(res)
     return res;
-    // 报错！！
-    // return [
-    //     name: data,
-    //     value: geoCoordMap[data].concat([10000])
-    // ];
 };
 
 var series = [];
@@ -167,7 +162,7 @@ var series = [];
                     position: "right",
                     formatter: "{b}",
                     textStyle: {
-                        color: "#0bc7f3"
+                        // color: "#0bc7f3"
                     }
                 },
                 emphasis: {
@@ -179,7 +174,7 @@ var series = [];
             itemStyle: {
                 normal: {
                     show: true,
-                    color: "#0bc7f3"
+                    // color: "#0bc7f3"
                 }
             },
             // data: [{
@@ -188,16 +183,15 @@ var series = [];
             //     value: geoCoordMap[item[0]].concat([10000])
             // }]
             // 匿名函数！！！ 
-            // data: (function(data){
-            //     console.log(geoCoordMap[data].concat([10000]))
-                // return {  // return 只能 return {} ？？？
-            //         name: data,
-            //         value: geoCoordMap[data].concat([10000])
-            //     };
-            // })(item[0])
-            data:placeData(item[0])
-
-            
+            data: (function(data){
+                return [{
+                    name: data,
+                    value: geoCoordMap[data].concat([10000])
+                }];
+            })(item[0]),
+            // data:placeData(item[0])
+            // 被攻击点不显示数据
+            tooltip:{formatter: "{b}"}
 
         }
     );
@@ -206,6 +200,7 @@ var series = [];
 option = {
     backgroundColor: '#f5f3f0',
     title:{
+        show:false,
 		text:'大数据实时监控',
 		subtext:'数据截止2018年11月9日',
 		// left:'left',
@@ -269,6 +264,7 @@ option = {
         layoutSize: "180%",
         itemStyle: {
             normal: {
+                // areaColor:"#f5f3f0",
                 color: "#f5f3f0", //地图背景色
                 borderColor: "#50899c" //省市边界线
             },
@@ -292,11 +288,6 @@ option1 = {
         trigger: 'item',
         formatter: "{a} <br/>{b} : {c} ({d}%)"
     },
-    // legend: {
-    //     orient: 'vertical',
-    //     left: 'left',
-    //     data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-    // },
     series : [
         {
             name: '连接数',

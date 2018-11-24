@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>大数据监控日志</title>
+	<link rel="stylesheet" href="js/layui/css/layui.css" media="all">
 	<link rel="stylesheet" href="css/common.css">
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/echart/echarts.min.js"></script>
@@ -11,6 +12,13 @@
 	</head>
 <body>
 	<div class="main">
+		<div class="date">
+			<label for="">时间：</label>
+			<div class="date-btn">
+				<button>实时</button><button>日</button><button>月</button><button>年</button>
+			</div>
+			<input type="text" value="2018-11-22" class="layui-input" id="datestart">-<input type="text" class="layui-input" value="2018-11-22" id="dateend">
+		</div>
 		<div id="map">
 		</div>
 		<!-- 不能放在map中！ -->
@@ -58,7 +66,23 @@
 	
 	<script src="js/myEchart/map.js"></script>
 	<script src="js/myEchart/json.js"></script>
+	<script src="js/layui/layui.js"></script>
 	<script>
+		layui.use('laydate', function(){
+		  var datestart = layui.laydate;
+		  var dateend = layui.laydate; 
+		  //执行一个laydate实例
+		  datestart.render({
+		    elem: '#datestart' //指定元素
+		  });
+		  dateend.render({
+		  	elem:'#dateend'
+		  })
+		});
+		$(".date-btn button").click(function(){
+			$(this).addClass("btnc");
+			$(this).siblings().removeClass("btnc");
+		})
 		function tableHide(type){
 			switch(type){
 				case 'link':$('.sort-info').toggle();break;
@@ -96,6 +120,7 @@
 	    		$(this).addClass('chooses');
 	    		if($(this).text()=='国家'){
 	    			datas = appendlink(linkdata1);
+	    			console.log(datas);
 	    		}else{
 	    			datas = appendlink(linkdata2)
 	    		}

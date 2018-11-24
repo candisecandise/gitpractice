@@ -16,7 +16,6 @@
             $("#formId").validate({
                 debug: true,
                 rules: {
-                    // username: 'af',
                     username:{
                         byteRangeLength:[1,10],
                         required:true,
@@ -26,7 +25,6 @@
                         minlength: 5
                     },
                 },
-                // meta: "validate",
                 submitHandler:function(form){
                     alert("提交事件!");
                     //   js 原生方法提交
@@ -66,7 +64,7 @@
                         console.log('完成了');
                     },
                 })
-        }
+        }（）
         function submitForm(form) {
             alert("提交")
             $("#formId").submit();
