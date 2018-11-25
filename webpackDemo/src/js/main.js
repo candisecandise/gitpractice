@@ -1,1 +1,2 @@
-document.write('<h1>hello world<h2>');
+import css from '../css/page.css' ;
+require("../js/content.js")

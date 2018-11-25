@@ -1,5 +1,1 @@
-export default 'A cat'
-export function say() {
-    return 'Hello'
-}
-export const type = 'dog'
+document.write('<h1>hello world<h1>');

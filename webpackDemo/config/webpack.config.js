@@ -15,13 +15,12 @@ var webpack = require("webpack"); //重要！！
 module.exports = {
     context:path.resolve(__dirname, ".."),
     entry:{
-        // index:'./src/js/main.js',  //入口文件
-        page:'./src/page/page.js',
-        page2:'./src/page2/page2.js',
+        main:'./src/js/main.js',  //入口文件
      },
      output:{
           filename: '[name].js',
           path: path.resolve(__dirname, "../dist"),
+          publicPath: '../dist/',
      },
      module:{
      rules:[
@@ -32,84 +31,91 @@ module.exports = {
         },
         {
      			test:/\.css$/,
-     			// use:['style-loader','css-loader']
-            use: [
-                {
-                  loader: MiniCssExtractPlugin.loader,
+     			use:['style-loader','css-loader']
+            // use: [
+            //     {
+            //       loader: MiniCssExtractPlugin.loader,
             
-                },
-                "css-loader"
-            ]
+            //     },
+            //     "css-loader"
+            // ]
      		},
         // 加载图片
         {
             test:/\.(png|jpg|gif|jpeg)/,
-            loader: 'url-loader?limit=8192&name=img/[hash:8].[name].[ext]'
+            // loader: 'url-loader',
+            // options: {
+            //   limit: 10000,
+            //   publicPath: '../dist/', //你实际项目的引用地址前缀
+            //   name: utils.assetsPath('img/[name].[hash:7].[ext]')
+            // }
+            // 可以添加雪碧图插件
+            loader: 'url-loader?limit=8192&name=img/[hash:7].[name].[ext]'
         }
      	]
      },
     
      plugins:[
-        new HtmlWebpackPlugin({
-            filename:'page.html',
-            template:'./src/page/page.html',
-            chunks:['page'],
-           //  minify:{ //压缩HTML文件
-           //   removeComments:true,  //移除HTML中的注释
-           //   collapseWhitespace:true  //删除空白符与换行符
-           // }
-        }),
-        new HtmlWebpackPlugin({
-            filename:'page2.html',
-            template:'./src/page2/page2.html',
-            chunks:['page2']
-        }),
+        // new HtmlWebpackPlugin({
+        //     filename:'page.html',
+        //     template:'./src/page/page.html',
+        //     chunks:['page'],
+        //    //  minify:{ //压缩HTML文件
+        //    //   removeComments:true,  //移除HTML中的注释
+        //    //   collapseWhitespace:true  //删除空白符与换行符
+        //    // }
+        // }),
+        // new HtmlWebpackPlugin({
+        //     filename:'page2.html',
+        //     template:'./src/page2/page2.html',
+        //     chunks:['page2']
+        // }),
         // 引用到全局
-        new webpack.ProvidePlugin({
-            echarts:"echarts",
-            $: "jquery",
-            jQuery: "jquery",
-            "windows.jQuery": "jquery"
-        }),
-        new CleanWebpackPlugin(['dist']),
-        // 分离css,自动将js中的css文件提取出来，生成单独的文件
-        new MiniCssExtractPlugin({
-          filename: "[name].css",
-          chunkFilename: "[id].css",
+        // new webpack.ProvidePlugin({
+        //     echarts:"echarts",
+        //     $: "jquery",
+        //     jQuery: "jquery",
+        //     "windows.jQuery": "jquery"
+        // }),
+        // new CleanWebpackPlugin(['dist']),
+        // // 分离css,自动将js中的css文件提取出来，生成单独的文件
+        // new MiniCssExtractPlugin({
+        //   filename: "[name].css",
+        //   chunkFilename: "[id].css",
 
-        }),
-        // 压缩css
-        // new optimizeCss(),
-        // 压缩图片
-        new ImageminPlugin({
-          disable: process.env.NODE_ENV !== 'production', 
-          pngquant: {
-            quality: '95-100'
-          }
-        }),
+        // }),
+        // // 压缩css
+        // // new optimizeCss(),
+        // // 压缩图片
+        // new ImageminPlugin({
+        //   disable: process.env.NODE_ENV !== 'production', 
+        //   pngquant: {
+        //     quality: '95-100'
+        //   }
+        // }),
      ],
      // 提取公共代码
-      optimization: {
-          splitChunks: {
-            cacheGroups: {
-              // 注意: priority属性
-              // 其次: 打包业务中公共代码
-              utils: {
-                name: "utils",
-                chunks: "all",
-                minSize: 1,
-                priority: 0
-              },
-              // 首先: 打包node_modules中的文件
-              // vendor: {
-              //   name: "vendor",
-              //   test: /[\\/]node_modules[\\/]/,
-              //   chunks: "all",
-              //   priority: 10
-              // }
-            }
-          }
-        },
+      // optimization: {
+      //     splitChunks: {
+      //       cacheGroups: {
+      //         // 注意: priority属性
+      //         // 其次: 打包业务中公共代码
+      //         utils: {
+      //           name: "utils",
+      //           chunks: "all",
+      //           minSize: 1,
+      //           priority: 0
+      //         },
+      //         // 首先: 打包node_modules中的文件
+      //         // vendor: {
+      //         //   name: "vendor",
+      //         //   test: /[\\/]node_modules[\\/]/,
+      //         //   chunks: "all",
+      //         //   priority: 10
+      //         // }
+      //       }
+      //     }
+      //   },
     devServer: {
 	    contentBase: path.resolve(__dirname, "../dist"),//dist为你需要注册静态服务的文件夹
 	    host:'localhost',
