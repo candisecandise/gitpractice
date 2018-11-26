@@ -56,6 +56,10 @@ option = {
         gridIndex:0,
         type : 'value',
         name:'连接数',
+        nameLocation :'start',
+        nameTextStyle:{
+            align:'left'
+        }
     },{
         gridIndex:1,
         type : 'value',
@@ -138,6 +142,7 @@ option = {
                 shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
         },
+        // 单独定义！！
         tooltip:{
             trigger: 'item',
             formatter: "{b} <br/>{a} : {c} ({d}%)"
