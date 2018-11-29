@@ -229,9 +229,9 @@ option = {
             //根据业务自己拓展要显示的内容
             var res = "";
             var name = params.name;
-            console.log(params.value);
+            // console.log(params.value);
             var value = params.value[2];
-            console.log(value);
+            // console.log(value);
             res =
                 "<span style='color:#fff;'>" + name +
                 // "->上海" +

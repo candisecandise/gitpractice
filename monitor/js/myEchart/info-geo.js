@@ -231,9 +231,7 @@ var series = [];
                         color:'black',
                         align: 'center',
                     },
-                }
-
-
+                },
                 formatter: function (params) {
                     var value1 = params.data.value[2][0];
                     var value2 = params.data.value[2][1];

@@ -56,10 +56,7 @@ option = {
         gridIndex:0,
         type : 'value',
         name:'连接数',
-        nameLocation :'start',
-        nameTextStyle:{
-            align:'left'
-        }
+        
     },{
         gridIndex:1,
         type : 'value',

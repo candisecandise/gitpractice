@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="js/layui/css/layui.css" media="all">
 	<link rel="stylesheet" href="css/common.css">
 	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/layui/layui.js"></script>
 	<script src="js/echart/echarts.min.js"></script>
 	<script src="js/map/china.js"></script>
 	<script src="js/map/world.js"></script>
@@ -17,13 +18,14 @@
 			<div class="date-btn">
 				<button>实时</button><button>日</button><button>月</button><button>年</button>
 			</div>
-			<input type="text" value="2018-11-22" class="layui-input" id="datestart">-<input type="text" class="layui-input" value="2018-11-22" id="dateend">
+			<div class="date-input1 date-input"><input type="text" class="layui-input" id="datestart"></div>
+			-<div class="date-input2 date-input"><input type="text" class="layui-input" id="dateend"></div>
 		</div>
 		<div id="map">
 		</div>
 		<!-- 不能放在map中！ -->
 		<div class="sort-table">
-			<div class="stitle"><i onclick="tableHide('link')">></i><span>连接数排序</span></div>
+			<div class="stitle"><i class="chart-control">></i><span>连接数排序</span></div>
 			<div class="sort-info">
 				<div class="sort-type"><span class="chooses">国家</span><span>单位</span></div>
 				<div class="htable">
@@ -45,55 +47,146 @@
 			</div>
 		</div>
 		<div class="port-chart chartbox">
-			<div class="stitle ctitle"><i onclick="tableHide('port')">></i><span>端口流量排序</span></div>
+			<div class="stitle ctitle"><i class="chart-control">></i><span>端口流量排序</span></div>
 			<div class="port-info chart">
 				<div id="portBar" style="width: 100%;height: 100%"></div>
 			</div>
 		</div>
 		<div class="flow-chart chartbox" >
-			<div class="stitle ctitle"><i onclick="tableHide('flow')">></i><span>流量总体趋势</span></div>
+			<div class="stitle ctitle"><i class="chart-control">></i><span>流量总体趋势</span></div>
 			<div class="flow-info chart">
 				<div id="flowLine" style="width: 100%;height: 100%"></div>
 			</div>
 		</div>
 		<div class="country-chart chartbox" >
-			<div class="stitle ctitle"><i onclick="tableHide('country')">></i><span>国家流量排序</span></div>
+			<div class="stitle ctitle"><i class="chart-control">></i><span>国家流量排序</span></div>
 			<div class="country-info chart">
 				<div id="countryBar" style="width: 100%;height: 100%"></div>
 			</div>
 		</div>
 	</div>
 	
+	<div class="layerdiv">
+		<table id="flowtable" style="">
+			<thead>
+				<tr>
+					<td>时间</td>
+					<td>源IP</td>
+					<td>源端口</td>
+					<td>目的IP</td>
+					<td>目的端口</td>
+					<td>流量</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2018-11-27 09:20</td>
+					<td>1.2.5.8</td>
+					<td>58006</td>
+					<td>5.21.84.6</td>
+					<td>98542</td>
+					<td>上行：59.5M / 下行：2.4M</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
 	<script src="js/myEchart/map.js"></script>
 	<script src="js/myEchart/json.js"></script>
-	<script src="js/layui/layui.js"></script>
 	<script>
-		layui.use('laydate', function(){
-		  var datestart = layui.laydate;
-		  var dateend = layui.laydate; 
-		  //执行一个laydate实例
-		  datestart.render({
-		    elem: '#datestart' //指定元素
-		  });
-		  dateend.render({
-		  	elem:'#dateend'
-		  })
+		//layui 声明
+		layui.use(['layer'], function(){ 
+			var layer = layui.layer;
 		});
+		layui.use('laydate', function(){
+			var laydate = layui.laydate;
+		})
+		function getFormatDate() {
+			var currentDate = {};
+		    var date = new Date();
+		    var month = date.getMonth() + 1;
+		    var strDate = date.getDate();
+		    if (month >= 1 && month <= 9) {
+		        month = "0" + month;
+		    }
+		    if (strDate >= 0 && strDate <= 9) {
+		        strDate = "0" + strDate;
+		    }
+		    currentDate.year = date.getFullYear().toString();
+		    currentDate.month = currentDate.year + "-" + month;
+		    currentDate.date = currentDate.month + "-" + strDate;
+		    currentDate.time = currentDate.date + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+		    return currentDate;
+		}
+
+		function laydateType(datetype){
+			// layui.use('laydate', function(){
+			// 	var laydate = layui.laydate;
+			// 	laydate.render({
+			// 		elem: '#datestart',
+			// 		type:datetype
+			// 	});
+			// 	laydate.render({
+			// 		elem:'#dateend',
+			// 		type:datetype
+			// 	})
+			// });
+				var laydate = layui.laydate;
+				layui.laydate.render({
+					elem: '#datestart',
+					type:datetype
+				});
+				layui.laydate.render({
+					elem:'#dateend',
+					type:datetype
+				})
+			
+		}
 		$(".date-btn button").click(function(){
 			$(this).addClass("btnc");
 			$(this).siblings().removeClass("btnc");
-		})
-		function tableHide(type){
-			switch(type){
-				case 'link':$('.sort-info').toggle();break;
-				case 'port':$('.port-info').toggle();break;
-				case 'flow':$('.flow-info').toggle();break;
-				case 'country':$('.country-info').toggle();break;
+			var text = $(this).text();
+			switch(text){
+				case '实时':var datetype = "time";break;
+				case '日':var datetype = "date";break;
+				case '月':var datetype = "month";break;
+				case '年':var datetype = "year";break;
 			}
+			// 先删除
+			$(".date-input1").empty();
+			$(".date-input2").empty();
+			$(".date-input1").append('<input type="text" class="layui-input" id="datestart">');
+			$(".date-input2").append('<input type="text" class="layui-input" id="dateend">');
+			// 插入时间
+			var datetime = getFormatDate();
+			$("#datestart").val(datetime[datetype]);
+			$("#dateend").val(datetime[datetype]);
+			if(datetype != "time"){
+				// 重新绑定
+				laydateType(datetype);
+			}
+		})
+		$(".chart-control").click(function(){
+			$(this).parent().next().toggle();
 			portChart.resize();
 			flowChart.resize();
 			countryChart.resize();
-		}
+		})
+		$(".btable").on("click", "tr",function(){
+			console.log(11);
+			var layer = layui.layer;
+			layui.use('layer', function(){
+				var layer = layui.layer;
+				layer.open({
+					title:'XXX联通详情',
+					type:1,
+					skin:'myskin',
+					content:$('.layerdiv'),
+					area:['600px','400px'],
+				})
+			})
+		} );
 		// 有返回值 方法还是 function
 		function appendlink(data){
 			$('.btable table tbody').html("");
@@ -111,7 +204,11 @@
 			return datas
 		}
 		$(function (){
-	    	datas = appendlink(linkdata1);
+			var datetime = getFormatDate();
+			$(".date-btn button:first").addClass("btnc");
+			$("#datestart").val(datetime.time);
+			$("#dateend").val(datetime.time);
+	    	var datas = appendlink(linkdata1);
 	    	linkChart.setOption({series : [{data:datas,}]})
 			$(".sort-type span").mouseover(function(){
 				var linkdata = {};
@@ -134,6 +231,7 @@
 			linkChart.resize();
             portChart.resize();
 			flowChart.resize();
+			countryChart.resize();
         });
 	</script>
 </body>
