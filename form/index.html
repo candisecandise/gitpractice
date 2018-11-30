@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+	<form action="#" id="form">
+
+		<select name="select" id="select">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+		</select>
+	</form>
+	
+	<iframe src="iframe.html" frameborder="0"></iframe>
+	<script>
+		$(document).ready(function(){
+			var params = $("#form").serializeArray();
+		 	var values = {};
+		 	for( x in params ){
+		 		values[params[x].name] = params[x].value;
+		 		console.log(params[x].name)
+		 		console.log(params[x].name)
+			}
+		 	var idata = JSON.stringify(values)
+		 	console.log(idata)
+		});
+	</script>
+</body>
+</html>

@@ -174,9 +174,7 @@ var series = [];
                 }
             },
             data: item[1].map(function (dataItem) {
-                console.log('1111'+dataItem[1].name);
-                var geodata=geoCoordMap[dataItem[1].name].concat([dataItem[1].value]);
-                console.log("2222"+geodata[0]);
+                var geodata=geoCoordMap[dataItem[1].name];
                 return {
                     name: dataItem[1].name, //显示每个维度对应的名称
                     value: geodata,
@@ -232,13 +230,6 @@ var series = [];
                         align: 'center',
                     },
                 },
-                formatter: function (params) {
-                    var value1 = params.data.value[2][0];
-                    var value2 = params.data.value[2][1];
-                    var all =  '{up|未处置}\n{valueUp|' + value1 + '}' + '\n' +
-                     '{up|涉密告警}\n{valueDown|' + value2 + '}';
-                    return all
-                },
             },
             emphasis: {
                 show: true
@@ -251,8 +242,9 @@ var series = [];
         },
         // map 映射
         data: item[1].map(function (dataItem) {
+            // var geodata=geoCoordMap[dataItem[1].name].concat([dataItem[1].value]);
             var geodata=geoCoordMap[dataItem[1].name].concat([dataItem[1].value]);
-            console.log("2222"+geodata[0]);
+            console.log("geodata "+geodata);
             return {
                 name: dataItem[1].name, //显示每个维度对应的名称
                 value: geodata,
