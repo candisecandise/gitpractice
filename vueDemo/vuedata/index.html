@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script src="vue-2.5.17/dist/vue.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+</head>
+<body>
+	<!-- <div id="app">{{message}}</div> -->
+	<div id="app-5">
+	  <!-- <p>message is :{{ message }}</p>
+	  <input type="text" v-model = "message"> -->
+	  
+	  <input name="checkbox" type="checkbox" v-model = 'message' value="jack">jack
+	  <label for="checkbox">{{message}}</label>
+	</div>
+
+</body>
+	<script>
+		var app5 = new Vue({
+		  el: '#app-5',
+		  data: {
+		    message: []
+		  },
+		  methods: {
+		    reverseMessage: function () {
+		      this.message = this.message.split('')
+		    },
+		    greet:function(){
+		    	alert("hello")
+		    }
+		  }
+		})
+		$("#btn").click(function(){
+			// alert("hello")
+			app5.greet()
+		})
+	</script>
+</html>

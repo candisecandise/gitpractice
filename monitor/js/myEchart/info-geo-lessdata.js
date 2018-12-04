@@ -1,16 +1,16 @@
 // 数组中嵌套数组
 var Ondata = [
-    [{name:'南京',value:[100,200],coordinate:[118.8062,31.9208]}],
-    [{name:'广州',value:[100,200],coordinate:[113.5107,23.2196]}],
-    [{name:'大连',value:[100,200],coordinate:[122.2229,39.4409]}],
-    [{name:'南宁',value:[100,200],coordinate:[108.479,23.1152]}],
+    {name:'南京',value:[100,200],coordinate:[118.8062,31.9208]},
+    {name:'广州',value:[100,200],coordinate:[113.5107,23.2196]},
+    {name:'大连',value:[100,200],coordinate:[122.2229,39.4409]},
+    {name:'南宁',value:[100,200],coordinate:[108.479,23.1152]},
 ];
 
 var Offdata = [
-    [{name:'长沙',value:[100,200],coordinate:[113.0823,28.2568]}],
-    [{name:'长治',value:[100,200],coordinate:[112.8625,36.4746]}],
-    [{name:'阳泉',value:[100,200],coordinate:[113.4778,38.0951]}],
-    [{name:'青岛',value:[100,200],coordinate:[120.4651,36.3373]}],
+    {name:'长沙',value:[100,200],coordinate:[113.0823,28.2568]},
+    {name:'长治',value:[100,200],coordinate:[112.8625,36.4746]},
+    {name:'阳泉',value:[100,200],coordinate:[113.4778,38.0951]},
+    {name:'青岛',value:[100,200],coordinate:[120.4651,36.3373]},
 ];
 
 
@@ -48,9 +48,9 @@ var series = [];
             data: item[1].map(function (dataItem) {
                 var geodata = [];
                 // 数组前两个值必须是经纬度
-                var geodata=dataItem[0].coordinate;
+                var geodata=dataItem.coordinate;
                 return {
-                    name: dataItem[0].name, //显示每个维度对应的名称
+                    name: dataItem.name, //显示每个维度对应的名称
                     value: geodata,
                 };
             }),
@@ -105,14 +105,16 @@ var series = [];
         },
         itemStyle: {
             normal: {   
-                color: color[i]
-            }
+                color: color[i],
+                opacity:1,
+            },
         },
         // map 映射
         data: item[1].map(function (dataItem) {
-            var geodata=dataItem[0].coordinate.concat(dataItem[0].value);
+            var geodata = [];
+            var geodata=dataItem.coordinate.concat(dataItem.value);
             return {
-                name: dataItem[0].name, //显示每个维度对应的名称
+                name: dataItem.name, //显示每个维度对应的名称
                 value: geodata,
             };
         }),
@@ -142,7 +144,8 @@ option = {
 	},
 	tooltip:{
 		// 提示框触发类型
-		trigger:'item'
+		trigger:'item',
+
 	},
 	legend: {
         orient: 'horizontal',
@@ -182,41 +185,41 @@ option = {
 var myChart = echarts.init(document.getElementById('info'));
 myChart.setOption(option);
 
-setTimeout(function () {
+// setTimeout(function () {
 
-    myChart.on('mouseup', function (params) {
-        if (!down) {
-            return;
-        }
-        down = false;
+//     myChart.on('mouseup', function (params) {
+//         if (!down) {
+//             return;
+//         }
+//         down = false;
 
-        var e = params.event;
+//         var e = params.event;
 
-        // 转换坐标
-        var geoCoord = myChart.convertFromPixel('series', [e.offsetX, e.offsetY]);
+//         // 转换坐标
+//         var geoCoord = myChart.convertFromPixel('series', [e.offsetX, e.offsetY]);
 
-        myChart.setOption({
-            series: [{
-                center: geoCoord,
-                zoom: 4,
-                zlevel: 4,
-                animationDurationUpdate: 1000,
-                animationEasingUpdate: 'cubicInOut'
-            },{
-                center: geoCoord,
-                zlevel: 5,
-                animationDurationUpdate: 1000,
-                animationEasingUpdate: 'cubicInOut'
-            }]
-        });
-    });
+//         myChart.setOption({
+//             series: [{
+//                 center: geoCoord,
+//                 zoom: 4,
+//                 zlevel: 4,
+//                 animationDurationUpdate: 1000,
+//                 animationEasingUpdate: 'cubicInOut'
+//             },{
+//                 center: geoCoord,
+//                 zlevel: 5,
+//                 animationDurationUpdate: 1000,
+//                 animationEasingUpdate: 'cubicInOut'
+//             }]
+//         });
+//     });
 
-    var down;
-    myChart.on('mousedown', function () {
-        down = true;
-    });
-    myChart.on('mousemove', function () {
-        down = false;
-    });
+//     var down;
+//     myChart.on('mousedown', function () {
+//         down = true;
+//     });
+//     myChart.on('mousemove', function () {
+//         down = false;
+//     });
 
-}, 0);
+// }, 0);
