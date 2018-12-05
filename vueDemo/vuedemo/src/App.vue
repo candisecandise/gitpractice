@@ -1,25 +1,21 @@
 <template>
   <div id="app">
-    <mynavbar></mynavbar>
-    <img src="./assets/logo.png">
+    <!-- <mynavbar></mynavbar> -->
+    <!-- <img src="./assets/logo.png"> -->
     <router-view/>
   </div>
 </template>
 
 <script>
-import mynavbar from './components/AppComponents/Navbar.vue'
-
 export default {
-  name: 'app',
-  components: {
-    mynavbar
-  }
-}
+  name: "app",
+  components: {}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

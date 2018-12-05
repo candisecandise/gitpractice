@@ -1,41 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 	<script src="vue-2.5.17/dist/vue.js"></script>
+	<link rel="stylesheet" href="css/common.css">
 	<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 </head>
+
 <body>
 	<!-- <div id="app">{{message}}</div> -->
-	<div id="app-5">
-	  <!-- <p>message is :{{ message }}</p>
-	  <input type="text" v-model = "message"> -->
-	  
-	  <input name="checkbox" type="checkbox" v-model = 'message' value="jack">jack
-	  <label for="checkbox">{{message}}</label>
+	<div id="app">
+
+		<div class="sort-table">
+			<div class="stitle"><i class="chart-control">></i><span>{{title}}</span></div>
+			<div class="sort-info">
+				<div class="sort-type"><span class="chooses">国家</span><span>单位</span></div>
+				<div class="htable">
+					<table>
+						<thead>
+							<tr>
+								<td width="50%">名称</td>
+								<td width="50%">连接数</td>
+							</tr>
+						</thead>
+					</table>
+					<!-- 放到div中 table才有滚动条 -->
+					<div class="btable btable1">
+						<table>
+							<thead>
+								<tr>
+									<td width="50%"></td>
+									<td width="50%"></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr is="mytable" v-for='ajaxdata in ajaxdatas' v-bind:value1="ajaxdata.value1" v-bind:value2="ajaxdata.value2"></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div id="linkpie" style="width: 100%;height: 176px"></div>
+			</div>
+		</div>
 	</div>
 
 </body>
-	<script>
-		var app5 = new Vue({
-		  el: '#app-5',
-		  data: {
-		    message: []
-		  },
-		  methods: {
-		    reverseMessage: function () {
-		      this.message = this.message.split('')
-		    },
-		    greet:function(){
-		    	alert("hello")
-		    }
-		  }
-		})
-		$("#btn").click(function(){
-			// alert("hello")
-			app5.greet()
-		})
-	</script>
+<script>
+	Vue.component('mytable', {
+		// props: ['value1', 'value2'],
+		// template: '<tr><td>{{value1}}</td><td>{{value2}}</td></tr>'
+		props: ['data'],
+		template: '<tr>{data}</tr>'
+	})
+	var app = new Vue({
+		el: '#app',
+		// data: {
+		// 	title: '连接数排序',
+		// 	ajaxdatas: [{
+		// 		value1: '美国',
+		// 		value2: '3000'
+		// 	}, {
+		// 		value1: '日本',
+		// 		value2: '2000'
+		// 	}, {
+		// 		value1: '英国',
+		// 		value2: '1000'
+		// 	}]
+		// },
+		data: '',
+		mounted() {
+			this.$nextTick(function () {
+				var that = this;
+				$.ajax({
+					type: "get",
+					url: "//link.json",
+					// data: {
+					// 	user_id: 1
+					// },
+					success: function (data) {
+						that.data = data.data;
+					}
+				})
+			})
+		}
+	})
+</script>
+
 </html>

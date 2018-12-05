@@ -1,0 +1,12 @@
+<template>
+  <div>
+    <table>
+      <tbody>
+        <tr>
+          <td>美国</td>
+          <td>1000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
