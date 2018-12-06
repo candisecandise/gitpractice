@@ -1,6 +1,13 @@
 {
-  "data": {
+  "title": "连接数排序",
+  "ajaxdatas": [{
     "country": "美国",
+    "number": "3000"
+  }, {
+    "country": "英国",
     "number": "2000"
-  }
+  }, {
+    "country": "日本",
+    "number": "1000"
+  }]
 }
