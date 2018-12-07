@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script src="vue-2.5.17/dist/vue.js"></script>
+  <script src="js/echarts.min.js"></script>
+  <script src="js/world.js"></script>
+  <link rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+  <div id="app" class="main">
+    <div id="map"></div>
+    <div class="sort-table">
+      <div class="stitle">
+        <i class="chart-control">></i><span>{{ linktitle }}</span>
+      </div>
+      <div class="sort-info">
+        <div class="sort-type">
+          <span class="chooses">国家</span><span>单位</span>
+        </div>
+        <div class="htable">
+          <table>
+            <thead>
+              <tr>
+                <td width="50%">名称</td>
+                <td width="50%">连接数</td>
+              </tr>
+            </thead>
+          </table>
+          <div class="btable btable1">
+            <table>
+              <thead>
+                <tr>
+                  <td width="50%"></td>
+                  <td width="50%"></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr is="mytable" v-for="countrylink in countrylinks" v-bind:name="countrylink.name" v-bind:value="countrylink.value"></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="linkpie" style="width: 100%;height: 176px"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- <script src="js/map.js"></script> -->
+<script>
+  Vue.component('mytable', {
+    props: ['name', 'value'],
+    template: '<tr><td>{{name}}</td><td>{{value}}</td></tr>'
+  })
+  var app = new Vue({
+    el: '#app',
+    data: {
+      linktitle: '',
+      countrylinks: [],
+      // departmentlinks: []
+    },
+    mounted() {
+      // this.$nextTick(function () {
+      //   var that = this
+      //   $.ajax({
+      //     type: 'get',
+      //     url: 'link.json',
+      //     dataType: 'json',
+      //     success: function (data) {
+      //       // that.title = data.title
+      //       that.ajaxdatas = data.ajaxdatas
+      //     }
+      //   })
+      // })
+    }
+  })
+  $(function () {
+    data = loadData();
+    var linkdatas = data.linkdatas
+    var mapdata = data.mapdatas.mapdata
+    app.linktitle = linkdatas.title;
+    app.countrylinks = linkdatas.countrylinks
+    linkChart.setOption({
+      series: [{
+        data: linkdatas.countrylinks,
+      }]
+    })
+    mapchart.setOption({
+      series: [{
+        data: mapdata.datas.map(function (dataItem) {
+          return {
+            name: dataItem.name,
+            value: dataItem.coordinate.concat(dataItem.value),
+            city: dataItem.city
+          };
+        }),
+      }, {
+        data: [{
+          name: mapdata.city.name,
+          value: mapdata.city.coordinate
+        }]
+      }]
+    })
+    // mapdata.forEach(function (item, i) {
+    //   // console.log(item)
+    //   mapchart.setOption({
+    //     series: [{
+    //       data: item.datas.map(function (dataItem) {
+
+    //         return {
+    //           name: dataItem.name,
+    //           value: dataItem.coordinate.concat(dataItem.value)
+    //         };
+    //       }),
+    //     }, {
+    //       data: [{
+    //         name: item.city.name,
+    //         value: item.city.coordinate
+    //       }]
+    //     }]
+    //   })
+    // })
+  })
+
+  function loadData() {
+    var data = '';
+    $.ajax({
+      type: 'get',
+      url: 'link.json',
+      async: false, //此处需要注意的是要想获取ajax返回的值这个async属性必须设置成同步的，否则获取不到返回值
+      dataType: 'json',
+      success: function (res) {
+        data = res
+      }
+    });
+    return data
+  }
+</script>
+<script src="js/map.js"></script>
+
+</html>

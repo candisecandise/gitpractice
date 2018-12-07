@@ -1,5 +1,6 @@
 var geoCoordMap = {
     上海: [121.4648, 31.2891],
+    北京: [116.4551, 40.2539],
     尼日利亚: [-4.388361, 11.186148],
     美国洛杉矶: [-118.24311, 34.052713],
     香港邦泰: [114.195466, 22.282751],
@@ -26,61 +27,301 @@ var geoCoordMap = {
     加拿大温哥华: [-123.023921, 49.311753]
 };
 var BJData = [
-    [{name: "尼日利亚",value: 9100}, {name: "北京"}],
-    [{name: "美国洛杉矶",value: 2370}, {name: "北京"}],
-    [{name: "香港邦泰",value: 3130}, {name: "北京"}],
-    [{name: "美国芝加哥",value: 2350}, {name: "北京"}],
-    [{name: "加纳库马西",value: 5120}, {name: "北京"}],
-    [{name: "英国曼彻斯特",value: 3110}, {name: "北京"}],
-    [{name: "德国汉堡",value: 6280}, {name: "北京"}],
-    [{name: "哈萨克斯坦阿拉木图",value: 7255}, {name: "北京"}],
-    [{name: "俄罗斯伊尔库茨克",value: 8125}, {name: "北京"}],
-    [{name: "巴西",value: 3590}, {name: "北京"}],
-    [{name: "埃及达米埃塔",value: 3590}, {name: "北京"}],
-    [{name: "西班牙巴塞罗纳",value: 3590}, {name: "北京"}],
-    [{name: "柬埔寨金边",value: 3590}, {name: "北京"}],
-    [{name: "意大利米兰",value: 3590}, {name: "北京"}],
-    [{name: "乌拉圭蒙得维的亚",value: 3590}, {name: "北京"}],
-    [{name: "莫桑比克马普托",value: 3590}, {name: "北京"}],
-    [{name: "阿尔及利亚阿尔及尔",value: 3590}, {name: "北京"}],
-    [{name: "阿联酋迪拜",value: 3590}, {name: "北京"}],
-    [{name: "匈牙利布达佩斯",value: 3590}, {name: "北京"}],
-    [{name: "澳大利亚悉尼",value: 3590}, {name: "北京"}],
-    [{name: "美国加州",value: 3590}, {name: "北京"}],
-    [{name: "澳大利亚墨尔本",value: 3590}, {name: "北京"}],
-    [{name: "墨西哥",value: 3590}, {name: "北京"}],
-    [{name: "加拿大温哥华",value: 3590}, {name: "北京"}]
+    [{
+        name: "尼日利亚",
+        value: 9100
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "美国洛杉矶",
+        value: 2370
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "香港邦泰",
+        value: 3130
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "美国芝加哥",
+        value: 2350
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "加纳库马西",
+        value: 5120
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "英国曼彻斯特",
+        value: 3110
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "德国汉堡",
+        value: 6280
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "哈萨克斯坦阿拉木图",
+        value: 7255
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "俄罗斯伊尔库茨克",
+        value: 8125
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "巴西",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "埃及达米埃塔",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "西班牙巴塞罗纳",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "柬埔寨金边",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "意大利米兰",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "乌拉圭蒙得维的亚",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "莫桑比克马普托",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "阿尔及利亚阿尔及尔",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "阿联酋迪拜",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "匈牙利布达佩斯",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "澳大利亚悉尼",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "美国加州",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "澳大利亚墨尔本",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "墨西哥",
+        value: 3590
+    }, {
+        name: "北京"
+    }],
+    [{
+        name: "加拿大温哥华",
+        value: 3590
+    }, {
+        name: "北京"
+    }]
 ]
 var SJData = [
-    [{name: "尼日利亚",value: 9100}, {name: "上海"}],
-    [{name: "美国洛杉矶",value: 2370}, {name: "上海"}],
-    [{name: "香港邦泰",value: 3130}, {name: "上海"}],
-    [{name: "美国芝加哥",value: 2350}, {name: "上海"}],
-    [{name: "加纳库马西",value: 5120}, {name: "上海"}],
-    [{name: "英国曼彻斯特",value: 3110}, {name: "上海"}],
-    [{name: "德国汉堡",value: 6280}, {name: "上海"}],
-    [{name: "哈萨克斯坦阿拉木图",value: 7255}, {name: "上海"}],
-    [{name: "俄罗斯伊尔库茨克",value: 8125}, {name: "上海"}],
-    [{name: "巴西",value: 3590}, {name: "上海"}],
-    [{name: "埃及达米埃塔",value: 3590}, {name: "上海"}],
-    [{name: "西班牙巴塞罗纳",value: 3590}, {name: "上海"}],
-    [{name: "柬埔寨金边",value: 3590}, {name: "上海"}],
-    [{name: "意大利米兰",value: 3590}, {name: "上海"}],
-    [{name: "乌拉圭蒙得维的亚",value: 3590}, {name: "上海"}],
-    [{name: "莫桑比克马普托",value: 3590}, {name: "上海"}],
-    [{name: "阿尔及利亚阿尔及尔",value: 3590}, {name: "上海"}],
-    [{name: "阿联酋迪拜",value: 3590}, {name: "上海"}],
-    [{name: "匈牙利布达佩斯",value: 3590}, {name: "上海"}],
-    [{name: "澳大利亚悉尼",value: 3590}, {name: "上海"}],
-    [{name: "美国加州",value: 3590}, {name: "上海"}],
-    [{name: "澳大利亚墨尔本",value: 3590}, {name: "上海"}],
-    [{name: "墨西哥",value: 3590}, {name: "上海"}],
-    [{name: "加拿大温哥华",value: 3590}, {name: "上海"}]
+    [{
+        name: "尼日利亚",
+        value: 9100
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "美国洛杉矶",
+        value: 2370
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "香港邦泰",
+        value: 3130
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "美国芝加哥",
+        value: 2350
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "加纳库马西",
+        value: 5120
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "英国曼彻斯特",
+        value: 3110
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "德国汉堡",
+        value: 6280
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "哈萨克斯坦阿拉木图",
+        value: 7255
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "俄罗斯伊尔库茨克",
+        value: 8125
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "巴西",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "埃及达米埃塔",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "西班牙巴塞罗纳",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "柬埔寨金边",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "意大利米兰",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "乌拉圭蒙得维的亚",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "莫桑比克马普托",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "阿尔及利亚阿尔及尔",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "阿联酋迪拜",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "匈牙利布达佩斯",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "澳大利亚悉尼",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "美国加州",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "澳大利亚墨尔本",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "墨西哥",
+        value: 3590
+    }, {
+        name: "上海"
+    }],
+    [{
+        name: "加拿大温哥华",
+        value: 3590
+    }, {
+        name: "上海"
+    }]
 ]
-var convertData = function(data) {
+var convertData = function (data) {
     var res = [];
     for (var i = 0; i < data.length; i++) {
-    	var dataItem = data[i];
+        var dataItem = data[i];
         var fromCoord = geoCoordMap[dataItem[0].name];
         var toCoord = geoCoordMap[dataItem[1].name];
         if (fromCoord && toCoord) {
@@ -98,9 +339,9 @@ var convertData = function(data) {
 };
 
 // 用函数
-var placeData = function(data) {
+var placeData = function (data) {
     var res = [];
-     res.push({
+    res.push({
         name: data,
         value: geoCoordMap[data].concat([10000])
     });
@@ -109,8 +350,10 @@ var placeData = function(data) {
 };
 
 var series = [];
-[["上海", SJData]].forEach(function(item, i) {
-    series.push( {
+[
+    ["上海", SJData]
+].forEach(function (item, i) {
+    series.push({
             type: "effectScatter",
             coordinateSystem: "geo",
             zlevel: 2,
@@ -132,14 +375,14 @@ var series = [];
                 }
             },
             symbol: "circle",
-            symbolSize: function(val) {
+            symbolSize: function (val) {
                 return 4 + val[2] / 1000; //圆环大小
             },
             itemStyle: {
-                color:'#FF6E00'
+                color: '#FF6E00'
             },
-            data: item[1].map(function(dataItem) {
-                
+            data: item[1].map(function (dataItem) {
+
                 return {
                     name: dataItem[0].name,
                     value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value])
@@ -183,7 +426,7 @@ var series = [];
             //     value: geoCoordMap[item[0]].concat([10000])
             // }]
             // 匿名函数！！！ 
-            data: (function(data){
+            data: (function (data) {
                 return [{
                     name: data,
                     value: geoCoordMap[data].concat([10000])
@@ -191,7 +434,9 @@ var series = [];
             })(item[0]),
             // data:placeData(item[0])
             // 被攻击点不显示数据
-            tooltip:{formatter: "{b}"}
+            tooltip: {
+                formatter: "{b}"
+            }
 
         }
     );
@@ -199,23 +444,23 @@ var series = [];
 
 option = {
     backgroundColor: '#f5f3f0',
-    title:{
-        show:false,
-		text:'大数据实时监控',
-		subtext:'数据截止2018年11月9日',
-		// left:'left',
-        left:10,
-        top:10,
-		textStyle:{
-            fontSize:24,
-			color:'#125993'
-		},
-		subtextStyle:{
-            fontSize:12,
-            color:'#9da2a3'
-			// color:'#c9c8c8
-		}
-	},
+    title: {
+        show: false,
+        text: '大数据实时监控',
+        subtext: '数据截止2018年11月9日',
+        // left:'left',
+        left: 10,
+        top: 10,
+        textStyle: {
+            fontSize: 24,
+            color: '#125993'
+        },
+        subtextStyle: {
+            fontSize: 12,
+            color: '#9da2a3'
+            // color:'#c9c8c8
+        }
+    },
     tooltip: {
         trigger: "item",
         backgroundColor: "#9d9c9a",
@@ -225,7 +470,7 @@ option = {
         enterable: true,
         transitionDuration: 0,
         extraCssText: "z-index:100",
-        formatter: function(params, ticket, callback) {
+        formatter: function (params, ticket, callback) {
             //根据业务自己拓展要显示的内容
             var res = "";
             var name = params.name;
@@ -244,7 +489,7 @@ option = {
     visualMap: { //图例值控制
         min: 1000,
         max: 10000,
-        right:0,
+        right: 0,
         calculable: true,
         // color: ['#ff3333', 'orange', 'yellow', 'lime', 'aqua'],
         textStyle: {
@@ -278,87 +523,79 @@ option = {
 };
 // pie
 option1 = {
-    backgroundColor:'whitesmoke',
-    title : {
+    backgroundColor: 'whitesmoke',
+    title: {
         text: '连接数占比',
         // subtext: '纯属虚构',
-        left:'left',
+        left: 'left',
     },
-    tooltip : {
+    tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b} : {c} ({d}%)"
     },
-    series : [
-        {
-            name: '连接数',
-            type: 'pie',
-            radius : '55%',
-            center: ['50%', '60%'],
-            // 数组
-            data:[],
-            itemStyle: {
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
+    series: [{
+        name: '连接数',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '60%'],
+        // 数组
+        data: [],
+        itemStyle: {
+            emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
         }
-    ]
+    }]
 };
 option2 = {
-    title : {
+    title: {
         text: '端口流量排序图',
         // subtext: '2018/11/15 下午2:44:44',
-        left:'left',
+        left: 'left',
     },
-    tooltip : {
+    tooltip: {
         trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
         }
     },
     grid: {
         left: '3%',
         right: '4%',
         bottom: '3%',
-        top:50,
+        top: 50,
         containLabel: true
     },
-    xAxis : [
-        {
-            type : 'category',
-            data : ['8080-9090', '8081-9091', '8082-9092', '8083-9093', '8084-9094', '8085-9095', '8086-9096'],
-            axisTick: {
-                alignWithLabel: true
-            }
+    xAxis: [{
+        type: 'category',
+        data: ['8080-9090', '8081-9091', '8082-9092', '8083-9093', '8084-9094', '8085-9095', '8086-9096'],
+        axisTick: {
+            alignWithLabel: true
         }
-    ],
-    yAxis : [
-        {
-            type : 'value'
+    }],
+    yAxis: [{
+        type: 'value'
+    }],
+    series: [{
+        name: '流量统计',
+        type: 'bar',
+        barWidth: '60%',
+        data: [8000, 7000, 6000, 4000, 3000, 2000, 1000],
+        itemStyle: {
+            color: function (params) {
+                var colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+                return colorList[params.dataIndex];
+            },
         }
-    ],
-    series : [
-        {
-            name:'流量统计',
-            type:'bar',
-            barWidth: '60%',
-            data:[8000, 7000, 6000, 4000, 3000, 2000, 1000],
-            itemStyle:{
-                 color: function (params) {
-                    var colorList = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'];
-                    return colorList[params.dataIndex];
-                },
-            }
-        }
-    ]
+    }]
 };
 option3 = {
     title: {
         text: '流量趋势图',
         // subtext: '2018/11/12 下午2:44:44',
-        left:'left',
+        left: 'left',
     },
     tooltip: {
         trigger: 'axis'
@@ -371,7 +608,7 @@ option3 = {
         left: '3%',
         right: '4%',
         bottom: '3%',
-        top:50,
+        top: 50,
         containLabel: true
     },
     // 工具栏
@@ -387,88 +624,98 @@ option3 = {
     //         saveAsImage: {}
     //     }
     // },
-    xAxis:  {
+    xAxis: {
         type: 'category',
         boundaryGap: false,
-        axisLabel:{
-        	interval:0
+        axisLabel: {
+            interval: 0
         },
-        data: ['11-09','11-10','11-11','11-12','11-13','11-14','11-15']
+        data: ['11-09', '11-10', '11-11', '11-12', '11-13', '11-14', '11-15']
     },
     yAxis: {
         type: 'value',
     },
-    series: [
-        {
-            name:'上行流量',
-            type:'line',
-            data:[8000, 9000, 5000, 7000, 3000, 4000, 5000],
+    series: [{
+            name: '上行流量',
+            type: 'line',
+            data: [8000, 9000, 5000, 7000, 3000, 4000, 5000],
             markPoint: {
-                data: [
-                    {type: 'max', name: '最大值'},
-                    {type: 'min', name: '最小值'}
+                data: [{
+                        type: 'max',
+                        name: '最大值'
+                    },
+                    {
+                        type: 'min',
+                        name: '最小值'
+                    }
                 ]
             },
             markLine: {
-            	label:{
-            		show:false
-            	},
-                data: [
-                    {type: 'average', name: '平均值'}
-                ]
+                label: {
+                    show: false
+                },
+                data: [{
+                    type: 'average',
+                    name: '平均值'
+                }]
             }
         },
         {
-            name:'下行流量',
-            type:'line',
-            data:[3000, 2000, 3000, 4000, 2000, 1000, 2000],
+            name: '下行流量',
+            type: 'line',
+            data: [3000, 2000, 3000, 4000, 2000, 1000, 2000],
             markPoint: {
-                data: [
-                    {type: 'max', name: '最大值'},
-                    {type: 'min', name: '最小值'}
+                data: [{
+                        type: 'max',
+                        name: '最大值'
+                    },
+                    {
+                        type: 'min',
+                        name: '最小值'
+                    }
                 ]
             },
             markLine: {
-            	label:{
-            		show:false,
-            		position:'start',
-            	},
-                data: [
-                    {type: 'average', name: '平均值'}
-                ]
+                label: {
+                    show: false,
+                    position: 'start',
+                },
+                data: [{
+                    type: 'average',
+                    name: '平均值'
+                }]
             }
         }
     ]
 };
 option4 = {
-    title : {
+    title: {
         text: '国家流量排序图',
         // subtext: '2018/11/12 下午2:44:44',
-        left:'left',
+        left: 'left',
     },
-    tooltip : {
+    tooltip: {
         trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
         }
     },
-  
+
     grid: {
         left: '3%',
         right: '4%',
         bottom: '3%',
-        top:50,
+        top: 50,
         containLabel: true
     },
-    yAxis:  {
+    yAxis: {
         type: 'value'
     },
     xAxis: {
         type: 'category',
-        data: ['美国','英国','泰国','俄罗斯','日本','新加坡','南非']
+        data: ['美国', '英国', '泰国', '俄罗斯', '日本', '新加坡', '南非']
     },
-    series: [
-        {
+    series: [{
             name: '上行流量',
             type: 'bar',
             stack: '总量',
@@ -478,8 +725,8 @@ option4 = {
                     position: 'insideRight'
                 }
             },
-            data:[8000,7000,6000,5000,4000,3000,2000]
-            
+            data: [8000, 7000, 6000, 5000, 4000, 3000, 2000]
+
         },
         {
             name: '下行流量',
@@ -492,7 +739,7 @@ option4 = {
                 }
             },
             data: [1500, 1400, 1200, 1000, 900, 800, 700]
-            
+
         },
     ]
 };
@@ -506,4 +753,3 @@ var flowChart = echarts.init(document.getElementById('flowLine'));
 flowChart.setOption(option3);
 var countryChart = echarts.init(document.getElementById('countryBar'));
 countryChart.setOption(option4);
-

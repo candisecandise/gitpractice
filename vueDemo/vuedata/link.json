@@ -1,13 +1,78 @@
 {
-  "title": "连接数排序",
-  "ajaxdatas": [{
-    "country": "美国",
-    "number": "3000"
-  }, {
-    "country": "英国",
-    "number": "2000"
-  }, {
-    "country": "日本",
-    "number": "1000"
-  }]
+  "linkdatas": {
+    "title": "连接数排序",
+    "countrylinks": [{
+      "name": "美国",
+      "value": "3000"
+    }, {
+      "name": "英国",
+      "value": "2000"
+    }, {
+      "name": "日本",
+      "value": "1000"
+    }]
+  },
+  "mapdatas": {
+    "mapdata": {
+      "city": {
+        "name": "上海",
+        "coordinate": [121.4648, 31.2891]
+      },
+      "datas": [{
+          "name": "尼日利亚",
+          "value": 9100,
+          "coordinate": [-4.388361, 11.186148],
+          "city": "上海"
+        },
+        {
+          "name": "美国洛杉矶",
+          "value": 2370,
+          "coordinate": [-118.24311, 34.052713],
+          "city": "上海"
+        },
+        {
+          "name": "香港邦泰",
+          "value": 3130,
+          "coordinate": [114.195466, 22.282751],
+          "city": "上海"
+        },
+        {
+          "name": "美国芝加哥",
+          "value": 2350,
+          "coordinate": [-87.801833, 41.870975],
+          "city": "上海"
+        },
+        {
+          "name": "加纳库马西",
+          "value": 5120,
+          "coordinate": [-4.62829, 7.72415],
+          "city": "上海"
+        },
+        {
+          "name": "英国曼彻斯特",
+          "value": 3110,
+          "coordinate": [-1.657222, 51.886863],
+          "city": "上海"
+        },
+        {
+          "name": "德国汉堡",
+          "value": 6280,
+          "coordinate": [10.01959, 54.38474],
+          "city": "上海"
+        },
+        {
+          "name": "哈萨克斯坦阿拉木图",
+          "value": 7255,
+          "coordinate": [45.326912, 41.101891],
+          "city": "上海"
+        },
+        {
+          "name": "俄罗斯伊尔库茨克",
+          "value": 8125,
+          "coordinate": [89.116876, 67.757906],
+          "city": "上海"
+        }
+      ]
+    }
+  }
 }

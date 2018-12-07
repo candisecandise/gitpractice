@@ -1,100 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script src="vue-2.5.17/dist/vue.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/world.js"></script>
+    <link rel="stylesheet" href="css/common.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-	<script src="vue-2.5.17/dist/vue.js"></script>
-	<link rel="stylesheet" href="css/common.css">
-</head>
-
-<body>
-	<div id="app">
-		<div class="sort-table">
-			<div class="stitle"><i class="chart-control">></i><span>{{title}}</span></div>
-			<div class="sort-info">
-				<div class="sort-type"><span class="chooses">国家</span><span>单位</span></div>
-				<div class="htable">
-					<table>
-						<thead>
-							<tr>
-								<td width="50%">名称</td>
-								<td width="50%">连接数</td>
-							</tr>
-						</thead>
-					</table>
-					<!-- 放到div中 table才有滚动条 -->
-					<div class="btable btable1">
-						<table>
-							<thead>
-								<tr>
-									<td width="50%"></td>
-									<td width="50%"></td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr is="mytable" v-for='ajaxdata in ajaxdatas' v-bind:value1="ajaxdata.country" v-bind:value2="ajaxdata.number"></tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div id="linkpie" style="width: 100%;height: 176px"></div>
-			</div>
-		</div>
-	</div>
-
-</body>
-<script>
-	Vue.component('mytable', {
-		props: ['value1', 'value2'],
-		template: '<tr><td>{{value1}}</td><td>{{value2}}</td></tr>'
-	})
-	var app = new Vue({
-		el: '#app',
-		data: {
-			title: '',
-			ajaxdatas: []
-		},
-		// data() {
-		// 	return {
-		// 		title: '',
-		// 		ajaxdatas: []
-		// 	}
-		// },
-		created: function () {
-			//为了在内部函数能使用外部函数的this对象，要给它赋值了一个名叫self的变量。
-			var self = this;
-			$.ajax({
-				url: 'link.json',
-				type: 'get',
-				data: {},
-				dataType: 'json'
-			}).then(function (res) {
-				console.log(res);
-				//把从json获取的数据赋值给数组
-				self.title = res.title;
-				self.ajaxdatas = res.ajaxdatas;
-			}).fail(function () {
-				console.log('失败');
-			})
-		}
-		// mounted() {
-		// 	this.$nextTick(function () {
-		// 		var that = this;
-		// 		$.ajax({
-		// 			type: "get",
-		// 			url: "link.json",
-		// 			dataType: "json",
-		// 			success: function (data) {
-		// 				that.title = data.title;
-		// 				that.ajaxdatas = data.ajaxdatas;
-		// 				console.log(that.ajaxdatas);
-		// 			}
-		// 		})
-		// 	})
-		// },
-	})
-</script>
-
+  <body>
+    <div id="app" class="main">
+      <div id="map"></div>
+      <div class="sort-table">
+        <div class="stitle">
+          <i class="chart-control">></i><span>{{ title }}</span>
+        </div>
+        <div class="sort-info">
+          <div class="sort-type">
+            <span class="chooses">国家</span><span>单位</span>
+          </div>
+          <div class="htable">
+            <table>
+              <thead>
+                <tr>
+                  <td width="50%">名称</td>
+                  <td width="50%">连接数</td>
+                </tr>
+              </thead>
+            </table>
+            <div class="btable btable1">
+              <table>
+                <thead>
+                  <tr>
+                    <td width="50%"></td>
+                    <td width="50%"></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    is="mytable"
+                    v-for="ajaxdata in ajaxdatas"
+                    v-bind:value1="ajaxdata.country"
+                    v-bind:value2="ajaxdata.number"
+                  ></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="linkpie" style="width: 100%;height: 176px"></div>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="js/map.js"></script> -->
+  </body>
+  <script>
+    Vue.component('mytable', {
+      props: ['value1', 'value2'],
+      template: '<tr><td>{{value1}}</td><td>{{value2}}</td></tr>'
+    })
+    var app = new Vue({
+      el: '#app',
+      data: {
+        title: '',
+        ajaxdatas: [],
+        datas: []
+      },
+      // data() {
+      // 	return {
+      // 		title: '',
+      // 		ajaxdatas: []
+      // 	}
+      // },
+      mounted() {
+        this.$nextTick(function() {
+          var that = this
+          $.ajax({
+            type: 'get',
+            url: 'link.json',
+            dataType: 'json',
+            success: function(data) {
+              that.title = data.title
+              that.ajaxdatas = data.ajaxdatas
+              that.datas = data.datas
+              console.log(that.datas)
+              option = {
+                xAxis: {
+                  type: 'category',
+                  // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                  data: that.datas
+                },
+                yAxis: {
+                  type: 'value'
+                },
+                series: [
+                  {
+                    data: [820, 932, 901, 934, 1290, 1330, 1320],
+                    type: 'line'
+                  }
+                ]
+              }
+              var chart = echarts.init(document.getElementById('map'))
+              chart.setOption(option)
+            }
+          })
+        })
+      },
+      created: function() {
+        // 	//为了在内部函数能使用外部函数的this对象，要给它赋值了一个名叫self的变量。
+        // 	var self = this;
+        // 	$.ajax({
+        // 		url: 'link.json',
+        // 		type: 'get',
+        // 		data: {},
+        // 		dataType: 'json'
+        // 	}).then(function (res) {
+        // 		console.log(res);
+        // 		//把从json获取的数据赋值给数组
+        // 		self.title = res.title;
+        // 		self.ajaxdatas = res.ajaxdatas;
+        // 	}).fail(function () {
+        // 		console.log('失败');
+        // 	})
+      }
+    })
+  </script>
 </html>
