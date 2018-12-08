@@ -48,6 +48,12 @@
         <div id="linkpie" style="width: 100%;height: 176px"></div>
       </div>
     </div>
+    <div class="port-chart chartbox">
+      <div class="stitle ctitle"><i class="chart-control">></i><span>端口流量排序</span></div>
+      <div class="port-info chart">
+        <div id="portBar" style="width: 100%;height: 100%"></div>
+      </div>
+    </div>
   </div>
 </body>
 <!-- <script src="js/map.js"></script> -->
@@ -80,15 +86,17 @@
   })
   $(function () {
     data = loadData();
-    var linkdatas = data.linkdatas
-    var mapdata = data.mapdatas.mapdata
+    var linkdatas = data.linkdatas;
+    var mapdata = data.mapdatas.mapdata;
+    var portdatas = data.portdatas;
+    var portdata = pushData(portdatas.datas)
     app.linktitle = linkdatas.title;
-    app.countrylinks = linkdatas.countrylinks
+    app.countrylinks = linkdatas.countrylinks;
     linkChart.setOption({
       series: [{
         data: linkdatas.countrylinks,
       }]
-    })
+    });
     mapchart.setOption({
       series: [{
         name: mapdata.city.name,
@@ -96,17 +104,24 @@
           return {
             name: dataItem.name,
             value: dataItem.coordinate.concat(dataItem.value),
-            city: dataItem.city
           };
         }),
       }, {
-
+        name: mapdata.city.name,
         data: [{
           name: mapdata.city.name,
           value: mapdata.city.coordinate
         }]
       }]
-    })
+    });
+    portChart.setOption({
+      xAxis: [{
+        data: portdata.name
+      }],
+      series: [{
+        data: portdata.value,
+      }],
+    });
     // mapdata.forEach(function (item, i) {
     //   // console.log(item)
     //   mapchart.setOption({
@@ -139,6 +154,18 @@
         data = res
       }
     });
+    return data
+  }
+
+  function pushData(datas) {
+    var data = {}
+    data.name = []
+    data.value = []
+    datas.forEach(function (item) {
+      data.name.push(item.name)
+      data.value.push(item.value)
+    })
+    console.log(data)
     return data
   }
 </script>

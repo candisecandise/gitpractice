@@ -49,6 +49,18 @@
         <div id="linkpie" style="width: 100%;height: 176px"></div>
       </div>
     </div>
+    <div class="port-chart chartbox">
+      <div class="stitle ctitle"><i class="chart-control">></i><span>端口流量排序</span></div>
+      <div class="port-info chart">
+        <div id="portBar" style="width: 100%;height: 100%"></div>
+      </div>
+    </div>
+    <div class="flow-chart chartbox">
+      <div class="stitle ctitle"><i class="chart-control">></i><span>流量总体趋势</span></div>
+      <div class="flow-info chart">
+        <div id="flowLine" style="width: 100%;height: 100%"></div>
+      </div>
+    </div>
   </div>
 </body>
 <script>
@@ -71,13 +83,314 @@
           dataType: 'json',
           success: function (data) {
             that.linkdatas = data.linkdatas
-
+            that.mapechart(data.mapdatas)
+            that.barechart(data.portdatas.datas);
+            that.lineechart()
           }
         })
       })
-    }
+    },
+    methods: {
+      pushData: function (datas) {
+        var data = {}
+        data.name = []
+        data.value = []
+        datas.forEach(function (item) {
+          data.name.push(item.name)
+          data.value.push(item.value)
+        })
+        console.log(data)
+        return data
+      },
+      barechart: function (datas) {
+        var data = this.pushData(datas)
+        option = {
+          title: {
+            text: '端口流量排序图',
+            // subtext: '2018/11/15 下午2:44:44',
+            left: 'left',
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: 50,
+            containLabel: true
+          },
+          xAxis: [{
+            type: 'category',
+            data: data.name,
+            axisTick: {
+              alignWithLabel: true
+            }
+          }],
+          yAxis: [{
+            type: 'value'
+          }],
+          series: [{
+            name: '流量统计',
+            type: 'bar',
+            barWidth: '60%',
+            data: data.value,
+            itemStyle: {
+              color: function (params) {
+                var colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83',
+                  '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'
+                ];
+                return colorList[params.dataIndex];
+              },
+            }
+          }]
+        };
+        var portChart = echarts.init(document.getElementById('portBar'));
+        portChart.setOption(option);
+      },
+      mapechart: function (datas) {
+        var data = datas.mapdata
+        var series = [];
+        var mapdatas = [];
+        for (var key in datas) {
+          mapdatas.push(datas[key])
+        }
+        mapdatas.forEach(function (item) {
+          console.log(item.city.coordinate)
+          series.push({
+              name: item.city.name,
+              type: "scatter",
+              coordinateSystem: "geo",
+              zlevel: 2,
+              rippleEffect: {
+                period: 4,
+                brushType: "stroke",
+                scale: 4
+              },
+              label: {
+                normal: {
+                  show: true,
+                  position: "right",
+                  formatter: "{b}",
+                  textStyle: {
+                    // color: "#0bc7f3"
+                  }
+                },
+                emphasis: {
+                  show: true
+                }
+              },
+              symbol: "pin",
+              symbolSize: 30,
+              itemStyle: {
+                normal: {
+                  show: true,
+                }
+              },
+              data: [{
+                name: item.city.name,
+                value: item.city.coordinate
+              }],
+              tooltip: {
+                formatter: "{b}"
+              }
+            }, {
+              name: item.city.name,
+              type: "effectScatter",
+              coordinateSystem: "geo",
+              zlevel: 2,
+              rippleEffect: {
+                //涟漪特效
+                period: 4, //动画时间，值越小速度越快
+                brushType: "stroke", //波纹绘制方式 stroke, fill
+                scale: 4 //波纹圆环最大限制，值越大波纹越大
+              },
+              label: {
+                normal: {
+                  show: true,
+                  position: "right", //显示位置
+                  offset: [5, 0], //偏移设置
+                  formatter: "{b}" //圆环显示文字
+                },
+                emphasis: {
+                  show: true,
+                }
+              },
+              symbol: "circle",
+              symbolSize: function (val) {
+                return 4 + val[2] / 1000; //圆环大小
+              },
+              itemStyle: {
+                color: '#FF6E00'
+              },
+              data: item.datas.map(function (dataItem) {
+                return {
+                  name: dataItem.name,
+                  value: dataItem.coordinate.concat(dataItem.value),
+                  city: dataItem.city
+                };
+              }),
+              tooltip: {
+                formatter: function (params, ticket, callback) {
+                  console.log(params)
+                  res = "<span style='color:#fff;'>" + params.name + '->' + params.seriesName +
+                    "</span><br/>数据：" +
+                    params.value[2];
+                  return res;
+                }
+              },
+            },
+            //被攻击点
+
+          );
+        })
+        option = {
+          backgroundColor: '#f5f3f0',
+          tooltip: {
+            trigger: "item",
+            backgroundColor: "#9d9c9a",
+            borderColor: "#FFFFCC",
+            showDelay: 0,
+            hideDelay: 0,
+            enterable: true,
+            transitionDuration: 0,
+            extraCssText: "z-index:100",
+          },
+          // 视觉映射组件
+          visualMap: { //图例值控制
+            min: 1000,
+            max: 10000,
+            right: 0,
+            calculable: true,
+            textStyle: {
+              color: '#125993'
+            }
+          },
+          // 地理坐标系组件
+          geo: {
+            map: "world",
+            label: {
+              emphasis: {
+                show: false
+              }
+            },
+            roam: true, //是否允许缩放
+            layoutCenter: ["40%", "55%"], //地图位置
+            layoutSize: "180%",
+            itemStyle: {
+              normal: {
+                // areaColor:"#f5f3f0",
+                color: "#f5f3f0", //地图背景色
+                borderColor: "#50899c" //省市边界线
+              },
+              emphasis: {
+                color: "#d0c9c0" //悬浮背景
+              }
+            }
+          },
+          series: series
+        };
+        var mapchart = echarts.init(document.getElementById('map'));
+        mapchart.setOption(option);
+      },
+      lineechart: function (datas) {
+        var data = {}
+        data.name = []
+        data.value = []
+        datas.forEach(function (item) {
+          data.name.push(item.name)
+          data.value.push(item.value)
+        })
+        console.log(data)
+        return data
+        option = {
+          title: {
+            text: '流量趋势图',
+            // subtext: '2018/11/12 下午2:44:44',
+            left: 'left',
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: 50,
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisLabel: {
+              interval: 0
+            },
+            data: ['11-09', '11-10', '11-11', '11-12', '11-13', '11-14', '11-15']
+          },
+          yAxis: {
+            type: 'value',
+          },
+          series: [{
+              name: '上行流量',
+              type: 'line',
+              data: [8000, 9000, 5000, 7000, 3000, 4000, 5000],
+              markPoint: {
+                data: [{
+                    type: 'max',
+                    name: '最大值'
+                  },
+                  {
+                    type: 'min',
+                    name: '最小值'
+                  }
+                ]
+              },
+              markLine: {
+                label: {
+                  show: false
+                },
+                data: [{
+                  type: 'average',
+                  name: '平均值'
+                }]
+              }
+            },
+            {
+              name: '下行流量',
+              type: 'line',
+              data: [3000, 2000, 3000, 4000, 2000, 1000, 2000],
+              markPoint: {
+                data: [{
+                    type: 'max',
+                    name: '最大值'
+                  },
+                  {
+                    type: 'min',
+                    name: '最小值'
+                  }
+                ]
+              },
+              markLine: {
+                label: {
+                  show: false,
+                  position: 'start',
+                },
+                data: [{
+                  type: 'average',
+                  name: '平均值'
+                }]
+              }
+            }
+          ]
+        };
+        var flowChart = echarts.init(document.getElementById('flowLine'));
+        flowChart.setOption(option);
+      }
+    },
   })
 </script>
-<script src="js/map.js"></script>
 
 </html>

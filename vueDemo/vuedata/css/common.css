@@ -233,7 +233,7 @@ html {
 
 /*chartbox chart*/
 .chart {
-  display: none;
+  /* display: none; */
   float: left;
   position: relative;
   width: 500px;

@@ -6,7 +6,6 @@ var data = {
 var series = [];
 var datas = [
     [data.city, data.datas],
-    // [data2.city, data2.datas],
 ]
 datas.forEach(function (item, i) {
     series.push({
@@ -202,27 +201,7 @@ option1 = {
         center: ['50%', '60%'],
         // 数组
         // data: [],
-        data: [{
-                value: 335,
-                name: '直接访问'
-            },
-            {
-                value: 310,
-                name: '邮件营销'
-            },
-            {
-                value: 234,
-                name: '联盟广告'
-            },
-            {
-                value: 135,
-                name: '视频广告'
-            },
-            {
-                value: 1548,
-                name: '搜索引擎'
-            }
-        ],
+        data: [],
         itemStyle: {
             emphasis: {
                 shadowBlur: 10,
@@ -232,7 +211,51 @@ option1 = {
         }
     }]
 };
+option2 = {
+    title: {
+        text: '端口流量排序图',
+        // subtext: '2018/11/15 下午2:44:44',
+        left: 'left',
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        top: 50,
+        containLabel: true
+    },
+    xAxis: [{
+        type: 'category',
+        data: [],
+        axisTick: {
+            alignWithLabel: true
+        }
+    }],
+    yAxis: [{
+        type: 'value'
+    }],
+    series: [{
+        name: '流量统计',
+        type: 'bar',
+        barWidth: '60%',
+        data: [],
+        itemStyle: {
+            color: function (params) {
+                var colorList = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+                return colorList[params.dataIndex];
+            },
+        }
+    }]
+};
 var mapchart = echarts.init(document.getElementById('map'));
 mapchart.setOption(option);
 var linkChart = echarts.init(document.getElementById('linkpie'));
 linkChart.setOption(option1);
+var portChart = echarts.init(document.getElementById('portBar'));
+portChart.setOption(option2);
