@@ -91,6 +91,7 @@
     })
     mapchart.setOption({
       series: [{
+        name: mapdata.city.name,
         data: mapdata.datas.map(function (dataItem) {
           return {
             name: dataItem.name,
@@ -99,6 +100,7 @@
           };
         }),
       }, {
+
         data: [{
           name: mapdata.city.name,
           value: mapdata.city.coordinate

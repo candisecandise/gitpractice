@@ -1,228 +1,16 @@
-// var data1 = {
-//     "city": {
-//         name: "上海",
-//         coordinate: [121.4648, 31.2891]
-//     },
-//     "datas": [{
-//             name: "尼日利亚",
-//             value: 9100,
-//             coordinate: [-4.388361, 11.186148]
-//         },
-//         {
-//             name: "美国洛杉矶",
-//             value: 2370,
-//             coordinate: [-118.24311, 34.052713]
-//         }, {
-//             name: "香港邦泰",
-//             value: 3130,
-//             coordinate: [114.195466, 22.282751]
-//         }, {
-//             name: "美国芝加哥",
-//             value: 2350,
-//             coordinate: [-87.801833, 41.870975]
-//         }, {
-//             name: "加纳库马西",
-//             value: 5120,
-//             coordinate: [-4.62829, 7.72415]
-//         }, {
-//             name: "英国曼彻斯特",
-//             value: 3110,
-//             coordinate: [-1.657222, 51.886863]
-//         }, {
-//             name: "德国汉堡",
-//             value: 6280,
-//             coordinate: [10.01959, 54.38474]
-//         }, {
-//             name: "哈萨克斯坦阿拉木图",
-//             value: 7255,
-//             coordinate: [45.326912, 41.101891]
-//         }, {
-//             name: "俄罗斯伊尔库茨克",
-//             value: 8125,
-//             coordinate: [89.116876, 67.757906]
-//         }, {
-//             name: "巴西",
-//             value: 3590,
-//             coordinate: [-48.678945, -10.493623]
-//         }, {
-//             name: "埃及达米埃塔",
-//             value: 3590,
-//             coordinate: [31.815593, 31.418032]
-//         }, {
-//             name: "西班牙巴塞罗纳",
-//             value: 3590,
-//             coordinate: [2.175129, 41.385064]
-//         }, {
-//             name: "柬埔寨金边",
-//             value: 3590,
-//             coordinate: [104.88659, 11.545469]
-//         }, {
-//             name: "意大利米兰",
-//             value: 3590,
-//             coordinate: [9.189948, 45.46623]
-//         }, {
-//             name: "乌拉圭蒙得维的亚",
-//             value: 3590,
-//             coordinate: [-56.162231, -34.901113]
-//         }, {
-//             name: "莫桑比克马普托",
-//             value: 3590,
-//             coordinate: [32.608571, -25.893473]
-//         }, {
-//             name: "阿尔及利亚阿尔及尔",
-//             value: 3590,
-//             coordinate: [3.054275, 36.753027]
-//         }, {
-//             name: "阿联酋迪拜",
-//             value: 3590,
-//             coordinate: [55.269441, 25.204514]
-//         }, {
-//             name: "匈牙利布达佩斯",
-//             value: 3590,
-//             coordinate: [17.108519, 48.179162]
-//         }, {
-//             name: "澳大利亚悉尼",
-//             value: 3590,
-//             coordinate: [150.993137, -33.675509]
-//         }, {
-//             name: "美国加州",
-//             value: 3590,
-//             coordinate: [-121.910642, 41.38028]
-//         }, {
-//             name: "澳大利亚墨尔本",
-//             value: 3590,
-//             coordinate: [144.999416, -37.781726]
-//         }, {
-//             name: "墨西哥",
-//             value: 3590,
-//             coordinate: [-99.094092, 19.365711]
-//         }, {
-//             name: "加拿大温哥华",
-//             value: 3590,
-//             coordinate: [-123.023921, 49.311753]
-//         }
-//     ]
-// }
-
-var data1 = {
+var data = {
     city: "",
     datas: []
 }
 
-var data2 = {
-    "city": {
-        name: "北京",
-        coordinate: [116.4551, 40.2539],
-    },
-    "datas": [{
-            name: "尼日利亚",
-            value: 9100,
-            coordinate: [-4.388361, 11.186148]
-        },
-        {
-            name: "美国洛杉矶",
-            value: 2370,
-            coordinate: [-118.24311, 34.052713]
-        }, {
-            name: "香港邦泰",
-            value: 3130,
-            coordinate: [114.195466, 22.282751]
-        }, {
-            name: "美国芝加哥",
-            value: 2350,
-            coordinate: [-87.801833, 41.870975]
-        }, {
-            name: "加纳库马西",
-            value: 5120,
-            coordinate: [-4.62829, 7.72415]
-        }, {
-            name: "英国曼彻斯特",
-            value: 3110,
-            coordinate: [-1.657222, 51.886863]
-        }, {
-            name: "德国汉堡",
-            value: 6280,
-            coordinate: [10.01959, 54.38474]
-        }, {
-            name: "哈萨克斯坦阿拉木图",
-            value: 7255,
-            coordinate: [45.326912, 41.101891]
-        }, {
-            name: "俄罗斯伊尔库茨克",
-            value: 8125,
-            coordinate: [89.116876, 67.757906]
-        }, {
-            name: "巴西",
-            value: 3590,
-            coordinate: [-48.678945, -10.493623]
-        }, {
-            name: "埃及达米埃塔",
-            value: 3590,
-            coordinate: [31.815593, 31.418032]
-        }, {
-            name: "西班牙巴塞罗纳",
-            value: 3590,
-            coordinate: [2.175129, 41.385064]
-        }, {
-            name: "柬埔寨金边",
-            value: 3590,
-            coordinate: [104.88659, 11.545469]
-        }, {
-            name: "意大利米兰",
-            value: 3590,
-            coordinate: [9.189948, 45.46623]
-        }, {
-            name: "乌拉圭蒙得维的亚",
-            value: 3590,
-            coordinate: [-56.162231, -34.901113]
-        }, {
-            name: "莫桑比克马普托",
-            value: 3590,
-            coordinate: [32.608571, -25.893473]
-        }, {
-            name: "阿尔及利亚阿尔及尔",
-            value: 3590,
-            coordinate: [3.054275, 36.753027]
-        }, {
-            name: "阿联酋迪拜",
-            value: 3590,
-            coordinate: [55.269441, 25.204514]
-        }, {
-            name: "匈牙利布达佩斯",
-            value: 3590,
-            coordinate: [17.108519, 48.179162]
-        }, {
-            name: "澳大利亚悉尼",
-            value: 3590,
-            coordinate: [150.993137, -33.675509]
-        }, {
-            name: "美国加州",
-            value: 3590,
-            coordinate: [-121.910642, 41.38028]
-        }, {
-            name: "澳大利亚墨尔本",
-            value: 3590,
-            coordinate: [144.999416, -37.781726]
-        }, {
-            name: "墨西哥",
-            value: 3590,
-            coordinate: [-99.094092, 19.365711]
-        }, {
-            name: "加拿大温哥华",
-            value: 3590,
-            coordinate: [-123.023921, 49.311753]
-        }
-    ]
-}
-
 var series = [];
 var datas = [
-    [data1.city, data1],
+    [data.city, data.datas],
     // [data2.city, data2.datas],
 ]
 datas.forEach(function (item, i) {
     series.push({
-            name: item[0].name,
+            name: '',
             type: "effectScatter",
             coordinateSystem: "geo",
             zlevel: 2,
@@ -259,28 +47,14 @@ datas.forEach(function (item, i) {
             // }),
             data: '',
             tooltip: {
-                formatter: function (params, ticket, callback) {
-                    // console.log(option.series)
-                    console.log(params)
-                    //根据业务自己拓展要显示的内容
-                    var res = "";
-                    var name = params.name;
-                    // value[2] 是value，0 1 是坐标
-                    var value = params.value[2];
-                    var seriesname = params.data.city;
-                    // console.log(value);
-                    res =
-                        "<span style='color:#fff;'>" + name + '->' + seriesname +
-                        "</span><br/>数据：" +
-                        value;
-                    return res;
-                    // for (var i = 0; i < option.series[0].data.length; i++) {
-                    //     if (option.series[0].data[i].name == params) {
-                    //         return params + ":" + option.series[0].data[i].value + "起";
-                    //     }
-                    // }
-                }
-
+                // formatter: function (params, ticket, callback) {
+                //     console.log(params)
+                //     res ="<span style='color:#fff;'>" + params.name + '->' + params.seriesName +
+                //         "</span><br/>数据：" +
+                //         params.value[2];
+                //     return res;
+                // }
+                formatter: "{b}" + "->" + "{a}" + "=" + "{c}"
             },
         },
         //被攻击点
