@@ -1,8 +1,8 @@
 {
   "linkdatas": {
     "title": "连接数排序",
-    "datas": [{
-      "name": "美国",
+    "countrylinks": [{
+      "name": "ribe",
       "value": "3000"
     }, {
       "name": "英国",
@@ -93,15 +93,15 @@
     "datas": [{
       "name": "11-9",
       "value1": 3000,
-      "value2":1000
+      "value2": 1000
     }, {
       "name": "11-10",
       "value1": 4000,
-      "value2":2000
+      "value2": 2000
     }, {
       "name": "11-11",
       "value1": 5000,
-      "value2":3000
+      "value2": 3000
     }]
   },
   "countrydatas": {
@@ -109,26 +109,15 @@
     "datas": [{
       "name": "美国",
       "value1": 3000,
-      "value2":1000
+      "value2": 1000
     }, {
       "name": "英国",
       "value1": 4000,
-      "value2":2000
+      "value2": 2000
     }, {
       "name": "日本",
       "value1": 5000,
-      "value2":3000
+      "value2": 3000
     }]
-  },
-  "linkdetail":{
-    "data1":{
-      "date":"2018-12-10 14:20",
-      "sip":"1.1.1.1",
-      "dip":"2.2.2.2",
-      "sport":"3030",
-      "dport":"4040",
-      "up":"200",
-      "down":"100"
-    }
   }
 }

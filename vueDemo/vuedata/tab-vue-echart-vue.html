@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <title>Document</title>
   <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-  <script src="vue-dev/dist/vue.js"></script>
+  <script src="vue-2.5.17/dist/vue.js"></script>
   <script src="js/echarts.min.js"></script>
   <script src="js/world.js"></script>
   <script src="js/layui/layui.js"></script>
@@ -14,10 +14,11 @@
 
 <body>
   <div id="app" class="main">
+    <!-- <div><a href="https://www.baidu.com" target="_blank">打开新页面</a></div> -->
     <div id="map"></div>
     <div class="sort-table">
       <div class="stitle">
-        <i class="chart-control">></i><span>11</span>
+        <i class="chart-control">></i><span>连接数排序</span>
       </div>
       <div class="sort-info">
         <div class="sort-type">
@@ -41,8 +42,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr is="mytable" v-for="data in datas" v-bind:name="data.name"
-                  v-bind:value="data.value"></tr>
+                <tr is="mytable" v-for="data in linkdatas" v-bind:name="data.name" v-bind:value="data.value"></tr>
               </tbody>
             </table>
           </div>
@@ -63,10 +63,10 @@
       </div>
     </div>
     <div class="country-chart chartbox">
-			<div class="stitle ctitle"><i class="chart-control">></i><span>国家流量排序</span></div>
-			<div class="country-info chart">
-				<div id="countryBar" style="width: 100%;height: 100%"></div>
-			</div>
+      <div class="stitle ctitle"><i class="chart-control">></i><span>国家流量排序</span></div>
+      <div class="country-info chart">
+        <div id="countryBar" style="width: 100%;height: 100%"></div>
+      </div>
     </div>
     <div class="layerdiv">
       <table id="flowtable" style="">
@@ -97,47 +97,55 @@
 <script>
   Vue.component('mytable', {
     props: ['name', 'value'],
-    template: '<tr><td v-on:click="thing">{{name}}</td><td>{{value}}</td></tr>'
+    template: '<tr><td>{{name}}</td><td>{{value}}</td></tr>'
   })
   var app = new Vue({
     el: '#app',
     data: {
-      // linkdatas: '',
-      datas:[]
+      linkdatas: '',
+      intervalid: ''
+      // datas: []
       // departmentlinks: []
     },
     mounted() {
+      var json = 'link.json'
       this.$nextTick(function () {
         var that = this
-        $.ajax({
-          type: 'get',
-          url: 'link.json',
-          dataType: 'json',
-          success: function (data) {
-            // that.linkdatas = data.linkdatas;
-            that.datas = data.linkdatas.datas;
-            console.log(that.datas)
-            that.mapechart(data.mapdatas);
-            that.barechart(data.portdatas.datas);
-            that.lineechart(data.flowdatas.datas);
-            that.stackbarechart(data.countrydatas.datas);
-          }
-        })
+        that.intervalid = setInterval(function () {
+          // if (json == 'link.json') {
+          //   json = "link2.json"
+          // } else {
+          //   json = "link.json"
+          // }
+          $.ajax({
+            type: 'get',
+            url: json,
+            dataType: 'json',
+            success: function (data) {
+              that.linkdatas = data.linkdatas.countrylinks;
+              console.log(that.linkdatas[0].name)
+              that.mapechart(data.mapdatas);
+              that.barechart(data.portdatas.datas);
+              that.lineechart(data.flowdatas.datas);
+              that.stackbarechart(data.countrydatas.datas);
+            }
+          })
+        }, 5000);
       })
     },
     methods: {
-      thing:function(){
+      thing: function () {
         var layer = layui.layer;
-			layui.use('layer', function () {
-				var layer = layui.layer;
-				layer.open({
-					title: 'XXX联通详情',
-					type: 1,
-					skin: 'myskin',
-					content: $('.layerdiv'),
-					area: ['600px', '400px'],
-				})
-			})
+        layui.use('layer', function () {
+          var layer = layui.layer;
+          layer.open({
+            title: 'XXX联通详情',
+            type: 1,
+            skin: 'myskin',
+            content: $('.layerdiv'),
+            area: ['600px', '400px'],
+          })
+        })
       },
       pushData: function (datas) {
         var data = {}
@@ -381,7 +389,7 @@
           series: [{
               name: '上行流量',
               type: 'line',
-              data:  data.value1,
+              data: data.value1,
               markPoint: {
                 data: [{
                     type: 'max',
@@ -406,7 +414,7 @@
             {
               name: '下行流量',
               type: 'line',
-              data:  data.value2,
+              data: data.value2,
               markPoint: {
                 data: [{
                     type: 'max',
@@ -434,7 +442,7 @@
         var flowChart = echarts.init(document.getElementById('flowLine'));
         flowChart.setOption(option);
       },
-      stackbarechart:function(datas){
+      stackbarechart: function (datas) {
         var data = {}
         data.name = []
         data.value1 = []
@@ -445,63 +453,66 @@
           data.value2.push(item.value2)
         })
         option = {
-    title: {
-        text: '国家流量排序图',
-        // subtext: '2018/11/12 下午2:44:44',
-        left: 'left',
-    },
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: { // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-        }
-    },
+          title: {
+            text: '国家流量排序图',
+            // subtext: '2018/11/12 下午2:44:44',
+            left: 'left',
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
 
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        top: 50,
-        containLabel: true
-    },
-    yAxis: {
-        type: 'value'
-    },
-    xAxis: {
-        type: 'category',
-        data: data.name
-    },
-    series: [{
-            name: '上行流量',
-            type: 'bar',
-            stack: '总量',
-            label: {
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: 50,
+            containLabel: true
+          },
+          yAxis: {
+            type: 'value'
+          },
+          xAxis: {
+            type: 'category',
+            data: data.name
+          },
+          series: [{
+              name: '上行流量',
+              type: 'bar',
+              stack: '总量',
+              label: {
                 normal: {
-                    show: true,
-                    position: 'insideRight'
+                  show: true,
+                  position: 'insideRight'
                 }
-            },
-            data: data.value1
+              },
+              data: data.value1
 
-        },
-        {
-            name: '下行流量',
-            type: 'bar',
-            stack: '总量',
-            label: {
+            },
+            {
+              name: '下行流量',
+              type: 'bar',
+              stack: '总量',
+              label: {
                 normal: {
-                    show: true,
-                    position: 'insideRight'
+                  show: true,
+                  position: 'insideRight'
                 }
-            },
-            data: data.value2
+              },
+              data: data.value2
 
-        },
-    ]
-};
-var countryChart = echarts.init(document.getElementById('countryBar'));
-countryChart.setOption(option);
+            },
+          ]
+        };
+        var countryChart = echarts.init(document.getElementById('countryBar'));
+        countryChart.setOption(option);
       }
+    },
+    beforeDestroy() {
+      clearInterval(this.intervalid)
     },
   })
 </script>
