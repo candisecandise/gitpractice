@@ -112,11 +112,6 @@
       this.$nextTick(function () {
         var that = this
         that.intervalid = setInterval(function () {
-          // if (json == 'link.json') {
-          //   json = "link2.json"
-          // } else {
-          //   json = "link.json"
-          // }
           $.ajax({
             type: 'get',
             url: json,

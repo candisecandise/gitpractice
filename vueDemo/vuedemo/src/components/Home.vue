@@ -39,23 +39,15 @@
             <i v-show="isCollapse" class="el-icon-d-arrow-right"></i>
           </div>
           <!-- 我是样例菜单 -->
-          <el-menu
-            default-active="/"
-            router
-            class="el-menu-demo tab-page"
-            mode="horizontal"
-            @select="handleSelect"
-            active-text-color="#409EFF"
-          >
-            <el-menu-item index="/">首页</el-menu-item>
+          <el-menu>
+            <el-menu-item index="/">内容</el-menu-item>
           </el-menu>
-
           <div class="app-header-userinfo">
             <el-dropdown trigger="hover" :hide-on-click="false">
-              <span class="el-dropdown-link">
-                {{ username }}
-                <i class="el-icon-arrow-down el-icon--right"></i>
-              </span>
+              <!-- <span class="el-dropdown-link"> -->
+              <!-- {{ username }} -->
+              <i class="el-icon-arrow-down el-icon--right"></i>
+              <!-- </span> -->
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>我的消息</el-dropdown-item>
                 <el-dropdown-item>设置</el-dropdown-item>
