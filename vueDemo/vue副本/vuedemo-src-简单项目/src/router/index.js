@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Hello from '@/components/Hello'
 import FirstPart from '@/components/HomeComponents/FirstPart'
 import SecondPart from '@/components/HomeComponents/SecondPart'
 
@@ -10,10 +9,10 @@ Vue.use(Router)
 export default new Router({
   routes: [{
     path: '/',
-    name: '1',
-    component: Hello,
+    name: 'Home',
+    component: Home,
     children: [{
-        path: 'FirstPart',
+        path: '/',
         name: 'FirstPart',
         component: FirstPart
       },

@@ -22,7 +22,7 @@
               v-if="route.children && route.children.length"
             >
               <template v-for="item in route.children">
-                <el-menu-item :key="route.path + '/' + item.path" :index="item.name">
+                <el-menu-item :key="route.path + '/' + item.path" :index="item.path">
                   <i class="el-icon-menu"></i>
                   <span slot="title">{{ item.name }}</span>
                 </el-menu-item>

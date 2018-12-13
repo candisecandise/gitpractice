@@ -1,16 +1,14 @@
 <template>
-  <!-- <div>
-    <h2>this is First part</h2>
-  </div>-->
-  <el-table :data="tableData">
-    <el-table-column prop="date" label="日期"></el-table-column>
-    <el-table-column prop="name" label="姓名"></el-table-column>
-    <el-table-column prop="address" label="地址"></el-table-column>
-  </el-table>
+  <div>
+    <FirstPart></FirstPart>
+  </div>
 </template>
 
 <script>
+import FirstPart from "./FirstPart.vue";
 export default {
+  //2.然后,在components中写入子组件
+  components: { FirstPart },
   data() {
     return {
       tableData: [
@@ -30,8 +28,8 @@ export default {
         url: "/api/data",
         dataType: "json",
         success: function(res) {
-          _self.tableData = res.data;
-          console.log(_self.tableData);
+          _self.tableData = res.newdata;
+          console.log("22" + res.newdata);
         }
       });
     });
@@ -39,5 +37,3 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
