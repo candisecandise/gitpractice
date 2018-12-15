@@ -1,0 +1,55 @@
+{
+  "emmet.syntaxProfiles": {
+    "vue-html": "html",
+    "vue": "html"
+  },
+  //为了符合eslint的两个空格间隔原则
+  "editor.tabSize": 2,
+  //使用eslint规则重新格式化代码
+  "eslint.autoFixOnSave": true,
+  //每次保存的时候自动格式化
+  "editor.formatOnSave": true,
+  //每次保存的时候将代码按eslint格式进行修复
+  "eslint.autoFixOnSave": false,
+  //关闭自动文件自动存储
+  "files.autoSave": "off",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "jsx",
+    "vue",
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ],
+  "eslint.options": {
+    "plugins": ["html"]
+  },
+  //让prettier使用eslint的代码格式进行校验
+  "prettier.eslintIntegration": true,
+  //去掉代码结尾的分号
+  "prettier.semi": false,
+  //使用带引号替代双引号
+  "prettier.singleQuote": true,
+  //让函数(名)和后面的括号之间加个空格
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "liveServer.settings.port": 8080, //设置本地服务的端口号
+  "liveServer.settings.root": "/", //设置根目录，也就是打开的文件会在该目录下找
+  "liveServer.settings.CustomBrowser": "chrome", //设置默认打开的浏览器
+  "liveServer.settings.AdvanceCustomBrowserCmdLine": "chrome --incognito --remote-debugging-port=9222",
+  "liveServer.settings.NoBrowser": false,
+  "liveServer.settings.ignoredFiles": [ //设置忽略的文件
+    ".vscode/**",
+    "**/*.scss",
+    "**/*.sass"
+  ],
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "terminal.integrated.rendererType": "dom"
+
+}

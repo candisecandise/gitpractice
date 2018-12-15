@@ -1,7 +1,4 @@
 <template>
-  <!-- <div>
-    <h2>this is First part</h2>
-  </div>-->
   <el-table :data="tableData">
     <el-table-column prop="date" label="日期"></el-table-column>
     <el-table-column prop="name" label="姓名"></el-table-column>

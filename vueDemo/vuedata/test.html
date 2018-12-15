@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Document</title>
-    <script src="vue-2.5.17/dist/vue.js"></script>
-  </head>
 
-  <body>
-    <div id="app">
-      <input type="text" value="" v-model="number" />
-      <div style="margin-top:10px">我是双向绑定的数据: {{ number }}</div>
-    </div>
-    <script>
-      var vm = new Vue({
-        el: '#app',
-        data: {
-          number: ''
-        }
-      })
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script src="vue-2.5.17/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div style="margin-top:10px">{{ number }}</div>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        number: 'hello world'
+      }
+    })
+  </script>
+</body>
+
 </html>
