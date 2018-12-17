@@ -4,12 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <title>Document</title>
-  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-  <script src="vue-2.5.17/dist/vue.js"></script>
-  <script src="js/echarts.min.js"></script>
-  <script src="js/world.js"></script>
-  <script src="js/layui/layui.js"></script>
-  <link rel="stylesheet" href="css/common.css" />
+  <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+  <script src="../vue-2.5.17/dist/vue.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/world.js"></script>
+  <script src="../js/layui/layui.js"></script>
+  <link rel="stylesheet" href="../css/common.css" />
+  <style>
+    .chartbox {
+      display: none
+    }
+  </style>
 </head>
 
 <body>
@@ -152,6 +157,29 @@
         })
         return data
       },
+      linesdata: function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+          res.push({
+            fromName: data[i].fromName,
+            toName: data[i].toName,
+            coords: [data[i].fromCoord, data[i].toCoord],
+            value: data[i].value,
+          });
+        }
+        console.log(res)
+        return res;
+      },
+      singledata: function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+          res.push({
+            name: data[i].name,
+            value: data[i].coord.concat(data[i].value),
+          });
+        }
+        return res;
+      },
       barechart: function (datas) {
         var data = this.pushData(datas)
         option = {
@@ -202,99 +230,69 @@
         portChart.setOption(option);
       },
       mapechart: function (datas) {
-        var data = datas.mapdata
+        var mapdata = datas.mapdata;
+        var mapscatter = datas.mapscatter;
         var series = [];
-        var mapdatas = [];
-        for (var key in datas) {
-          mapdatas.push(datas[key])
-        }
-        mapdatas.forEach(function (item) {
-          series.push({
-              name: item.city.name,
-              type: "scatter",
-              coordinateSystem: "geo",
-              zlevel: 2,
-              rippleEffect: {
-                period: 4,
-                brushType: "stroke",
-                scale: 4
-              },
-              label: {
-                normal: {
-                  show: true,
-                  position: "right",
-                  formatter: "{b}",
-                  textStyle: {
-                    // color: "#0bc7f3"
-                  }
-                },
-                emphasis: {
-                  show: true
-                }
-              },
-              symbol: "pin",
-              symbolSize: 30,
-              itemStyle: {
-                normal: {
-                  show: true,
-                }
-              },
-              data: [{
-                name: item.city.name,
-                value: item.city.coordinate
-              }],
-              tooltip: {
-                formatter: "{b}"
-              }
-            }, {
-              name: item.city.name,
-              type: "effectScatter",
-              coordinateSystem: "geo",
-              zlevel: 2,
-              rippleEffect: {
-                //涟漪特效
-                period: 4, //动画时间，值越小速度越快
-                brushType: "stroke", //波纹绘制方式 stroke, fill
-                scale: 4 //波纹圆环最大限制，值越大波纹越大
-              },
-              label: {
-                normal: {
-                  show: true,
-                  position: "right", //显示位置
-                  offset: [5, 0], //偏移设置
-                  formatter: "{b}" //圆环显示文字
-                },
-                emphasis: {
-                  show: true,
-                }
-              },
-              symbol: "circle",
-              symbolSize: function (val) {
-                return 4 + val[2] / 1000; //圆环大小
-              },
-              itemStyle: {
-                color: '#FF6E00'
-              },
-              data: item.datas.map(function (dataItem) {
-                return {
-                  name: dataItem.name,
-                  value: dataItem.coordinate.concat(dataItem.value),
-                  city: dataItem.city
-                };
-              }),
-              tooltip: {
-                formatter: function (params, ticket, callback) {
-                  res = "<span style='color:#fff;'>" + params.name + '->' + params.seriesName +
-                    "</span><br/>数据：" +
-                    params.value[2];
-                  return res;
-                }
-              },
+        series.push({
+          type: "lines",
+          zlevel: 2,
+          effect: {
+            show: true,
+            period: 20, //箭头指向速度，值越小速度越快
+            trailLength: 0.5, //特效尾迹长度[0,1]值越大，尾迹越长重
+            symbol: "arrow", //箭头图标
+            symbolSize: 5 //图标大小
+          },
+          lineStyle: {
+            normal: {
+              width: 1, //尾迹线条宽度
+              opacity: 0.2, //尾迹线条透明度
+              curveness: 0.3 //尾迹线条曲直度
+            }
+          },
+          data: this.linesdata(mapdata),
+          tooltip: {
+            formatter: function (params, ticket, callback) {
+              res = params.data.fromName + "->" + params.data.toName + "</span><br/>数据：" + params.value;
+              return res;
+            }
+          },
+        });
+        series.push(
+          //被攻击点
+          {
+            type: "scatter",
+            coordinateSystem: "geo",
+            zlevel: 2,
+            rippleEffect: {
+              period: 1,
+              brushType: "stroke",
+              scale: 4
             },
-            //被攻击点
-
-          );
-        })
+            label: {
+              normal: {
+                show: true,
+                position: "right", //显示位置
+                formatter: "{b}" //圆环显示文字
+              },
+              emphasis: {
+                show: true,
+              }
+            },
+            symbol: "circle",
+            symbolSize: 20,
+            itemStyle: {
+              color: '#FF6E00'
+            },
+            data: this.singledata(mapscatter),
+            tooltip: {
+              formatter: function (params, ticket, callback) {
+                res = params.data.name + "</span><br/>数据：" + params.value[2];
+                return res;
+              }
+            },
+          },
+        );
         option = {
           backgroundColor: '#f5f3f0',
           tooltip: {

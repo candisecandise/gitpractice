@@ -10,7 +10,8 @@
     .main {
       width: 500px;
       margin: 0 auto;
-      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, 'PingFang SC',
+        'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
       padding: 10px;
       text-align: center;
     }
@@ -21,7 +22,7 @@
     }
 
     .main div span {
-      color: darkgoldenrod
+      color: darkgoldenrod;
     }
 
     table {
@@ -49,7 +50,7 @@
 <body>
   <div id="app" class="main">
     <div>
-      表格名称：<span>{{ title }}</span>
+      表格名称：<span v-bind:style="{color:color}">{{ title }}</span>
     </div>
     <table>
       <thead>
@@ -62,7 +63,6 @@
         <tr is="mytable" v-for="ajaxdata in ajaxdatas" v-bind:name="ajaxdata.name" v-bind:value="ajaxdata.value"></tr>
       </tbody>
     </table>
-
   </div>
 </body>
 <script>
@@ -75,6 +75,7 @@
     data: {
       title: '',
       ajaxdatas: [],
+      color: 'red'
     },
     mounted() {
       this.$nextTick(function () {
@@ -89,7 +90,7 @@
           }
         })
       })
-    },
+    }
   })
 </script>
 
