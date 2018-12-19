@@ -1,0 +1,80 @@
+{
+  "iops": {
+    "datas": [{
+      "name": "13:10",
+      "read": 400,
+      "write": 550,
+      "restore": 320
+    }, {
+      "name": "13:15",
+      "read": 700,
+      "write": 750,
+      "restore": 720
+    }, {
+      "name": "13:20",
+      "read": 600,
+      "write": 650,
+      "restore": 620
+    }, {
+      "name": "13:25",
+      "read": 500,
+      "write": 550,
+      "restore": 520
+    }, {
+      "name": "13:30",
+      "read": 400,
+      "write": 450,
+      "restore": 420
+    }, {
+      "name": "13:35",
+      "read": 300,
+      "write": 350,
+      "restore": 320
+    }]
+  },
+  "bandwidth": {
+    "datas": [{
+      "name": "13:10",
+      "read": 800,
+      "write": 850,
+      "restore": 820
+    }, {
+      "name": "13:15",
+      "read": 700,
+      "write": 750,
+      "restore": 720
+    }, {
+      "name": "13:20",
+      "read": 600,
+      "write": 650,
+      "restore": 620
+    }, {
+      "name": "13:25",
+      "read": 500,
+      "write": 550,
+      "restore": 520
+    }, {
+      "name": "13:30",
+      "read": 400,
+      "write": 450,
+      "restore": 420
+    }, {
+      "name": "13:35",
+      "read": 300,
+      "write": 0,
+      "restore": 310
+    }]
+  },
+  "capacitydatas": {
+    "datas": [{
+      "name": "已使用的",
+      "value": "300"
+    }, {
+      "name": "错误的",
+      "value": "0"
+    }, {
+      "name": "未使用的",
+      "value": "100"
+    }]
+  }
+}
