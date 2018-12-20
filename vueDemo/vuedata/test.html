@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <title>Document</title>
-  <script src="vue-2.5.17/dist/vue.js"></script>
+  <script src="vue-dev/dist/vue.js"></script>
 </head>
 
 <body>
   <div id="app">
-    <div style="margin-top:10px">{{ number }}</div>
+    我是双向绑定的数据
+    <div style="margin-top:10px"><input type="text" v-model='number'>{{ number }}</div>
   </div>
   <script>
     var vm = new Vue({
