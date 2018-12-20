@@ -21,15 +21,19 @@ export default {
   },
   mounted() {
     this.$nextTick(function() {
-      var _self = this;
-      $.ajax({
-        type: "POST",
-        url: "/api/data",
-        dataType: "json",
-        success: function(res) {
-          _self.tableData = res.data;
-          console.log(_self.tableData);
-        }
+      // var _self = this;
+      // $.ajax({
+      //   type: "POST",
+      //   url: "/api/data",
+      //   dataType: "json",
+      //   success: function(res) {
+      //     _self.tableData = res.data;
+      //     console.log(_self.tableData);
+      //   }
+      // });
+      this.$axios.get("/api/data").then(res => {
+        this.tableData = res.data.data;
+        console.log(res.data);
       });
     });
   }
