@@ -60,12 +60,17 @@
           </div>
         </div>
       </div>
+      <div>
+        <button v-on:click="search"></button>
+        <div>{{value}}</div>
+      </div>
     </div>
   </div>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
+        value: "1111"
         // datas: []
         // departmentlinks: []
       },
@@ -89,17 +94,10 @@
       },
       methods: {
         lineechart: function (data, id, title) {
-          var data1 = {};
-          data1.name = [];
-          data1.read = [];
-          data1.write = [];
-          data1.restore = [];
-          data.datas.forEach(function (item) {
-            data1.name.push(item.name)
-            data1.read.push(item.read)
-            data1.write.push(item.write)
-            data1.restore.push(item.restore)
-          })
+          var datas = new Array();
+          datas.push(data.read);
+          datas.push(data.write);
+          datas.push(data.restore);
           color = ['#47a2ff', '#ffc100', '#337ab7']
           if (title == "带宽") {
             color = ['#47a2ff', '#ffc100', '#aec785']
@@ -122,14 +120,12 @@
                 borderRadius: 2
               },
               formatter: function (name) {
-                var le = data.datas.length;
-                console.log(le)
+                var le = data.read.length;
                 var oa = option.series;
                 var val, res;
                 for (var i = 0; i < oa.length; i++) {
                   if (name == oa[i].name) {
-                    val = oa[i].data[le - 1]
-                    console.log(val)
+                    val = datas[i][le - 1]
                     res = name + '{b|' + val + '}'
                     if (val == 0) {
                       res = '{a|' + name + '}' + '{c|' + val + '}'
@@ -162,7 +158,7 @@
             xAxis: {
               type: 'category',
               boundaryGap: false,
-              data: data1.name
+              data: data.name
               // data: ['13:45', '13:50', '13:55', '14:00', '14:05', '14:10', '14:15']
             },
             yAxis: {
@@ -174,7 +170,7 @@
             },
             series: [{
                 name: '读',
-                data: data1.read,
+                data: data.read,
                 type: 'line',
                 areaStyle: {
                   opacity: 0.4
@@ -182,7 +178,7 @@
               },
               {
                 name: '写',
-                data: data1.write,
+                data: data.write,
                 type: 'line',
                 areaStyle: {
                   opacity: 0.4
@@ -190,7 +186,7 @@
               },
               {
                 name: '恢复',
-                data: data1.restore,
+                data: data.restore,
                 type: 'line',
                 areaStyle: {
                   opacity: 0.4

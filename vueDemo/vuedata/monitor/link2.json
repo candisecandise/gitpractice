@@ -1,0 +1,19 @@
+[{
+  "name": "osa.533",
+  "adminip": "1.1.1.1",
+  "gatewayip": "1.1.1.1",
+  "publicip": "1.1.1.1",
+  "clusterip": "1.1.1.1",
+  "state": 0,
+  "server-health": 1,
+  "server-alarm": 1,
+  "server-error": 1,
+  "cpu-used": 5.3,
+  "cpu-total": 100,
+  "mem-used": 5.3,
+  "mem-total": 125,
+  "disk-used": 5.3,
+  "disk-total": 1.81,
+  "io-used": 11,
+  "disknum": 5
+}]

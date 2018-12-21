@@ -79,16 +79,22 @@
     },
     mounted() {
       this.$nextTick(function () {
-        var that = this
-        $.ajax({
-          type: 'get',
-          url: 'link2.json',
-          dataType: 'json',
-          success: function (data) {
-            that.title = data.title
-            that.ajaxdatas = data.ajaxdatas
-          }
-        })
+        // var that = this
+        // $.ajax({
+        //   type: 'get',
+        //   url: 'link2.json',
+        //   dataType: 'json',
+        //   success: function (data) {
+        //     that.title = data.title
+        //     that.ajaxdatas = data.ajaxdatas
+        //   }
+        // })
+        this.$axios.get("/link2.json").then(res => {
+          var data = res.data.data;
+          that.title = data.title
+          that.ajaxdatas = data.ajaxdatas
+          console.log(res.data);
+        });
       })
     }
   })
