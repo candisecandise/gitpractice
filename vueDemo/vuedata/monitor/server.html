@@ -83,16 +83,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="data in datas">
                     <td><a>osa.533</a></td>
                     <td>1.1.1.1</td>
-                    <td><i class="state" v-bind:style="{backgroundColor:statecolor}">{{statename}}</i></td>
+                    <!-- {} 代表对象 -->
+                    <!-- <td><i class="state" v-bind:style="{backgroundColor:statecolor}">{{statename}}</i></td> -->
+                    <td><i class="state" v-bind:class="data.state=='active'?'healthy':'error'">{{data.state=='active'?'正常':'错误'}}</i></td>
                     <td><i class="server-state normal"></i></td>
-                    <td><i class="cpu-use"><b></b></i></td>
-                    <td><i class="mem-use"><b></b></i></td>
-                    <td><i class="disk-use"><b></b></i></td>
-                    <td>11%</td>
-                    <td>11</td>
+                    <td><i class="cpu-use"><b v-bind:style="{width:data.cpuUsed}"></b>{{data.cpuUsed}}</i></td>
+                    <td><i class="mem-use"><b v-bind:style="{width:data.memUsed}"></b>{{data.memUsed}}</i></td>
+                    <td><i class="disk-use"><b v-bind:style="{width:data.diskUsed}"></b>{{data.diskUsed}}</i></td>
+                    <td>{{data.ioUsed}}</td>
+                    <td>{{data.diskNum}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -113,9 +115,8 @@
     var app = new Vue({
       el: '#app',
       data: {
-        statevalue: '',
-        statecolor: '',
-        statename: '',
+        datas: [],
+        width: ' 50%'
 
       },
       computed: {
@@ -126,24 +127,13 @@
           var that = this
           axios.get('link2.json').then(function (data) {
             console.log(data.data)
-            this.statevalue = data.data[0].state;
-            that.capstate(data.data[0].state)
+            that.datas = data.data;
+            console.log(that.datas[0].ioUsed)
           })
         })
       },
       methods: {
-        capstate: function (data) {
-          if (data == 0) {
-            this.statecolor = '#aec785'
-            this.statename = '健康'
-          } else if (data == 1) {
-            this.statecolor = '#ffc100'
-            this.statename = '警告'
-          } else if (data == 2) {
-            this.statecolor = '#fa8564'
-            this.statename = '错误'
-          }
-        }
+
       }
     })
   </script>
