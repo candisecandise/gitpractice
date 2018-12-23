@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- import Vue before Element -->
+  <script src="../vue-2.5.17/dist/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <el-container>
+      <el-header height="20">
+        <h1>ToDoList</h1>
+      </el-header>
+      <el-main>
+        <el-input placeholder="回车添加待办事项" class="todoinput" v-model="newtodo.content" @keyup.enter.native="add"></el-input>
+        <p>进行中：{{todolist.length}} 已完成：{{donenum}}</p>
+        <el-row v-for="(item,index) in todolist" class="list-row">
+          <el-col :xs="2" :md="1" :lg="1" :xl="1" class="check red">
+            <el-checkbox v-model="item.done" size="mini"></el-checkbox>
+          </el-col>
+          <el-col :xs="20" :md="22" :lg="22" :xl="22">
+            <input type="text" v-model="item.content" size="mini" class="ipcont" :class="{done: todolist[index].done}">
+          </el-col>
+          <el-col :xs="2" :md="1" :lg="1" :xl="1" class="close">
+            <i class="el-icon-close" @click="del(index)"></i>
+          </el-col>
+        </el-row>
+      </el-main>
+    </el-container>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        newtodo: {
+          content: '',
+          done: false
+        },
+        todolist: [{
+          content: '现在开始吧',
+          done: false
+        }]
+      },
+      methods: {
+        add: function () {
+          if (this.newtodo.content) {
+            this.todolist.push(this.newtodo);
+            this.newtodo = {
+              content: '',
+              done: false
+            }
+          }
+        },
+        del: function (index) {
+          this.todolist.splice(index, 1)
+        }
+      },
+      computed: {
+        donenum: function () {
+          return this.todolist.filter(function (val) {
+            return val.done
+          }).length
+        }
+      }
+    })
+  </script>
+  <style>
+    #app {
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+      color: #756C83;
+    }
+
+    .el-header {
+      text-align: center;
+    }
+
+    .todoinput {
+      margin-bottom: 40px;
+    }
+
+    .list-row {
+      height: 40px;
+      margin-bottom: 5px;
+      background-color: #fbfbfb
+    }
+
+    .check {
+      text-align: center;
+      line-height: 40px;
+    }
+
+    .red {
+      border-left: #ef5f65 2px solid;
+    }
+
+    .ipcont {
+      width: 90%;
+      margin-top: 8px;
+      border: 0;
+      line-height: 24px;
+      background-color: transparent;
+      font-size: 16px;
+      color: #756C83;
+    }
+
+    .close {
+      line-height: 40px;
+      text-align: center
+    }
+
+    .el-icon-close {
+      cursor: pointer
+    }
+
+    .el-icon-close:hover {
+      color: #ef5f65
+    }
+
+    .done {
+      text-decoration: line-through
+    }
+  </style>
+</body>

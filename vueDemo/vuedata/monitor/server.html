@@ -83,16 +83,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="data in datas">
+                  <tr v-for="(data,index) of datas" :key="index">
                     <td><a>osa.533</a></td>
                     <td>1.1.1.1</td>
                     <!-- {} 代表对象 -->
                     <!-- <td><i class="state" v-bind:style="{backgroundColor:statecolor}">{{statename}}</i></td> -->
-                    <td><i class="state" v-bind:class="data.state=='active'?'healthy':'error'">{{data.state=='active'?'正常':'错误'}}</i></td>
-                    <td><i class="server-state normal"></i></td>
-                    <td><i class="cpu-use"><b v-bind:style="{width:data.cpuUsed}"></b>{{data.cpuUsed}}</i></td>
-                    <td><i class="mem-use"><b v-bind:style="{width:data.memUsed}"></b>{{data.memUsed}}</i></td>
-                    <td><i class="disk-use"><b v-bind:style="{width:data.diskUsed}"></b>{{data.diskUsed}}</i></td>
+                    <!-- <td><i class="state" v-bind:class="data.state=='active'?'healthy':'error'">{{data.state=='active'?'正常':'错误'}}</i></td> -->
+                    <td><i class="state" v-bind:class="isState(data)">{{data.state=='active'?'正常':'错误'}}</i></td>
+                    <td><i class="server-state" v-bind:class="isServerState(data)"></i></td>
+                    <td><i class="cpu-use"><b v-bind:style="{width:data.cpuUsed}"></b></i><span>{{data.cpuUsed}}</span></td>
+                    <td><i class="mem-use"><b v-bind:style="{width:data.memUsed}"></b></i><span>{{data.memUsed}}</span></td>
+                    <td><i class="disk-use"><b v-bind:style="{width:data.diskUsed}"></b></i><span>{{data.diskUsed}}</span></td>
                     <td>{{data.ioUsed}}</td>
                     <td>{{data.diskNum}}</td>
                   </tr>
@@ -116,19 +117,34 @@
       el: '#app',
       data: {
         datas: [],
-        width: ' 50%'
-
+        // isServerState: {
+        //   normal: 0,
+        //   error: 2
+        // }
       },
       computed: {
-
+        // 计算属性传值利用了闭包传值
+        isState() {
+          return function (data) {
+            return data.state == 'active' ? 'healthy' : 'error'
+          }
+        },
+        isServerState() {
+          return function (data) {
+            return {
+              normal: data.serverNormal && !data.serverError && !data.serverAlarm,
+              error: data.serverError && !data.serverAlarm,
+              alarm: !data.serverError && data.serverAlarm,
+              errorAlarm: data.serverError && data.serverAlarm,
+            }
+          }
+        }
       },
       mounted() {
         this.$nextTick(function () {
           var that = this
           axios.get('link2.json').then(function (data) {
-            console.log(data.data)
             that.datas = data.data;
-            console.log(that.datas[0].ioUsed)
           })
         })
       },

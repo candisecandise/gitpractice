@@ -263,6 +263,18 @@ i.server-state.normal {
   background: url(img/server-normal.png)
 }
 
+i.server-state.error {
+  background: url(img/server-error.png)
+}
+
+i.server-state.alarm {
+  background: url(img/server-alarm.png)
+}
+
+i.server-state.errorAlarm {
+  background: url(img/server-error-alarm.png)
+}
+
 .zf-table i[class$='use'] {
   width: 72px;
   height: 8px;
@@ -278,5 +290,9 @@ i[class$='use'] b {
   border-radius: 4px 0 0 4px;
   border: 1px solid #47a2ff;
   background-color: #47a2ff;
+}
 
+
+i[class$='use']+span {
+  display: block;
 }

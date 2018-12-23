@@ -74,25 +74,57 @@
         // datas: []
         // departmentlinks: []
       },
-      mounted() {
-        var json = 'link.json'
-        this.$nextTick(function () {
-          var that = this
-          // that.intervalid = setInterval(function () {
+      created() {
+        var that = this
+        $.ajax({
+          type: 'get',
+          url: 'link.json',
+          dataType: 'json',
+          success: function (data) {
+            that.initechart(data)
+          }
+        })
+        that.intervalid = setInterval(function () {
           $.ajax({
             type: 'get',
-            url: json,
+            url: 'link.json',
             dataType: 'json',
             success: function (data) {
-              that.lineechart(data.iops, "cluster1", 'IOPS')
-              that.lineechart(data.bandwidth, "cluster2", "带宽")
-              that.pieechart(data.capacitydatas, 'cluster-capacity')
+              that.initechart(data)
             }
           })
-          // }, 5000)
-        })
+        }, 10000)
       },
+      // mounted() {
+      //   this.$nextTick(function () {
+      //     var that = this;
+      //     $.ajax({
+      //       type: 'get',
+      //       url: 'link.json',
+      //       dataType: 'json',
+      //       success: function (data) {
+      //         that.initechart(data)
+      //       }
+      //     })
+      //     // that.intervalid = setInterval(function () {
+      //     $.ajax({
+      //       type: 'get',
+      //       url: 'link.json',
+      //       dataType: 'json',
+      //       success: function (data) {
+      //         that.initechart(data)
+      //       }
+      //     })
+      //     // }, 10000)
+      //   })
+      // },
       methods: {
+        search: function () {},
+        initechart: function (data) {
+          this.lineechart(data.iops, "cluster1", 'IOPS')
+          this.lineechart(data.bandwidth, "cluster2", "带宽")
+          this.pieechart(data.capacitydatas, 'cluster-capacity')
+        },
         lineechart: function (data, id, title) {
           var datas = new Array();
           datas.push(data.read);
