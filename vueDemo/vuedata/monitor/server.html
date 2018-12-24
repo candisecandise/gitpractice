@@ -45,9 +45,10 @@
             </div>
             <div class="form-inline-item">
               <div class="form-element">
-                <input name="" id="" class="form-input-element input-lg input-search" placeholder="请输入如硬盘名称">
+                <input name="" id="" class="form-input-element input-lg input-search" placeholder="请输入如硬盘名称" v-model="form.text"
+                  @keyup.enter="searchForm">
                 </input>
-                <i>查询</i>
+                <i v-on:click="searchForm">查询</i>
               </div>
             </div>
           </form>
@@ -127,13 +128,21 @@
     var app = new Vue({
       el: '#app',
       data: {
+        form: {
+          text: ''
+        },
+        pagination: {
+          pageTotal: 20,
+          pageSize: 10,
+          currentPage: 1,
+        },
         datas: [],
-        // pagination: {
-        //   pageTotal: 20,
-        //   pageSize: 10,
-        //   currentPage: 1,
-        // }
-        pagination: ''
+        data: {
+          formData: '',
+          pageSize: 10,
+          currentPage: 1
+        }
+        // pagination: ''
       },
       computed: {
         // 计算属性传值利用了闭包传值
@@ -157,39 +166,46 @@
         this.$nextTick(function () {
           var that = this
           this.initTable(that)
-          // this.setPages();
         })
       },
       methods: {
-        setPages: function () {
-          var that = this
-          axios.post('page.json').then(function (data) {
-            console.log(data.data)
-            that.pageTotal = data.data.pageTotal;
-            that.pageSize = data.data.pageSize;
-            that.currentPage = data.data.currentPage;
-          })
-        },
-        initTable: function (that, value) {
-          var url = 'https://easy-mock.com/mock/5c136ed6d8ccbb0677a83784/example/monitor'
-          // var url = "link2.json"
+        initTable: function (that, data) {
           axios.get("https://easy-mock.com/mock/5c136ed6d8ccbb0677a83784/example/monitor", {
-            params: {
-              pageSize: value
-            }
+            params: data
           }).then(function (data) {
+            that.form = data.data.form
             that.datas = data.data.datas;
             that.pagination = data.data.pagination;
           })
         },
+        searchForm: function () {
+          console.log("=============search")
+          console.log(this.form.text)
+          this.data = {
+            formData: this.form.text,
+            pageSize: this.pagination.pageSize,
+            currentPage: this.pagination.currentPage
+          }
+        },
         handleSizeChange: function (val) {
-          // this.pagination.pageSize = val
+          this.pagination.pageSize = val
           console.log(`每页 ${val} 条`);
-          // this.initTable(that, val)
+          this.data = {
+            formData: '',
+            pageSize: val,
+            currentPage: 1
+          }
+          this.initTable(this, this.data)
         },
         handleCurrentChange: function (val) {
-          // this.pagination.currentPage = val
+          this.pagination.currentPage = val
           console.log(`当前页: ${val}`);
+          this.data = {
+            formData: '',
+            pageSize: this.pagination.pageSize,
+            currentPage: val
+          }
+          this.initTable(this, this.data)
         }
       },
 
