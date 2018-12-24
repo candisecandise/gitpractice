@@ -87,7 +87,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(data,index) of datas" :key="index">
+                  <tr v-for="(data,index) of datas" :key="index" :data="datas.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
                     <td><a>osa.533</a></td>
                     <td>1.1.1.1</td>
                     <!-- {} 代表对象 -->
@@ -112,8 +112,9 @@
             </div>
           </div> -->
           <div class="block" style="float:right">
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
-              :page-sizes="[4, 10, 20]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="pageTotal">
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pagination.currentPage"
+              :page-sizes="[5, 10, 15, 20]" :page-size="pagination.pageSize" layout="total, sizes, prev, pager, next, jumper"
+              :total="pagination.pageTotal">
             </el-pagination>
           </div>
         </div>
@@ -127,9 +128,12 @@
       el: '#app',
       data: {
         datas: [],
-        pageTotal: 2,
-        pageSize: 10,
-        currentPage: 1,
+        // pagination: {
+        //   pageTotal: 20,
+        //   pageSize: 10,
+        //   currentPage: 1,
+        // }
+        pagination: ''
       },
       computed: {
         // 计算属性传值利用了闭包传值
@@ -149,41 +153,46 @@
           }
         }
       },
+      mounted() {
+        this.$nextTick(function () {
+          var that = this
+          this.initTable(that)
+          // this.setPages();
+        })
+      },
       methods: {
         setPages: function () {
           var that = this
-          axios.get('page.json').then(function (data) {
+          axios.post('page.json').then(function (data) {
             console.log(data.data)
             that.pageTotal = data.data.pageTotal;
             that.pageSize = data.data.pageSize;
             that.currentPage = data.data.currentPage;
           })
         },
-        handleSizeChange: function (val) {
-          console.log(`每页 ${val} 条`);
-          axios({
-            method: 'post',
-            url: '/page.json/12345',
-            // post 请求参数
-            data: {
-              firstName: 'Fred',
-              lastName: 'Flintstone'
+        initTable: function (that, value) {
+          var url = 'https://easy-mock.com/mock/5c136ed6d8ccbb0677a83784/example/monitor'
+          // var url = "link2.json"
+          axios.get("https://easy-mock.com/mock/5c136ed6d8ccbb0677a83784/example/monitor", {
+            params: {
+              pageSize: value
             }
-          });
+          }).then(function (data) {
+            that.datas = data.data.datas;
+            that.pagination = data.data.pagination;
+          })
+        },
+        handleSizeChange: function (val) {
+          // this.pagination.pageSize = val
+          console.log(`每页 ${val} 条`);
+          // this.initTable(that, val)
         },
         handleCurrentChange: function (val) {
+          // this.pagination.currentPage = val
           console.log(`当前页: ${val}`);
         }
       },
-      mounted() {
-        this.$nextTick(function () {
-          var that = this
-          axios.get('link2.json').then(function (data) {
-            that.datas = data.data;
-          })
-          this.setPages();
-        })
-      },
+
 
     })
   </script>

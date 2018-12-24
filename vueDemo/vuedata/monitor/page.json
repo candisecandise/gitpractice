@@ -1,5 +1,7 @@
 {
-  "pageTotal": 10,
-  "pageSize": 4,
-  "currentPage": 2
+  "pagination": {
+    "pageTotal": 20,
+    "pageSize": 10,
+    "currentPage": 1
+  },
 }
