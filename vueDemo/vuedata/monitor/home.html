@@ -8,7 +8,7 @@
   <script src="../vue-2.5.17/dist/vue.js"></script>
   <script src="../js/echarts.min.js"></script>
   <script src="../js/layui/layui.js"></script>
-  <script src="./customed.js"></script>
+  <script src="js/customed.js"></script>
   <link rel="stylesheet" href="../js/layui/css/layui.css">
   <link rel="stylesheet" href="css/common.css" />
 </head>
@@ -78,7 +78,7 @@
         var that = this
         $.ajax({
           type: 'get',
-          url: 'link.json',
+          url: 'json/link.json',
           dataType: 'json',
           success: function (data) {
             that.initechart(data)
@@ -87,7 +87,7 @@
         that.intervalid = setInterval(function () {
           $.ajax({
             type: 'get',
-            url: 'link.json',
+            url: 'json/link.json',
             dataType: 'json',
             success: function (data) {
               that.initechart(data)

@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   <!-- 引入组件库 -->
   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="js/common.js"></script>
 </head>
 
 <body>
@@ -40,6 +41,8 @@
   </div>
   </div>
   <script>
+    import base from './base'
+    Vue.use(base);
     var app = new Vue({
       el: '#app',
       data: {
@@ -56,14 +59,12 @@
       methods: {
         setPages: function () {
           var that = this
-          axios.get('page.json').then(function (data) {
-            console.log(data.data)
-            that.pageTotal = data.data.pageTotal;
-            that.pageSize = data.data.pageSize;
-            that.currentPage = data.data.currentPage;
+          axios.get('https://easy-mock.com/mock/5c136ed6d8ccbb0677a83784/example/page').then(function (data) {
+            that.tableData = data.data.data;
           })
         },
         handleSizeChange: function (val) {
+          this.changeData();
           this.pageSize = val
           console.log(`每页 ${val} 条`);
         },

@@ -22,7 +22,10 @@
     "diskUsed": "30%",
     "diskTotal": 1.81,
     "ioUsed": "11%",
-    "diskNum": 5
+    "diskNum": [{
+      "name": 1,
+      "id": 2
+    }]
   }, {
     "name": "osa.533",
     "adminip": "1.1.1.1",
@@ -41,7 +44,10 @@
     "diskUsed": "50%",
     "diskTotal": 1.81,
     "ioUsed": "30%",
-    "diskNum": 5
+    "diskNum": [{
+      "name": "name1",
+      "id": 2
+    }]
   }, {
     "name": "osa.533",
     "adminip": "1.1.1.1",
@@ -60,7 +66,13 @@
     "diskUsed": "30%",
     "diskTotal": 1.81,
     "ioUsed": "11%",
-    "diskNum": 5
+    "diskNum": [{
+      "name": "name1",
+      "id": 2
+    }, {
+      "name": "name2",
+      "id": 2
+    }]
   }, {
     "name": "osa.533",
     "adminip": "1.1.1.1",
@@ -79,6 +91,12 @@
     "diskUsed": "50%",
     "diskTotal": 1.81,
     "ioUsed": "30%",
-    "diskNum": 5
+    "diskNum": [{
+      "name": "name1",
+      "id": 2
+    }, {
+      "name": "name2",
+      "id": 2
+    }]
   }]
 }
