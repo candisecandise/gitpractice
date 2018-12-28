@@ -56,8 +56,9 @@
     }
 
     function formatFileSize(fileSize) {
+      console.log(fileSize)
       if (fileSize < 1024) {
-        return fileSize + 'B';
+        return fileSize + 'KB';
       } else if (fileSize < (1024 * 1024)) {
         var temp = fileSize / 1024;
         temp = temp.toFixed(2);
@@ -77,8 +78,8 @@
       data: {
         total: 1000,
         alarm: 200,
-        test1: 10240000,
-        test2: 10240000
+        test1: 1024000,
+        test2: 0.01
       },
       computed: {
         // percent: function () {
@@ -92,7 +93,7 @@
       },
       mounted() {
         this.test1 = bytesToSize(this.test1);
-        this.test2 = formatFileSize(this.text1);
+        this.test2 = formatFileSize(this.test2);
       }
     })
   </script>
