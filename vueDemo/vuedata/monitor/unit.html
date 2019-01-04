@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+  <script src="../vuejs/dist/vue.js"></script>
+  <script src="../js/axios/dist/axios.js"></script>
+  <style>
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>{{this.test2}}</div>
+  </div>
+  <script>
+    function formatFileSize(fileSize) {
+      console.log(fileSize)
+      if (fileSize < 1024) {
+        return fileSize + 'KB'
+      } else if (fileSize < 1024 * 1024) {
+        var temp = fileSize / 1024
+        temp = temp.toFixed(2)
+        return temp + 'KB'
+      } else if (fileSize < 1024 * 1024 * 1024) {
+        var temp = fileSize / (1024 * 1024)
+        temp = temp.toFixed(2)
+        return temp + 'MB'
+      } else {
+        var temp = fileSize / (1024 * 1024 * 1024)
+        temp = temp.toFixed(2)
+        return temp + 'GB'
+      }
+    }
+    var app = new Vue({
+      el: '#app',
+      data: {
+        test2: 0.01
+      },
+      mounted() {
+        this.test2 = formatFileSize(this.test2);
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script src="../vuejs/dist/vue.js"></script>
+  <script src="../js/axios/dist/axios.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/world.js"></script>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .main {
+      height: 100%;
+      width: 100%;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+      z-index: 500;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="main">
+    <div id="map"></div>
+  </div>
+</body>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {},
+    mounted() {
+      this.$nextTick(function () {
+        var that = this;
+        axios.get('json/threat.json').then(function (data) {
+          that.mapechart(data.data.mapdatas)
+        })
+      })
+    },
+    methods: {
+      linesdata: function (data) {
+        var res = []
+        for (var i = 0; i < data.length; i++) {
+          res.push({
+            fromName: data[i].fromName,
+            toName: data[i].toName,
+            coords: [data[i].fromCoord, data[i].toCoord],
+            value: data[i].value
+          })
+        }
+        console.log(res)
+        return res
+      },
+      singledata: function (data) {
+        var res = []
+        for (var i = 0; i < data.length; i++) {
+          res.push({
+            name: data[i].name,
+            value: data[i].coord.concat(data[i].value)
+          })
+        }
+        return res
+      },
+      mapechart: function (datas) {
+        var mapdata = datas.mapdata
+        var mapscatter = datas.mapscatter
+        var series = []
+        series.push({
+          type: 'lines',
+          zlevel: 2,
+          effect: {
+            show: true,
+            period: 20, //箭头指向速度，值越小速度越快
+            trailLength: 0.5, //特效尾迹长度[0,1]值越大，尾迹越长重
+            symbol: 'arrow', //箭头图标
+            symbolSize: 5 //图标大小
+          },
+          lineStyle: {
+            normal: {
+              color: ['#c23531'],
+              width: 1, //尾迹线条宽度
+              opacity: 0.2, //尾迹线条透明度
+              curveness: 0.3 //尾迹线条曲直度
+            }
+          },
+          data: this.linesdata(mapdata),
+          tooltip: {
+            formatter: function (params, ticket, callback) {
+              res =
+                params.data.fromName +
+                '->' +
+                params.data.toName +
+                '</span><br/>数据：' +
+                params.value
+              return res
+            }
+          }
+        })
+        series.push(
+          //被攻击点
+          {
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            zlevel: 2,
+            rippleEffect: {
+              period: 1,
+              brushType: 'stroke',
+              scale: 4
+            },
+            label: {
+              normal: {
+                show: true,
+                position: 'right', //显示位置
+                formatter: '{b}' //圆环显示文字
+              },
+              emphasis: {
+                show: true
+              }
+            },
+            symbol: 'circle',
+            symbolSize: 20,
+            itemStyle: {
+              color: '#FF6E00'
+            },
+            data: this.singledata(mapscatter),
+            tooltip: {
+              formatter: function (params, ticket, callback) {
+                res =
+                  params.data.name + '</span><br/>数据：' + params.value[2]
+                return res
+              }
+            }
+          }
+        )
+        option = {
+          backgroundColor: '#f5f3f0',
+          tooltip: {
+            trigger: 'item',
+            backgroundColor: '#9d9c9a',
+            borderColor: '#FFFFCC',
+            showDelay: 0,
+            hideDelay: 0,
+            enterable: true,
+            transitionDuration: 0,
+            extraCssText: 'z-index:100'
+          },
+          // 视觉映射组件
+          visualMap: {
+            //图例值控制
+            min: 1000,
+            max: 10000,
+            right: 0,
+            calculable: true,
+            textStyle: {
+              color: '#125993'
+            }
+          },
+          // 地理坐标系组件
+          geo: {
+            map: 'world',
+            label: {
+              emphasis: {
+                show: false
+              }
+            },
+            roam: true, //是否允许缩放
+            layoutCenter: ['40%', '55%'], //地图位置
+            layoutSize: '180%',
+            itemStyle: {
+              normal: {
+                // areaColor:"#f5f3f0",
+                color: '#f5f3f0', //地图背景色
+                borderColor: '#50899c' //省市边界线
+              },
+              emphasis: {
+                color: '#d0c9c0' //悬浮背景
+              }
+            }
+          },
+          series: series
+        }
+        var mapchart = echarts.init(document.getElementById('map'))
+        mapchart.setOption(option)
+      },
+    },
+    beforeDestroy() {
+      clearInterval(this.intervalid)
+    }
+  })
+</script>
+
+</html>
