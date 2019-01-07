@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script src="../vuejs/dist/vue.js"></script>
+  <script src="../js/axios/dist/axios.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="js/vue-count-to.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <count-to :start-val='start' :end-val='end' :duration=4000 separator=""></count-to>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        start: 0,
+        end: 200
+      },
+      mounted() {
+        setInterval(function () {
+          this.start = this.end;
+          this.end = this.end + 200
+        }.bind(this), 5000)
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>

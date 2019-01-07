@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script src="../vuejs/dist/vue.js"></script>
+  <script src="../js/axios/dist/axios.js"></script>
+  <script src="../js/echarts.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <span id="span">{{time}}</span>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        time: ''
+      },
+      mounted() {
+        this.$nextTick(function () {
+          // this.getTime();
+          // this.getDate();
+        })
+      },
+      methods: {
+        getTime: function () {
+          console.log(22)
+          var date = new Date();
+          var time = "";
+          time = date.getFullYear() + "-";
+          time += date.getMonth() + 1 + "-";
+          time += date.getDate() + " ";
+          time += date.getHours() + ":";
+          time += date.getMinutes() + ":";
+          time += date.getSeconds();
+          this.time = time;
+          // setTimeout(this.getTime, 1000);
+        },
+        getDate: function () {
+          var that = this
+          setInterval(function () {
+            that.getTime()
+          }, 1000)
+        }
+      }
+    })
+  </script>
+</body>

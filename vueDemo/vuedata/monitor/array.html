@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+  <style>
+  </style>
+</head>
+
+<body>
+  <script>
+    var data = [1, 2, 3, 4];
+
+    function fn(data) {
+      var a = [];
+      for (var i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        var b = [];
+        // a.push(b.push(data[i])) // 此时是将b 的长度push 到a 中
+        // 应该是分开push
+        b.push(data[i])
+        a.push(b)
+        // 或者
+        // a.push([data[i]])
+      }
+      return a;
+    }
+    var dd = fn(data);
+    console.log(dd)
+  </script>
+  <div>
+
+  </div>
+</body>
