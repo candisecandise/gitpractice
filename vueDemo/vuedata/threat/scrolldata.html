@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script src="../vuejs/dist/vue.js"></script>
+  <script src="../js/axios/dist/axios.js"></script>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  #box {
+    width: 300px;
+    height: 32px;
+    overflow: hidden;
+    padding-left: 30px;
+    border: 1px solid black;
+  }
+
+  .anim {
+    transition: all 0.5s;
+    margin-top: -30px;
+  }
+
+  #con1 li {
+    list-style: none;
+    line-height: 30px;
+    height: 30px;
+  }
+</style>
+
+<body>
+  <!-- <a href="www.baidu.com">111</a> -->
+  <div id="app">
+    <ul id="con1" ref="con1" :class="{anim:animate==true}">
+      <li v-for='item in items'>{{item.name}}</li>
+    </ul>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        animate: false,
+        flag: 0,
+        items: []
+      },
+      mounted() {
+        this.$nextTick(function () {
+          this.getdata();
+          setInterval(this.getdata, 8000);
+          setInterval(this.scroll, 2000)
+        })
+
+      },
+      methods: {
+        getdata() {
+          // console.log("getdata")
+          var that = this;
+          var url = 'json/name.json';
+          if (this.flag == 0) {
+            url = 'json/name.json';
+            this.flag = 1;
+            setTimeout(function () {
+              axios.get(url).then(function (data) {
+                that.items = data.data;
+              })
+            }, 1000)
+          } else if (this.flag == 1) {
+            url = 'json/name2.json';
+            this.flag = 0;
+          }
+          setTimeout(function () {
+            axios.get(url).then(function (data) {
+              that.items = data.data;
+            })
+          }, 1000)
+
+        },
+        scroll() {
+          this.animate = true; // 因为在消息向上滚动的时候需要添加css3过渡动画，所以这里需要设置true
+          setTimeout(function () {
+            this.items.push(this.items[0]); // 将数组的第一个元素添加到数组的
+            this.items.shift(); //删除数组的第一个元素
+            this.animate = false; // margin-top 为0 的时候取消过渡动画，实现无缝滚动
+          }.bind(this), 500)
+        }
+      }
+    })
+  </script>
+</body>

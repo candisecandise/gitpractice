@@ -2,52 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="737dcb7b-680e-43a4-a352-d78607816602" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/css/layout.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/css/layout2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/biaoti.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/bottompic.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/choice_bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/css_sprites.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/css_sprites2.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/didian.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/erweima.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/health.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/kuai1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/kuai2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/list.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/main_pic.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/mid_pic.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/mid_pic2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/more.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/quanmingjianshen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/quanminjianshen2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/search.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/sports.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/tel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/img/top_pic.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service-plat/index2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/检测器产品/检测器产品-首页统计/css/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/检测器产品/检测器产品-首页统计/css/common.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/检测器产品/检测器产品-首页统计/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/检测器产品/检测器产品-首页统计/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/检测器产品/检测器产品-首页统计/js/chart/chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/检测器产品/检测器产品-首页统计/js/chart/chart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vueDemo/vuedata/threat/scrollnumber.html" beforeDir="false" afterPath="$PROJECT_DIR$/vueDemo/vuedata/threat/scrollnumber.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vueDemo/vuedata/threat/showtime.html" beforeDir="false" afterPath="$PROJECT_DIR$/vueDemo/vuedata/threat/showtime.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vueDemo/vue-element-simple/node_modules/echarts/map/json/world.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -57,22 +31,19 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
-  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="676" />
     <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="height" value="920" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -115,6 +86,10 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
     </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.32" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -161,45 +136,58 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
     </configuration>
-    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <created>1547002261606</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1547002261606</updated>
+      <workItem from="1547002274230" duration="502000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="502000" />
+  </component>
   <component name="ToolWindowManager">
-    <frame x="676" y="0" width="1400" height="1000" extended-state="0" />
+    <frame x="676" y="0" width="1400" height="920" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2496329" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/vueDemo/vue-element-simple/node_modules/echarts/map/json/world.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
   </component>
   <component name="masterDetails">
     <states>

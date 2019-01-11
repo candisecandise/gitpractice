@@ -7,12 +7,12 @@
   <script src="../vuejs/dist/vue.js"></script>
   <script src="../js/axios/dist/axios.js"></script>
   <script src="../js/echarts.min.js"></script>
-  <script src="js/vue-count-to.min.js"></script>
+  <!-- <script src="js/vue-count-to.min.js"></script> -->
 </head>
 
 <body>
-  <div id="app">
-    <count-to :start-val='start' :end-val='end' :duration=4000 separator=""></count-to>
+  <div id="app">{{this.end}}
+    <!-- <count-to :start-val='start' :end-val='end' :duration=4000 separator=""></count-to> -->
   </div>
   <script>
     var vm = new Vue({
@@ -22,13 +22,27 @@
         end: 200
       },
       mounted() {
-        setInterval(function () {
-          this.start = this.end;
-          this.end = this.end + 200
-        }.bind(this), 5000)
+        // setInterval(function () {
+        //   this.start = this.end;
+        //   this.end = this.end + 200
+        // }.bind(this), 5000)
+        this.test()
+        setInterval(this.test, 1000)
+
       },
       methods: {
+        test: function () {
+          var that = this;
+          var s = this.end
+          // console.log(s)
+          axios.get('json/test.json').then(function (data) {
+            that.end = data.data.value
+          })
 
+        },
+        test2(data) {
+          console.log(data)
+        }
       }
     })
   </script>
