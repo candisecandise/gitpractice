@@ -29,7 +29,11 @@
           var that = this;
           axios.get('json/rank.json').then(function (data) {
             that.setChart(data.data);
-          })
+          });
+          var a = "12245678901";
+          var a = a.slice(0, 10);
+          console.log(a)
+          console.log(a.length)
         })
       },
       methods: {
