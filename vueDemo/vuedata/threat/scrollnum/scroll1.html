@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script src="../../vuejs/dist/vue.js"></script>
+  <script src="../../js/axios/dist/axios.js"></script>
+  <style>
+    .threaten-total {
+      margin: 50px auto;
+      width: 600px;
+      font-size: 44px;
+    }
+
+    .threaten-total ul {
+      padding-top: 10px;
+      margin-left: 4px;
+    }
+
+    .threaten-total ul li {
+      position: relative;
+      float: left;
+      width: 44px;
+      height: 60px;
+      top: 0;
+      margin-right: 10px;
+      background-color: #F6F6F6;
+      list-style: none;
+    }
+
+    .threaten-total span {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      display: block;
+      width: 10%;
+      height: 100%;
+      /* transition: top 0.5s ease-out; */
+    }
+
+    .threaten-total span i {
+      position: absolute;
+      top: -60px;
+      font-style: normal;
+      display: block;
+      width: 100%;
+      line-height: 60px;
+      font-size: 46px;
+      text-align: center;
+      color: #000;
+      font-weight: bold;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="threaten-total">
+      <ul :data-time="time" :data-value="value">
+        <li v-for="i in numArr"><span><i>{{i}}</i></span></li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        time: 2000,
+        value: 0,
+        endValue: 720001,
+        numArr: []
+      },
+      mounted() {
+        this.$nextTick(function () {
+          this.numberGrow(this.numberGrow)
+        })
+      },
+      methods: {
+        numberGrow(ele) {
+          var that = this
+          var step = Math.ceil((that.endValue * 10) / (that.time))
+          var current = 0
+          var start = 0
+          var t = setInterval(function () {
+            start += step
+            if (start > that.endValue) {
+              clearInterval(t)
+              start = that.endValue
+              t = null
+            }
+            if (current === start) {
+              return
+            }
+            current = start
+            var res = current.toString().replace(/(\d)(?=(?:\d{3}[+]?)+$)/g, '$1,')
+            res = res.replace(",", "");
+            that.numArr = (Array(7).join(0) + res).slice(-7).split('');
+          }, 2000)
+        },
+      }
+    })
+  </script>
+</body>

@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Document</title>
-  <script src="../vuejs/dist/vue.js"></script>
-  <script src="../js/axios/dist/axios.js"></script>
+  <script src="../../vuejs/dist/vue.js"></script>
+  <script src="../../js/axios/dist/axios.js"></script>
   <style>
     .threaten-total ul {
       padding-top: 10px;
@@ -62,7 +62,7 @@
       el: '#app',
       data: {
         total: ['0', '0', '0', '0', '0', '0', '0'],
-        totalStart: 0
+        totalStart: 3
       },
       mounted() {
         this.$nextTick(function () {
@@ -74,13 +74,10 @@
         getTotal: function () {
           var that = this;
           var s = this.totalStart;
-          axios.get('json/total.json').then(function (data) {
+          axios.get('total.json').then(function (data) {
             that.totalStart = data.data.total;
             var e = data.data.total;
             var addNum = Math.ceil((e - s) / 10);
-            console.log(e);
-            console.log(s)
-            console.log(addNum)
             var set = setInterval(function () {
               if (s >= e) {
                 s = e;
@@ -88,11 +85,12 @@
               } else {
                 s += addNum;
               }
+              console.log(s)
               that.total = (Array(7).join(0) + s).slice(-7).split('');
               console.log(that.total)
-            }, 1000);
+            }, 2000);
           });
-          setTimeout(this.getTotal, 12000);
+          setTimeout(this.getTotal, 22000);
         }
       }
     })

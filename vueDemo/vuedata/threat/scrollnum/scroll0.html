@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script src="../../vuejs/dist/vue.js"></script>
+  <script src="../../js/axios/dist/axios.js"></script>
+  <style>
+    .number-grow-warp {
+      transform: translateZ(0);
+    }
+
+    .number-grow {
+      font-family: Arial-BoldMT;
+      font-size: 64px;
+      color: #ffaf00;
+      letter-spacing: 2.67px;
+      margin: 110px 0 20px;
+      display: block;
+      line-height: 64px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="number-grow-warp">
+      <span :data-time="time" class="number-grow" :data-value="value">{{value}}</span>
+    </div>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        time: 2000,
+        value: 0,
+        endValue: 21
+      },
+      mounted() {
+        this.$nextTick(function () {
+          this.numberGrow(this.numberGrow)
+        })
+
+      },
+      methods: {
+        numberGrow(ele) {
+          var _this = this
+          var step = Math.ceil((_this.endValue * 10) / (_this.time))
+          console.log(step)
+          var current = 0
+          var start = 0
+          var t = setInterval(function () {
+            start += step
+            if (start > _this.endValue) {
+              clearInterval(t)
+              start = _this.endValue
+              t = null
+            }
+            if (current === start) {
+              return
+            }
+            current = start
+            var res = current.toString().replace(/(\d)(?=(?:\d{3}[+]?)+$)/g, '$1,')
+
+            _this.value = res
+          }, 100)
+        }
+      }
+    })
+  </script>
+</body>
