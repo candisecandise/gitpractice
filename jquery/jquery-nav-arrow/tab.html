@@ -1,92 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
 	<style>
-		body,ul,li,div{
+		body,
+		ul,
+		li,
+		div {
 			padding: 0;
 			margin: 0;
 			box-sizing: border-box;
 		}
-		body{
+
+		body {
 			padding: 10px
 		}
-		li{
+
+		li {
 			list-style: none;
 		}
-		ul{
+
+		ul {
 			background-color: #D19275;
 		}
-		.nav{
+
+		.nav {
 			position: relative;
 			padding: 10px 20px;
 			overflow: hidden;
 		}
-		.nav i{
+
+		.nav i {
 			position: absolute;
 			display: inline-block;
 			width: 20px;
 			height: 25px;
-			background:url("img/arrow.png");
+			background: url("img/arrow.png");
 			cursor: pointer;
 		}
-		.nav .arrow-l{
+
+		.nav .arrow-l {
 			left: 0;
 			background-position: 0 0;
 		}
-		.nav .arrow-r{
+
+		.nav .arrow-r {
 			background-position: -20px 0;
 		}
-		.ll{
+
+		.ll {
 			float: left;
 			height: 100%;
 			/*width: 550px;*/
 			/*不换行*/
-			white-space:nowrap;
+			white-space: nowrap;
 			/*隐藏*/
 			overflow: hidden;
 		}
-		.ll .title{
+
+		.ll .title {
 			/*设置动画需要*/
 			position: relative;
 			display: inline-block;
 			/*width: 5000px;*/
 			/*不换行*/
-			white-space:nowrap;
+			white-space: nowrap;
 			overflow: hidden;
 		}
-		.ll a{
+
+		.ll a {
 			display: inline-block;
 			padding: 2px 5px;
 			text-decoration: none;
 			border: 1px solid #fff;
 			color: #fff;
 		}
-		.ll a:hover{
+
+		.ll a:hover {
 			opacity: 0.8;
 		}
-		
-		.lr{
+
+		.lr {
 			float: right;
 			width: 200px;
 			background-color: #D19275;
 			margin-right: 10px;
 			margin-left: 10px;
 		}
-		.lr div{
+
+		.lr div {
 			padding: 2px 5px;
 			color: #fff;
 			border: 1px solid #fff;
 		}
-		
 	</style>
 </head>
+
 <body>
 	<script>
 		// 刷新左右箭头的显示
-		function arrowRefresh(){
+		function arrowRefresh() {
 			var lastchild = ".title>a:last-child()";
 			var firstchild = ".title>a:first-child()";
 			var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
@@ -96,33 +112,35 @@
 			var t_width = $(".title").width();
 			var l_width = $(".ll").width();
 			// 判断左边箭头
-			if(ll_l > firstchild_l){
+			if (ll_l > firstchild_l) {
 				$(".arrow-l").show();
-			}else{
+			} else {
 				$(".arrow-l").hide();
 				// 如果标题1超过，移动到最左边
-				if(ll_l < firstchild_l){
-					$(".title").stop().animate({left:'0'})
+				if (ll_l < firstchild_l) {
+					$(".title").stop().animate({
+						left: '0'
+					})
 				}
 			};
 			// 判断右边箭头
-			if(ll_lw >= lastchild_l){
+			if (ll_lw >= lastchild_l) {
 				console.log("arrow-r hide1");
 				$(".arrow-r").hide();
-			}else if(t_width == l_width){
+			} else if (t_width == l_width) {
 				// 存在一种bug情况，lastchild_l > ll_lw 但是，ll 和 title 宽度已经一样
 				console.log("arrow-r hide2");
 				$(".arrow-r").hide();
-			}else{
+			} else {
 
 				$(".arrow-r").show();
-				var w = $(".ll").width()+20+'px';
-				$(".arrow-r").css("left",w);
+				var w = $(".ll").width() + 20 + 'px';
+				$(".arrow-r").css("left", w);
 			}
 		}
 
 		// 计算 div li 的宽度
-		function nav(){
+		function nav() {
 			var nav_l = $(".nav").offset().left;
 			var lr_l = $(".lr").offset().left - nav_l;
 			var lastchild = ".title>a:last-child()";
@@ -132,44 +150,44 @@
 			$(".title").width(title_w);
 			// 计算li.ll的宽度 加上padding
 			var ll_pw = title_w + 50;
-			if(lr_l >= ll_pw){
+			if (lr_l >= ll_pw) {
 				$(".ll").width(title_w);
-			}else{
+			} else {
 				$(".ll").width(lr_l - 50);
 				var ll_lw = $(".ll").offset().left + $(".ll").width();
 				var ll_l = $(".ll").offset().left;
 
 				// 点击事件
-				$(".arrow-r").click(function(){
+				$(".arrow-r").click(function () {
 					var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
 					// if(arrow_r < lastchild_l){
-					if(ll_lw < lastchild_l){
+					if (ll_lw < lastchild_l) {
 						$(".title").stop().animate({
-							left:'-=100px'
-						},200,function(){
+							left: '-=100px'
+						}, 200, function () {
 							arrowRefresh();
 						});
 					}
 				});
-				$(".arrow-l").click(function(){
+				$(".arrow-l").click(function () {
 					var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
 					var firstchild_l = $(firstchild).offset().left;
-					if(ll_l > firstchild_l){
+					if (ll_l > firstchild_l) {
 						$(".title").stop().animate({
-							left:'+=100px'
-						},200,function(){
+							left: '+=100px'
+						}, 200, function () {
 							arrowRefresh();
 						});
 					}
 				})
 			}
 		}
-		
-		$().ready(function(){
+
+		$().ready(function () {
 			nav();
 			arrowRefresh();
 		});
-		$(window).resize(function() {
+		$(window).resize(function () {
 			nav();
 			arrowRefresh();
 		});
@@ -197,4 +215,5 @@
 		</li>
 	</ul>
 </body>
+
 </html>

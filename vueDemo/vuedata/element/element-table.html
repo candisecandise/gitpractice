@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="../vuejs/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <style>
+    .class {
+      color: red;
+    }
+
+    .class2 {
+      font-size: 35px;
+    }
+
+    .class3 {
+      font-style: italic
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layui-container" id="main">
+    <div :class="[{class:flag,class2:flag},flag2==1?'class3':'']">aaaa</div>
+    <el-table :data="tableData" style="width: 100%" @sort-change="sortChange">
+      <!-- <el-table :data="tableData" style="width: 100%" @sort-change="sortChange" :default-sort="{prop:'value' , order: 'descending' }"> -->
+      <el-table-column prop="date" label="日期" width="180" sortable="custom">
+      </el-table-column>
+      <el-table-column prop="name" label="姓名" width="180">
+      </el-table-column>
+      <el-table-column prop="address" label="地址" :formatter='formatter'>
+      </el-table-column>
+      <el-table-column prop="value" label="数量" :sortable="true" sort-by="index">
+      </el-table-column>
+      <el-table-column prop="index" label="索引" :sortable="true" :sort-method="sortByIndex">
+      </el-table-column>
+    </el-table>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#main',
+      data: {
+        flag: 1,
+        flag2: 1,
+        tableData: [{
+          date: '2016-05-02',
+          name: '王1虎',
+          address: '上海市普陀区金沙江路 1518 弄',
+          value: 400,
+          index: 4,
+        }, {
+          date: '2016-05-04',
+          name: '王2虎',
+          address: '上海市普陀区金沙江路 1517 弄',
+          value: 500,
+          index: 3,
+        }, {
+          date: '2016-05-01',
+          name: '王3虎',
+          address: '上海市普陀区金沙江路 1519 弄',
+          value: 50,
+          index: 2,
+        }, {
+          date: '2016-05-03',
+          name: '王4虎',
+          address: '上海市普陀区金沙江路 1516 弄',
+          value: 100,
+          index: 1,
+        }]
+      },
+      methods: {
+        sortChange: function (data) {
+          console.log(data)
+        },
+        sortByIndex(obj1, obj2) {
+          let val1 = obj1.index
+          let val2 = obj2.index
+          return val1 - val2
+        },
+        formatter(row, column) {
+          return row.address + "****";
+        }
+
+      },
+    });
+  </script>
+
+</body>

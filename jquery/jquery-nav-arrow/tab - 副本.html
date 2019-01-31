@@ -1,95 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
 	<style>
-		body,ul,li,div{
+		body,
+		ul,
+		li,
+		div {
 			padding: 0;
 			margin: 0;
 			box-sizing: border-box;
 		}
-		body{
+
+		body {
 			padding: 10px
 		}
-		li{
+
+		li {
 			list-style: none;
 		}
-		ul{
+
+		ul {
 			background-color: #D19275;
 		}
-		.nav{
+
+		.nav {
 			position: relative;
 			padding: 10px 20px;
 			overflow: hidden;
 		}
-		.nav i{
+
+		.nav i {
 			position: absolute;
 			display: inline-block;
 			width: 20px;
 			height: 25px;
-			background:url("img/arrow.png");
+			background: url("img/arrow.png");
 			opacity: 0;
 		}
-		.nav .arrow-l{
+
+		.nav .arrow-l {
 			left: 0;
 			background-position: 0 0;
 		}
-		.nav .arrow-r{
+
+		.nav .arrow-r {
 			background-position: -20px 0;
 		}
-		.show{
+
+		.show {
 			cursor: pointer;
 			opacity: 1 !important;
 		}
-		.ll{
+
+		.ll {
 			float: left;
 			height: 100%;
 			/*width: 550px;*/
 			/*不换行*/
-			white-space:nowrap;
+			white-space: nowrap;
 			/*隐藏*/
 			overflow: hidden;
 		}
-		.ll .title{
+
+		.ll .title {
 			/*设置动画需要*/
 			position: relative;
 			display: inline-block;
 			/*width: 5000px;*/
 			/*不换行*/
-			white-space:nowrap;
+			white-space: nowrap;
 			overflow: hidden;
 		}
-		.ll a{
+
+		.ll a {
 			display: inline-block;
 			padding: 2px 5px;
 			text-decoration: none;
 			border: 1px solid #fff;
 			color: #fff;
 		}
-		.ll a:hover{
+
+		.ll a:hover {
 			opacity: 0.8;
 		}
-		
-		.lr{
+
+		.lr {
 			float: right;
 			width: 200px;
 			background-color: #D19275;
 			margin-right: 10px;
 			margin-left: 10px;
 		}
-		.lr div{
+
+		.lr div {
 			padding: 2px 5px;
 			color: #fff;
 			border: 1px solid #fff;
 		}
-		
 	</style>
 </head>
+
 <body>
 	<script>
-		function nav(){
+		function nav() {
 			var nav_l = $(".nav").offset().left;
 			var lr_l = $(".lr").offset().left - nav_l;
 			var lastchild = ".title>a:last-child()";
@@ -99,11 +116,11 @@
 			$(".title").width(title_w);
 			// 计算li.ll的宽度 加上margin padding
 			var ll_w = title_w + 50;
-			if(lr_l >= ll_w){
+			if (lr_l >= ll_w) {
 				$(".ll").width(title_w);
 				$(".arrow-r,.arrow-l").removeClass("show");
 				$(".arrow-r,.arrow-l").unbind("click");
-			}else{
+			} else {
 				$(".ll").width(lr_l - 50);
 				$(".arrow-r").addClass("show");
 				$(".arrow-r,.arrow-l").bind("click");
@@ -112,44 +129,44 @@
 				var arrow_l = $(".arrow-l").offset().left + $(".arrow-l").width();
 				// var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
 				// var firstchild_l = $(firstchild).offset().left;
-				$(".arrow-r").click(function(){
+				$(".arrow-r").click(function () {
 					var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
 					var firstchild_l = $(firstchild).offset().left;
-					if(arrow_r < lastchild_l){
+					if (arrow_r < lastchild_l) {
 						$(".title").animate({
-							left:'-=100px'
-						},200,function(){
+							left: '-=100px'
+						}, 200, function () {
 							var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
 							var firstchild_l = $(firstchild).offset().left;
-							if(arrow_l >= firstchild_l){
+							if (arrow_l >= firstchild_l) {
 								$(".arrow-l").addClass("show");
 							};
-							if(arrow_r >= lastchild_l){
+							if (arrow_r >= lastchild_l) {
 								$(".arrow-r").removeClass("show");
 							}
 						});
-						
+
 					}
-					
+
 				});
 				// var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
 				// var firstchild_l = $(firstchild).offset().left;
-				$(".arrow-l").click(function(){
+				$(".arrow-l").click(function () {
 					var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
 					var firstchild_l = $(firstchild).offset().left;
-					if(arrow_l > firstchild_l){
+					if (arrow_l > firstchild_l) {
 						console.log(lastchild_l);
 						console.log(arrow_r);
 						$(".title").animate({
-							left:'+=100px'
-						},200,function(){
+							left: '+=100px'
+						}, 200, function () {
 							var lastchild_l = $(lastchild).offset().left + $(lastchild).outerWidth();
 							var firstchild_l = $(firstchild).offset().left;
-							if(arrow_r < lastchild_l){
+							if (arrow_r < lastchild_l) {
 								console.log(1)
 								$(".arrow-r").addClass("show");
 							};
-							if(arrow_l <= firstchild_l){
+							if (arrow_l <= firstchild_l) {
 								$(".arrow-l").removeClass("show");
 							}
 						});
@@ -158,11 +175,11 @@
 
 			}
 		}
-		$().ready(function(){
+		$().ready(function () {
 			nav();
-			
+
 		});
-		$(window).resize(function() {
+		$(window).resize(function () {
 			nav();
 		});
 	</script>
@@ -189,4 +206,5 @@
 		</li>
 	</ul>
 </body>
+
 </html>
