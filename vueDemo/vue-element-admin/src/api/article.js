@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function testList(query) {
+  return request({
+    url: '/test/list',
+    method: 'get',
+    params: query
+  })
+}
+
 export function fetchList(query) {
   return request({
     url: '/article/list',
@@ -12,7 +20,9 @@ export function fetchArticle(id) {
   return request({
     url: '/article/detail',
     method: 'get',
-    params: { id }
+    params: {
+      id
+    }
   })
 }
 
@@ -20,7 +30,9 @@ export function fetchPv(pv) {
   return request({
     url: '/article/pv',
     method: 'get',
-    params: { pv }
+    params: {
+      pv
+    }
   })
 }
 
