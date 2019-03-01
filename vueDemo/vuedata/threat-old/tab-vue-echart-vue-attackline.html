@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+  <script src="../vuejs/dist/vue.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/world.js"></script>
+  <script src="../js/layui/layui.js"></script>
+  <link rel="stylesheet" href="css/common.css" />
+  <style>
+    .chartbox {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="main">
+    <!--
+        <div><a href="https://www.baidu.com" target="_blank">打开新页面</a></div>
+      -->
+    <div id="map"></div>
+    <div class="sort-table">
+      <div class="stitle">
+        <i class="chart-control">></i><span>连接数排序</span>
+      </div>
+      <div class="sort-info">
+        <div class="sort-type">
+          <span class="chooses">国家</span><span>单位</span>
+        </div>
+        <div class="htable">
+          <table>
+            <thead>
+              <tr>
+                <td width="50%">名称</td>
+                <td width="50%">连接数</td>
+              </tr>
+            </thead>
+          </table>
+          <div class="btable btable1">
+            <table>
+              <thead>
+                <tr>
+                  <td width="50%"></td>
+                  <td width="50%"></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr is="mytable" v-for="data in linkdatas" v-bind:name="data.name" v-bind:value="data.value"></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="linkpie" style="width: 100%;height: 176px"></div>
+      </div>
+    </div>
+    <div class="port-chart chartbox">
+      <div class="stitle ctitle">
+        <i class="chart-control">></i><span v-on:click="thing">端口流量排序</span>
+      </div>
+      <div class="port-info chart">
+        <div id="portBar" style="width: 100%;height: 100%"></div>
+      </div>
+    </div>
+    <div class="flow-chart chartbox">
+      <div class="stitle ctitle">
+        <i class="chart-control">></i><span>流量总体趋势</span>
+      </div>
+      <div class="flow-info chart">
+        <div id="flowLine" style="width: 100%;height: 100%"></div>
+      </div>
+    </div>
+    <div class="country-chart chartbox">
+      <div class="stitle ctitle">
+        <i class="chart-control">></i><span>国家流量排序</span>
+      </div>
+      <div class="country-info chart">
+        <div id="countryBar" style="width: 100%;height: 100%"></div>
+      </div>
+    </div>
+    <div class="layerdiv">
+      <table id="flowtable" style="">
+        <thead>
+          <tr>
+            <td>时间</td>
+            <td>源IP</td>
+            <td>源端口</td>
+            <td>目的IP</td>
+            <td>目的端口</td>
+            <td>流量</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2018-11-27 09:20</td>
+            <td>1.2.5.8</td>
+            <td>58006</td>
+            <td>5.21.84.6</td>
+            <td>98542</td>
+            <td>上行：59.5M / 下行：2.4M</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+<script>
+  Vue.component('mytable', {
+    props: ['name', 'value'],
+    template: '<tr><td>{{name}}</td><td>{{value}}</td></tr>'
+  })
+  var app = new Vue({
+    el: '#app',
+    data: {
+      linkdatas: '',
+      intervalid: ''
+      // datas: []
+      // departmentlinks: []
+    },
+    mounted() {
+      var json = 'link.json'
+      this.$nextTick(function () {
+        var that = this
+        that.intervalid = setInterval(function () {
+          $.ajax({
+            type: 'get',
+            url: json,
+            dataType: 'json',
+            success: function (data) {
+              that.linkdatas = data.linkdatas.countrylinks
+              console.log(that.linkdatas[0].name)
+              that.mapechart(data.mapdatas)
+              that.barechart(data.portdatas.datas)
+              that.lineechart(data.flowdatas.datas)
+              that.stackbarechart(data.countrydatas.datas)
+            }
+          })
+        }, 5000)
+      })
+    },
+    methods: {
+      thing: function () {
+        var layer = layui.layer
+        layui.use('layer', function () {
+          var layer = layui.layer
+          layer.open({
+            title: 'XXX联通详情',
+            type: 1,
+            skin: 'myskin',
+            content: $('.layerdiv'),
+            area: ['600px', '400px']
+          })
+        })
+      },
+      pushData: function (datas) {
+        var data = {}
+        data.name = []
+        data.value = []
+        datas.forEach(function (item) {
+          data.name.push(item.name)
+          data.value.push(item.value)
+        })
+        return data
+      },
+      linesdata: function (data) {
+        var res = []
+        for (var i = 0; i < data.length; i++) {
+          res.push({
+            fromName: data[i].fromName,
+            toName: data[i].toName,
+            coords: [data[i].fromCoord, data[i].toCoord],
+            value: data[i].value
+          })
+        }
+        console.log(res)
+        return res
+      },
+      singledata: function (data) {
+        var res = []
+        for (var i = 0; i < data.length; i++) {
+          res.push({
+            name: data[i].name,
+            value: data[i].coord.concat(data[i].value)
+          })
+        }
+        return res
+      },
+      barechart: function (datas) {
+        var data = this.pushData(datas)
+        option = {
+          title: {
+            text: '端口流量排序图',
+            // subtext: '2018/11/15 下午2:44:44',
+            left: 'left'
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: 50,
+            containLabel: true
+          },
+          xAxis: [{
+            type: 'category',
+            data: data.name,
+            axisTick: {
+              alignWithLabel: true
+            }
+          }],
+          yAxis: [{
+            type: 'value'
+          }],
+          series: [{
+            name: '流量统计',
+            type: 'bar',
+            barWidth: '60%',
+            data: data.value,
+            itemStyle: {
+              color: function (params) {
+                var colorList = [
+                  '#c23531',
+                  '#2f4554',
+                  '#61a0a8',
+                  '#d48265',
+                  '#91c7ae',
+                  '#749f83',
+                  '#ca8622',
+                  '#bda29a',
+                  '#6e7074',
+                  '#546570',
+                  '#c4ccd3'
+                ]
+                return colorList[params.dataIndex]
+              }
+            }
+          }]
+        }
+        var portChart = echarts.init(document.getElementById('portBar'))
+        portChart.setOption(option)
+      },
+      mapechart: function (datas) {
+        var mapdata = datas.mapdata
+        var mapscatter = datas.mapscatter
+        var series = []
+        series.push({
+          type: 'lines',
+          zlevel: 2,
+          effect: {
+            show: true,
+            period: 20, //箭头指向速度，值越小速度越快
+            trailLength: 0.5, //特效尾迹长度[0,1]值越大，尾迹越长重
+            symbol: 'arrow', //箭头图标
+            symbolSize: 5 //图标大小
+          },
+          lineStyle: {
+            normal: {
+              color: ['#c23531'],
+              width: 1, //尾迹线条宽度
+              opacity: 0.2, //尾迹线条透明度
+              curveness: 0.3 //尾迹线条曲直度
+            }
+          },
+          data: this.linesdata(mapdata),
+          tooltip: {
+            formatter: function (params, ticket, callback) {
+              res =
+                params.data.fromName +
+                '->' +
+                params.data.toName +
+                '</span><br/>数据：' +
+                params.value
+              return res
+            }
+          }
+        })
+        series.push(
+          //被攻击点
+          {
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            zlevel: 2,
+            rippleEffect: {
+              period: 1,
+              brushType: 'stroke',
+              scale: 4
+            },
+            label: {
+              normal: {
+                show: true,
+                position: 'right', //显示位置
+                formatter: '{b}' //圆环显示文字
+              },
+              emphasis: {
+                show: true
+              }
+            },
+            symbol: 'circle',
+            symbolSize: 20,
+            itemStyle: {
+              color: '#FF6E00'
+            },
+            data: this.singledata(mapscatter),
+            tooltip: {
+              formatter: function (params, ticket, callback) {
+                res =
+                  params.data.name + '</span><br/>数据：' + params.value[2]
+                return res
+              }
+            }
+          }
+        )
+        option = {
+          backgroundColor: '#f5f3f0',
+          tooltip: {
+            trigger: 'item',
+            backgroundColor: '#9d9c9a',
+            borderColor: '#FFFFCC',
+            showDelay: 0,
+            hideDelay: 0,
+            enterable: true,
+            transitionDuration: 0,
+            extraCssText: 'z-index:100'
+          },
+          // 视觉映射组件
+          visualMap: {
+            //图例值控制
+            min: 1000,
+            max: 10000,
+            right: 0,
+            calculable: true,
+            textStyle: {
+              color: '#125993'
+            }
+          },
+          // 地理坐标系组件
+          geo: {
+            map: 'world',
+            label: {
+              emphasis: {
+                show: false
+              }
+            },
+            roam: true, //是否允许缩放
+            layoutCenter: ['40%', '55%'], //地图位置
+            layoutSize: '180%',
+            itemStyle: {
+              normal: {
+                // areaColor:"#f5f3f0",
+                color: '#f5f3f0', //地图背景色
+                borderColor: '#50899c' //省市边界线
+              },
+              emphasis: {
+                color: '#d0c9c0' //悬浮背景
+              }
+            }
+          },
+          series: series
+        }
+        var mapchart = echarts.init(document.getElementById('map'))
+        mapchart.setOption(option)
+      },
+      lineechart: function (datas) {
+        var data = {}
+        data.name = []
+        data.value1 = []
+        data.value2 = []
+        datas.forEach(function (item) {
+          data.name.push(item.name)
+          data.value1.push(item.value1)
+          data.value2.push(item.value2)
+        })
+        option = {
+          title: {
+            text: '流量趋势图',
+            // subtext: '2018/11/12 下午2:44:44',
+            left: 'left'
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: 50,
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisLabel: {
+              interval: 0
+            },
+            data: data.name
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+              name: '上行流量',
+              type: 'line',
+              data: data.value1,
+              markPoint: {
+                data: [{
+                    type: 'max',
+                    name: '最大值'
+                  },
+                  {
+                    type: 'min',
+                    name: '最小值'
+                  }
+                ]
+              },
+              markLine: {
+                label: {
+                  show: false
+                },
+                data: [{
+                  type: 'average',
+                  name: '平均值'
+                }]
+              }
+            },
+            {
+              name: '下行流量',
+              type: 'line',
+              data: data.value2,
+              markPoint: {
+                data: [{
+                    type: 'max',
+                    name: '最大值'
+                  },
+                  {
+                    type: 'min',
+                    name: '最小值'
+                  }
+                ]
+              },
+              markLine: {
+                label: {
+                  show: false,
+                  position: 'start'
+                },
+                data: [{
+                  type: 'average',
+                  name: '平均值'
+                }]
+              }
+            }
+          ]
+        }
+        var flowChart = echarts.init(document.getElementById('flowLine'))
+        flowChart.setOption(option)
+      },
+      stackbarechart: function (datas) {
+        var data = {}
+        data.name = []
+        data.value1 = []
+        data.value2 = []
+        datas.forEach(function (item) {
+          data.name.push(item.name)
+          data.value1.push(item.value1)
+          data.value2.push(item.value2)
+        })
+        option = {
+          title: {
+            text: '国家流量排序图',
+            // subtext: '2018/11/12 下午2:44:44',
+            left: 'left'
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
+
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            top: 50,
+            containLabel: true
+          },
+          yAxis: {
+            type: 'value'
+          },
+          xAxis: {
+            type: 'category',
+            data: data.name
+          },
+          series: [{
+              name: '上行流量',
+              type: 'bar',
+              stack: '总量',
+              label: {
+                normal: {
+                  show: true,
+                  position: 'insideRight'
+                }
+              },
+              data: data.value1
+            },
+            {
+              name: '下行流量',
+              type: 'bar',
+              stack: '总量',
+              label: {
+                normal: {
+                  show: true,
+                  position: 'insideRight'
+                }
+              },
+              data: data.value2
+            }
+          ]
+        }
+        var countryChart = echarts.init(document.getElementById('countryBar'))
+        countryChart.setOption(option)
+      }
+    },
+    beforeDestroy() {
+      clearInterval(this.intervalid)
+    }
+  })
+</script>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>大数据监控日志</title>
+  <link rel="stylesheet" href="css/common.css">
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/echart/echarts.min.js"></script>
+</head>
+
+<body>
+  <div style="height: 500px;width: 500px" id="chart"></div>
+  <script>
+    $(function () {
+      var chart = echarts.init(document.getElementById('chart'));
+      var option = {
+        xAxis: {
+          type: 'category',
+          data: [11, 22, 33, 44]
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [{
+          data: [111, 222, 333, 444],
+          type: 'line'
+        }]
+      };
+      chart.setOption(option);
+      setInterval(function () {
+        $.ajax({
+          url: "http://rap2api.taobao.org/app/mock/127396/test/chart2",
+          type: "get",
+          success: function (res) {
+            console.log(res);
+            var data = res;
+            chart.setOption({
+              xAxis: {
+                data: data.xdata
+              },
+              series: [{
+                data: data.sdata,
+              }]
+            });
+          }
+
+        })
+
+      }, 10000)
+
+    })
+  </script>
+</body>
+
+</html>

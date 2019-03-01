@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>大数据监控日志</title>
+    <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+    <script src="../vuejs/dist/vue.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <script src="../js/world.js"></script>
+    <link rel="stylesheet" href="../css/common.css" />
+</head>
+
+<body style="padding: 20px;">
+
+    <!-- <div id="bar" style="height: 720px;width: 900px;float: left; margin-right: 20px">
+		</div>
+		<div id="line" style="height: 320px;width: 420px;float: left; margin-bottom: 20px">
+		</div>
+		<div id="pie" style="height: 320px;width: 420px;float: left;">
+        </div> -->
+    <div id="app2" style="height: 100%;width: 100%;">
+
+        <div id="allchart" style="height: 100%;width: 100%;">
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app2',
+            data: {
+
+            },
+            mounted() {
+                this.$nextTick(function () {
+                    var that = this
+                    $.ajax({
+                        type: 'get',
+                        url: 'link.json',
+                        dataType: 'json',
+                        success: function (data) {
+                            that.allechart(data.linkdatas.countrylinks, data.flowdatas.datas,
+                                data
+                                .portdatas.datas)
+                        }
+                    })
+                })
+            },
+            methods: {
+                allechart: function (datas1, datas2, datas3) {
+                    var data1 = {}
+                    var data2 = {}
+                    var data3 = {}
+                    data1.name = []
+                    data1.value = []
+                    data2.name = []
+                    data2.value1 = []
+                    data2.value2 = []
+
+
+                    datas1.forEach(function (item) {
+                        data1.name.push(item.name)
+                        data1.value.push(item.value)
+                    })
+                    datas2.forEach(function (item) {
+                        data2.name.push(item.name)
+                        data2.value1.push(item.value1)
+                        data2.value2.push(item.value2)
+                    })
+                    // 直接用datas3 不行？？
+                    data3 = datas3
+                    // datas3.forEach(function (item) {
+                    //     data3.name.push(item.name)
+                    //     data3.value1.push(item.value1)
+                    //     data3.value2.push(item.value2)
+                    // })
+                    console.log(datas3)
+
+                    option = {
+                        backgroundColor: '#fafafa',
+                        title: [{
+                            text: '国家连接排序图',
+                            // subtext: '纯属虚构',
+                            left: 'left',
+                            top: 10,
+                            textStyle: {
+                                fontSize: 24
+                            }
+                        }, {
+                            text: '流量趋势图',
+                            // subtext: '纯属虚构',
+                            left: '60%',
+                            top: 20,
+                        }, {
+                            text: '端口流量排序图',
+                            // subtext: '纯属虚构',
+                            left: '60%',
+                            top: '52%'
+                        }],
+                        // TO-DO
+                        tooltip: [{
+                            trigger: 'axis',
+                        }],
+                        grid: [{
+                            left: 10,
+                            top: '12%',
+                            width: '56%',
+                            height: '85%',
+                            containLabel: true
+                        }, {
+                            left: '60%',
+                            top: '14%',
+                            width: '30%',
+                            height: '34%',
+                            containLabel: true
+                        }],
+                        xAxis: [{
+                            gridIndex: 0,
+                            type: 'category',
+                            data: data1.name,
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }, {
+                            gridIndex: 1,
+                            type: 'category',
+                            boundaryGap: false,
+                            axisLabel: {
+                                interval: 0
+                            },
+                            data: data2.name
+                        }],
+                        yAxis: [{
+                            gridIndex: 0,
+                            type: 'value',
+                            name: '连接数',
+
+                        }, {
+                            gridIndex: 1,
+                            type: 'value',
+                            name: '连接数',
+                        }],
+                        series: [{
+                            xAxisIndex: 0,
+                            yAxisIndex: 0,
+                            name: '国家流量统计',
+                            type: 'bar',
+                            barWidth: '60%',
+                            data: data1.value,
+                            itemStyle: {
+                                color: function (params) {
+                                    var colorList = ['#c23531', '#2f4554', '#61a0a8',
+                                        '#d48265', '#91c7ae', '#749f83', '#ca8622',
+                                        '#bda29a', '#6e7074', '#546570', '#c4ccd3'
+                                    ];
+                                    return colorList[params.dataIndex];
+                                },
+                            }
+                        }, {
+                            xAxisIndex: 1,
+                            yAxisIndex: 1,
+                            name: '上行流量',
+                            type: 'line',
+                            stack: '流量',
+                            data: data2.value1,
+                            markPoint: {
+                                data: [{
+                                        type: 'max',
+                                        name: '最大值'
+                                    },
+                                    {
+                                        type: 'min',
+                                        name: '最小值'
+                                    }
+                                ]
+                            },
+                            markLine: {
+                                label: {
+                                    show: false,
+                                    position: 'start',
+                                },
+                                data: [{
+                                    type: 'average',
+                                    name: '平均值'
+                                }]
+                            }
+                        }, {
+                            xAxisIndex: 1,
+                            yAxisIndex: 1,
+                            name: '下行流量',
+                            type: 'line',
+                            stack: '流量',
+                            data: data2.value2,
+                            markPoint: {
+                                data: [{
+                                        type: 'max',
+                                        name: '最大值'
+                                    },
+                                    {
+                                        type: 'min',
+                                        name: '最小值'
+                                    }
+                                ]
+                            },
+                            markLine: {
+                                label: {
+                                    show: false,
+                                    position: 'start',
+                                },
+                                data: [{
+                                    type: 'average',
+                                    name: '平均值'
+                                }]
+                            }
+                        }, {
+                            name: '端口流量统计',
+                            type: 'pie',
+                            radius: '30%',
+                            center: ['80%', '78%'],
+                            // 数组
+                            data: data3,
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            },
+                            // 单独定义！！
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{b} <br/>{a} : {c} ({d}%)"
+                            }
+                        }],
+                    };
+                    var chart = echarts.init(document.getElementById('allchart'));
+                    chart.setOption(option);
+
+                }
+
+            },
+        })
+    </script>
+
+</body>
