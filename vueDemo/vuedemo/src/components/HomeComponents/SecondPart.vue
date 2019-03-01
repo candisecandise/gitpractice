@@ -28,7 +28,6 @@ export default {
         dataType: "json",
         success: function(res) {
           _self.datas = res.newdata;
-          console.log(res.newdata);
         }
       });
     });

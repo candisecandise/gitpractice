@@ -1,57 +1,67 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import FirstPart from '@/components/HomeComponents/FirstPart'
-import SecondPart from '@/components/HomeComponents/SecondPart'
-import Login from '@/views/login'
 import store from '@/store'
+import Home from '@/components/Home'
+
+import {
+  getToken
+} from '@/utils/auth' // getToken from cookie
 
 Vue.use(Router)
 
 const routes = [{
-  path: '/',
-  name: 'home',
-  component: Home,
-  redirect: 'FirstPart',
-  children: [{
-      path: 'FirstPart',
-      name: 'FirstPart',
-      component: FirstPart
+    path: '/login',
+    name: 'login',
+    meta: {
+      requireAuth: false
     },
-    {
-      path: 'SecondPart',
-      name: 'SecondPart',
-      meta: {
-        requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    component: () => import('@/views/login')
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/error/404')
+  }, {
+    path: '*',
+    redirect: '/404'
+  },
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+    redirect: 'FirstPart',
+    children: [{
+        path: 'FirstPart',
+        name: 'FirstPart',
+        component: () => import('@/components/HomeComponents/FirstPart')
       },
-      component: SecondPart
-    }
-  ]
-}, {
-  path: '/login',
-  name: 'login',
-  component: Login
-}];
+      {
+        path: 'SecondPart',
+        name: 'SecondPart',
+        component: () => import('@/components/HomeComponents/SecondPart')
+      }
+    ]
+  }
+];
 
 const router = new Router({
   routes
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {
-    if (store.state.user) {
+  // 不是 login 界面
+  if (to.meta.requireAuth === undefined) {
+    if (getToken()) {
       next();
     } else {
       next({
         path: '/login',
-        query: {
-          redirect: to.fullPath
-        }
       })
     }
   } else {
     next();
   }
+
 })
 
 export default router

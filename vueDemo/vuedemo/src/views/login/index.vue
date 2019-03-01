@@ -23,11 +23,6 @@ export default {
           if (this.user.name === "admin" && this.user.pass === "123") {
             // dispatch采用Promise链式调用
             this.$store.dispatch("login", this.user).then(() => {
-              this.$notify({
-                type: "success",
-                message: "欢迎你," + this.user.name + "!",
-                duration: 1000
-              });
               this.$router.replace("/");
             });
           } else {

@@ -15,7 +15,6 @@
           <el-submenu index="1" class="fr">
             <template slot="title">{{name}}</template>
             <el-menu-item index="1-1" v-if="user" @click="logout">注销</el-menu-item>
-            <el-menu-item index="1-1" v-else @click="login">登录</el-menu-item>
           </el-submenu>
           <el-menu-item index="2" class="fr">处理中心</el-menu-item>
           <el-menu-item index="3" class="fr">消息中心</el-menu-item>
@@ -58,6 +57,7 @@
 </template>
 
 <script>
+import { getToken, setToken, removeToken } from "@/utils/auth";
 export default {
   data() {
     return {
@@ -68,14 +68,25 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      if (getToken()) {
+        var us = JSON.parse(getToken());
+        console.log(111111111111);
+        console.log(this.$store.state.token);
+        return us.name;
+      }
+      // return this.$store.state.token.name;
     },
     name() {
-      if (this.$store.state.user) {
-        return this.$store.state.user.name;
+      if (this.user) {
+        return this.user;
       } else {
         return "请登录";
       }
+      // if (this.$store.state.token.name) {
+      //   return this.$store.state.token.name;
+      // } else {
+      //   return "请登录";
+      // }
     }
   },
   methods: {
@@ -83,17 +94,13 @@ export default {
       this.$router.replace("/login");
     },
     logout() {
-      this.$store.dispatch("logout", this.user).then(() => {});
+      this.$store.dispatch("logout").then(() => {
+        this.$router.replace("/login");
+      });
     },
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    }
+    handleSelect(key, keyPath) {},
+    handleClose(key, keyPath) {},
+    handleOpen(key, keyPath) {}
   }
 };
 </script>

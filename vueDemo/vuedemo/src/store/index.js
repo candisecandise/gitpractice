@@ -1,26 +1,31 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import {
+  getToken,
+  setToken,
+  removeToken
+} from '@/utils/auth'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    user: undefined
+    token: undefined
   },
   mutations: {
-    login(state, payload) {
-      state.user = payload
+    setToken(state, payload) {
+      state.token = payload
     },
-    logout(state) {
-      state.user = undefined
-    }
   },
   actions: {
     login(context, payload) {
-      context.commit('login', payload)
+      context.commit('setToken', payload)
+      setToken(payload);
     },
     logout(context) {
-      context.commit('logout')
+      context.commit('setToken', '')
+      removeToken()
     }
   }
 })
