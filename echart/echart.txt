@@ -1,6 +1,0 @@
-疑惑
-lines 的 tooltip怎么显示数据，可以显示么？？
-lines effectScatter data 不是只需要coords 为什么例子里还有 fromname value 什么的
-
-
-

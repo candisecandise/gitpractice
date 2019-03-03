@@ -2,6 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import {
+  constantRouterMap,
+  dynamicRouter
+} from '@/router'
+
+import {
   getToken,
   setToken,
   removeToken
@@ -11,12 +16,18 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    token: undefined
+    token: undefined,
+    routers: [],
+    addRouters: []
   },
   mutations: {
     setToken(state, payload) {
       state.token = payload
     },
+    SET_ROUTERS: (state, routers) => {
+      state.addRouters = constantRouterMap
+      state.routers = routes.concat(routers)
+    }
   },
   actions: {
     login(context, payload) {
@@ -26,6 +37,21 @@ const store = new Vuex.Store({
     logout(context) {
       context.commit('setToken', '')
       removeToken()
+    },
+    GenerateRoutes({
+      commit
+    }, data) {
+      return new Promise(resolve => {
+        const {
+          roles
+        } = data
+        let accessedRouters
+        if (roles.includes('admin')) {
+          accessedRouters = dynamicRouter
+        }
+        commit('SET_ROUTERS', accessedRouters)
+        resolve()
+      })
     }
   }
 })

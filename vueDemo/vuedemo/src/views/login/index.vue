@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { constantRouter, dynamicRouter } from "@/router/index";
 export default {
   methods: {
     login() {
@@ -23,6 +24,24 @@ export default {
           if (this.user.name === "admin" && this.user.pass === "123") {
             // dispatch采用Promise链式调用
             this.$store.dispatch("login", this.user).then(() => {
+              console.log(this.$router);
+              let dR = new Array();
+              for (let i = 0; i < dynamicRouter.length; i++) {
+                for (let j = 0; j < dynamicRouter[i].meta.roles.length; j++) {
+                  if (dynamicRouter[i].meta.roles[j] == this.user.name) {
+                    dR.push(dynamicRouter[i]);
+                  }
+                }
+              }
+              this.$router.addRoutes(
+                dR.concat([
+                  {
+                    path: "*",
+                    redirect: "/404"
+                  }
+                ])
+              );
+              console.log("login");
               this.$router.replace("/");
             });
           } else {

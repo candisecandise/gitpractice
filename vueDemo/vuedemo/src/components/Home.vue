@@ -70,8 +70,6 @@ export default {
     user() {
       if (getToken()) {
         var us = JSON.parse(getToken());
-        console.log(111111111111);
-        console.log(this.$store.state.token);
         return us.name;
       }
       // return this.$store.state.token.name;
