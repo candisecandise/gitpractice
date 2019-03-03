@@ -1,12 +1,7 @@
 import router from './router'
 import store from './store'
-import {
-  constantRouter,
-  dynamicRouter
-} from "@/router/index";
-import {
-  getToken
-} from '@/utils/auth' // getToken from cookie
+import { constantRouter, dynamicRouter } from '@/router/index'
+import { getToken } from '@/utils/auth' // getToken from cookie
 
 router.beforeEach((to, from, next) => {
   // 不是 login 界面
@@ -17,17 +12,17 @@ router.beforeEach((to, from, next) => {
           path: '/'
         })
       } else {
-        let isLogin = JSON.parse(getToken());
-        let dR = new Array();
+        const isLogin = JSON.parse(getToken())
+        const dR = new Array()
         for (let i = 0; i < dynamicRouter.length; i++) {
           for (let j = 0; j < dynamicRouter[i].meta.roles.length; j++) {
             if (dynamicRouter[i].meta.roles[j] == isLogin.name) {
-              dR.push(dynamicRouter[i]);
+              dR.push(dynamicRouter[i])
             }
           }
         }
-        router.addRoutes(dR);
-         next()
+        router.addRoutes(dR)
+        next()
         // const roles = [getToken().name]
         // store.dispatch('GenerateRoutes', {
         //   roles
@@ -41,11 +36,10 @@ router.beforeEach((to, from, next) => {
       }
     } else {
       next({
-        path: '/login',
+        path: '/login'
       })
     }
   } else {
-    next();
+    next()
   }
-
 })

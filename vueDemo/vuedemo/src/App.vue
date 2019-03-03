@@ -12,27 +12,28 @@ export default {
   name: "app",
   created() {
     console.log(1111111111111);
-    // this.judgeLogin();
+    this.judgeLogin();
   },
   methods: {
     judgeLogin() {
       // let isLogin = store.state.token.name;
+      let isLogin;
       if (getToken()) {
-        let isLogin = JSON.parse(getToken());
-        console.log(isLogin);
-        if (!isLogin) {
-          return this.$router.push("/login");
-        } else {
-          let dR = new Array();
-          for (let i = 0; i < dynamicRouter.length; i++) {
-            for (let j = 0; j < dynamicRouter[i].meta.roles.length; j++) {
-              if (dynamicRouter[i].meta.roles[j] == isLogin.name) {
-                dR.push(dynamicRouter[i]);
-              }
+        isLogin = JSON.parse(getToken());
+      }
+      console.log(isLogin);
+      if (!isLogin) {
+        return this.$router.push("/login");
+      } else {
+        let dR = new Array();
+        for (let i = 0; i < dynamicRouter.length; i++) {
+          for (let j = 0; j < dynamicRouter[i].meta.roles.length; j++) {
+            if (dynamicRouter[i].meta.roles[j] == isLogin.name) {
+              dR.push(dynamicRouter[i]);
             }
           }
-          this.$router.addRoutes(dR);
         }
+        this.$router.addRoutes(dR);
       }
     }
   },
