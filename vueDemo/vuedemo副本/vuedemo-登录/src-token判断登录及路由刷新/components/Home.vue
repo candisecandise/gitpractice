@@ -34,11 +34,10 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <!-- <template
+          <template
             v-for="route in $router.options.routes"
             v-if="route.children && route.children.length"
-          >-->
-          <template v-for="route in addRouters" v-if="route.children && route.children.length">
+          >
             <template v-for="item in route.children">
               <el-menu-item :key="route.path + '/' + item.path" :index="item.name">
                 <i class="el-icon-menu"></i>
@@ -69,7 +68,10 @@ export default {
   },
   computed: {
     user() {
-      return getToken();
+      if (getToken()) {
+        var us = JSON.parse(getToken());
+        return us.name;
+      }
       // return this.$store.state.token.name;
     },
     name() {
@@ -78,9 +80,11 @@ export default {
       } else {
         return "请登录";
       }
-    },
-    addRouters() {
-      return this.$store.getters.addRouters;
+      // if (this.$store.state.token.name) {
+      //   return this.$store.state.token.name;
+      // } else {
+      //   return "请登录";
+      // }
     }
   },
   methods: {

@@ -28,76 +28,26 @@ import Layout from '@/views/layout/Layout'
     affix: true                  if true, the tag will affix in the tags-view
   }
 **/
-export const constantRouterMap = [{
-  path: '/redirect',
-  component: Layout,
-  hidden: true,
-  children: [{
-    path: '/redirect/:path*',
-    component: () => import('@/views/redirect/index')
-  }]
-},
-{
-  path: '/login',
-  component: () => import('@/views/login/index'),
-  hidden: true
-},
-{
-  path: '/auth-redirect',
-  component: () => import('@/views/login/authredirect'),
-  hidden: true
-},
-{
-  path: '/404',
-  component: () => import('@/views/errorPage/404'),
-  hidden: true
-},
-{
-  path: '/401',
-  component: () => import('@/views/errorPage/401'),
-  hidden: true
-},
-{
-  path: '',
-  component: Layout,
-  redirect: 'dashboard',
-  children: [{
-    path: 'dashboard',
-    component: () => import('@/views/dashboard/index'),
-    name: 'Dashboard',
-    meta: {
-      title: 'dashboard',
-      icon: 'dashboard',
-      noCache: true,
-      affix: true
-    }
-  }]
-},
-{
-  path: '/dss',
-  component: Layout,
-  redirect: '/dss/dss-main',
-  name: 'Dss',
-  meta: {
-    title: '分布式存储',
-    icon: 'list'
+export const constantRouterMap = [
+  // {
+  //   path: '/redirect',
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [{
+  //     path: '/redirect/:path*',
+  //     component: () => import('@/views/redirect/index')
+  //   }]
+  // },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
   },
-  children: [{
-    path: 'dss-main',
-    component: () => import('@/views/dss/dssMain'),
-    name: 'DssMain',
-    meta: {
-      title: '存储概览'
-    }
-  }, {
-    path: 'dss-pc',
-    component: () => import('@/views/dss/dssPc'),
-    name: 'DssPc',
-    meta: {
-      title: '服务器管理'
-    }
-  }]
-}
+  {
+    path: '/404',
+    component: () => import('@/views/errorPage/404'),
+    hidden: true
+  }
 ]
 
 export default new Router({
@@ -112,39 +62,91 @@ export const asyncRouterMap = [
 
   /** When your routing table is too long, you can split it into small modules**/
 
-  {
-    path: '/error',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'errorPages',
-      icon: '404'
-    },
-    children: [{
-      path: '401',
-      component: () => import('@/views/errorPage/401'),
-      name: 'Page401',
-      meta: {
-        title: 'page401',
-        noCache: true
-      }
-    },
-    {
-      path: '404',
-      component: () => import('@/views/errorPage/404'),
-      name: 'Page404',
-      meta: {
-        title: 'page404',
-        noCache: true
-      }
-    }
-    ]
-  },
+  // {
+  //   path: '/auth-redirect',
+  //   component: () => import('@/views/login/authredirect'),
+  //   hidden: true
+  // },
 
+  // {
+  //   path: '/401',
+  //   component: () => import('@/views/errorPage/401'),
+  //   hidden: true
+  // },
   {
-    path: '*',
-    redirect: '/404',
-    hidden: true
+    path: '/',
+    component: Layout,
+    redirect: 'dashboard',
+    children: [{
+      path: 'dashboard',
+      component: () => import('@/views/dashboard/index'),
+      name: 'Dashboard',
+      meta: {
+        title: 'dashboard',
+        icon: 'dashboard',
+        noCache: true,
+        affix: true
+      }
+    }]
   }
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dss/dss-main',
+  //   name: 'Dss',
+  //   meta: {
+  //     title: '分布式存储',
+  //     icon: 'list'
+  //   },
+  //   children: [{
+  //     path: 'dss-main',
+  //     component: () => import('@/views/dss/dssMain'),
+  //     name: 'DssMain',
+  //     meta: {
+  //       title: '存储概览'
+  //     }
+  //   }, {
+  //     path: 'dss-pc',
+  //     component: () => import('@/views/dss/dssPc'),
+  //     name: 'DssPc',
+  //     meta: {
+  //       title: '服务器管理'
+  //     }
+  //   }]
+  // },
+  // {
+  //   path: '/error',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   name: 'ErrorPages',
+  //   meta: {
+  //     title: 'errorPages',
+  //     icon: '404'
+  //   },
+  //   children: [{
+  //       path: '401',
+  //       component: () => import('@/views/errorPage/401'),
+  //       name: 'Page401',
+  //       meta: {
+  //         title: 'page401',
+  //         noCache: true
+  //       }
+  //     },
+  //     {
+  //       path: '404',
+  //       component: () => import('@/views/errorPage/404'),
+  //       name: 'Page404',
+  //       meta: {
+  //         title: 'page404',
+  //         noCache: true
+  //       }
+  //     }
+  //   ]
+  // },
+
+  // {
+  //   path: '*',
+  //   redirect: '/404',
+  //   hidden: true
+  // }
 ]

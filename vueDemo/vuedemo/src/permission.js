@@ -1,38 +1,39 @@
 import router from './router'
 import store from './store'
-import { constantRouter, dynamicRouter } from '@/router/index'
-import { getToken } from '@/utils/auth' // getToken from cookie
+import {
+  getToken
+} from '@/utils/auth' // getToken from cookie
 
 router.beforeEach((to, from, next) => {
   // 不是 login 界面
+  // 可以用免登陆白名单或者重新判断是否是登录页使其next
   if (to.meta.requireAuth === undefined) {
     if (getToken()) {
-      if (to.path === '/login') {
+      if (to.path == '/login') {
         next({
           path: '/'
         })
       } else {
-        const isLogin = JSON.parse(getToken())
-        const dR = new Array()
-        for (let i = 0; i < dynamicRouter.length; i++) {
-          for (let j = 0; j < dynamicRouter[i].meta.roles.length; j++) {
-            if (dynamicRouter[i].meta.roles[j] == isLogin.name) {
-              dR.push(dynamicRouter[i])
-            }
-          }
+        const roles = getToken()
+        if (store.getters.roles.length === 0) {
+          store.dispatch('GetUserInfo').then(res => {
+            store.dispatch('GenerateRoutes', {
+              roles
+            }).then(() => { // 根据roles权限生成可访问的路由表
+              console.log(1111111111)
+              console.log(store.getters.addRouters)
+              router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+
+              // 仍然跳回原来路由，参数仍然是 to，但是通过...to 把参数都带过去了 
+              next({
+                ...to,
+                replace: true
+              }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+            })
+          })
+        } else {
+          next();
         }
-        router.addRoutes(dR)
-        next()
-        // const roles = [getToken().name]
-        // store.dispatch('GenerateRoutes', {
-        //   roles
-        // }).then(() => { // 根据roles权限生成可访问的路由表
-        //   router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-        //   next({
-        //     ...to,
-        //     replace: true
-        //   }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-        // })
       }
     } else {
       next({

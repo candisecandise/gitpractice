@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import getters from './getters'
+import axios from 'axios'
+
 import {
-  constantRouterMap,
+  constantRouter,
   dynamicRouter
 } from '@/router'
 
@@ -16,44 +19,62 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    token: undefined,
+    token: getToken(),
+    roles: [],
     routers: [],
     addRouters: []
   },
   mutations: {
-    setToken(state, payload) {
+    SET_TOKEN(state, payload) {
       state.token = payload
     },
+    SET_ROLES: (state, roles) => {
+      state.roles = roles
+    },
     SET_ROUTERS: (state, routers) => {
-      state.addRouters = constantRouterMap
-      state.routers = routes.concat(routers)
+      state.addRouters = routers
+      state.routers = constantRouter.concat(routers)
     }
   },
   actions: {
     login(context, payload) {
-      context.commit('setToken', payload)
-      setToken(payload);
+      context.commit('SET_TOKEN', payload.name)
+      setToken(payload.name);
     },
     logout(context) {
-      context.commit('setToken', '')
+      context.commit('SET_TOKEN', '')
       removeToken()
     },
+    GetUserInfo({
+      commit,
+      state
+    }) {
+      commit('SET_ROLES', state.token)
+    },
     GenerateRoutes({
-      commit
+      commit,
+      state
     }, data) {
       return new Promise(resolve => {
-        const {
-          roles
-        } = data
-        let accessedRouters
-        if (roles.includes('admin')) {
-          accessedRouters = dynamicRouter
-        }
-        commit('SET_ROUTERS', accessedRouters)
-        resolve()
+        axios.post("a/test/routes").then(res => {
+          console.log(res.data.fatherRoutes)
+          const {
+            roles
+          } = data
+          let accessedRouters
+          if (roles.includes('admin')) {
+            console.log("roles includes")
+            // accessedRouters = dynamicRouter
+            accessedRouters = res.data.fatherRoutes
+          }
+          commit('SET_ROUTERS', accessedRouters)
+          resolve()
+        });
+        console.log(state.addRouters)
       })
     }
-  }
+  },
+  getters
 })
 
 export default store
