@@ -64,8 +64,8 @@ const store = new Vuex.Store({
           let accessedRouters
           if (roles.includes('admin')) {
             console.log("roles includes")
-            // accessedRouters = dynamicRouter
-            accessedRouters = res.data.fatherRoutes
+            accessedRouters = dynamicRouter
+            // accessedRouters = res.data.fatherRoutes
           }
           commit('SET_ROUTERS', accessedRouters)
           resolve()
