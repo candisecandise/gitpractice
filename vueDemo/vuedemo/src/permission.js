@@ -4,6 +4,10 @@ import {
   getToken
 } from '@/utils/auth' // getToken from cookie
 
+import {
+  dynamicRouter
+} from '@/router'
+
 router.beforeEach((to, from, next) => {
   // 不是 login 界面
   // 可以用免登陆白名单或者重新判断是否是登录页使其next
@@ -22,8 +26,9 @@ router.beforeEach((to, from, next) => {
             }).then(() => { // 根据roles权限生成可访问的路由表
               console.log(1111111111)
               console.log(store.getters.addRouters)
-              router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-
+              console.log(dynamicRouter)
+              // router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+              router.addRoutes(dynamicRouter) // 动态添加可访问路由表
               // 仍然跳回原来路由，参数仍然是 to，但是通过...to 把参数都带过去了
               next({
                 ...to,
@@ -32,6 +37,7 @@ router.beforeEach((to, from, next) => {
             })
           })
         } else {
+          console.log(router)
           next()
         }
       }

@@ -17,26 +17,28 @@ import {
 
 Vue.use(Vuex)
 
-// const _import = require('@/router/_import_' + process.env.NODE_ENV) // 获取组件的方法
-// import Layout from '@/components/Home' // Layout 是架构组件，不在后台返回，在文件里单独引入
+const _import = require('@/router/_import_' + process.env.NODE_ENV) // 获取组件的方法
+import Home from '@/components/Home' // Layout 是架构组件，不在后台返回，在文件里单独引入
 
-// function filterAsyncRouter(asyncRouterMap) { // 遍历后台传来的路由字符串，转换为组件对象
-//   const accessedRouters = asyncRouterMap.filter(route => {
-//     if (route.component) {
-//       if (route.component === 'Layout') { // Layout组件特殊处理
-//         route.component = Layout
-//       } else {
-//         route.component = _import(route.component)
-//       }
-//     }
-//     if (route.children && route.children.length) {
-//       route.children = filterAsyncRouter(route.children)
-//     }
-//     return true
-//   })
+function filterAsyncRouter(asyncRouterMap) { // 遍历后台传来的路由字符串，转换为组件对象
+  console.log(asyncRouterMap)
+  const accessedRouters = asyncRouterMap.filter(route => {
+    if (route.component) {
+      if (route.component === 'Home') { // Layout组件特殊处理
+        console.log('Home')
+        route.component = Home
+      } else {
+        route.component = _import(route.component)
+      }
+    }
+    if (route.children && route.children.length) {
+      route.children = filterAsyncRouter(route.children)
+    }
+    return true
+  })
 
-//   return accessedRouters
-// }
+  return accessedRouters
+}
 
 const store = new Vuex.Store({
   state: {
@@ -84,10 +86,10 @@ const store = new Vuex.Store({
           let accessedRouters
           if (roles.includes('admin')) {
             console.log('roles includes')
-            accessedRouters = dynamicRouter
+            // accessedRouters = dynamicRouter
             console.log(dynamicRouter)
-            // var accessR = filterAsyncRouter(res.data.fatherRoutes)
-            // console.log(accessR)
+            accessedRouters = filterAsyncRouter(res.data.fatherRoutes)
+            console.log(accessedRouters)
           }
           commit('SET_ROUTERS', accessedRouters)
           resolve()

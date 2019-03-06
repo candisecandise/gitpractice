@@ -1,5 +1,8 @@
 import router from './router'
 import store from './store'
+import {
+  Message
+} from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import {
@@ -45,15 +48,14 @@ router.beforeEach((to, from, next) => {
             }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
             console.log(to)
           })
+        }).catch((err) => {
+          store.dispatch('FedLogOut').then(() => {
+            Message.error(err)
+            next({
+              path: '/'
+            })
+          })
         })
-        // .catch((err) => {
-        //   store.dispatch('FedLogOut').then(() => {
-        //     Message.error(err)
-        //     next({
-        //       path: '/'
-        //     })
-        //   })
-        // })
       } else {
         // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
         if (hasPermission(store.getters.roles, to.meta.roles)) {
