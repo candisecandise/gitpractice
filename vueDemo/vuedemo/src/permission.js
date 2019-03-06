@@ -9,7 +9,7 @@ router.beforeEach((to, from, next) => {
   // 可以用免登陆白名单或者重新判断是否是登录页使其next
   if (to.meta.requireAuth === undefined) {
     if (getToken()) {
-      if (to.path == '/login') {
+      if (to.path === '/login') {
         next({
           path: '/'
         })
@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
               console.log(store.getters.addRouters)
               router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
 
-              // 仍然跳回原来路由，参数仍然是 to，但是通过...to 把参数都带过去了 
+              // 仍然跳回原来路由，参数仍然是 to，但是通过...to 把参数都带过去了
               next({
                 ...to,
                 replace: true
@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
             })
           })
         } else {
-          next();
+          next()
         }
       }
     } else {

@@ -17,6 +17,27 @@ import {
 
 Vue.use(Vuex)
 
+// const _import = require('@/router/_import_' + process.env.NODE_ENV) // 获取组件的方法
+// import Layout from '@/components/Home' // Layout 是架构组件，不在后台返回，在文件里单独引入
+
+// function filterAsyncRouter(asyncRouterMap) { // 遍历后台传来的路由字符串，转换为组件对象
+//   const accessedRouters = asyncRouterMap.filter(route => {
+//     if (route.component) {
+//       if (route.component === 'Layout') { // Layout组件特殊处理
+//         route.component = Layout
+//       } else {
+//         route.component = _import(route.component)
+//       }
+//     }
+//     if (route.children && route.children.length) {
+//       route.children = filterAsyncRouter(route.children)
+//     }
+//     return true
+//   })
+
+//   return accessedRouters
+// }
+
 const store = new Vuex.Store({
   state: {
     token: getToken(),
@@ -39,7 +60,7 @@ const store = new Vuex.Store({
   actions: {
     login(context, payload) {
       context.commit('SET_TOKEN', payload.name)
-      setToken(payload.name);
+      setToken(payload.name)
     },
     logout(context) {
       context.commit('SET_TOKEN', '')
@@ -56,21 +77,21 @@ const store = new Vuex.Store({
       state
     }, data) {
       return new Promise(resolve => {
-        axios.post("a/test/routes").then(res => {
-          console.log(res.data.fatherRoutes)
+        axios.post('a/test/routes').then(res => {
           const {
             roles
           } = data
           let accessedRouters
           if (roles.includes('admin')) {
-            console.log("roles includes")
+            console.log('roles includes')
             accessedRouters = dynamicRouter
-            // accessedRouters = res.data.fatherRoutes
+            console.log(dynamicRouter)
+            // var accessR = filterAsyncRouter(res.data.fatherRoutes)
+            // console.log(accessR)
           }
           commit('SET_ROUTERS', accessedRouters)
           resolve()
-        });
-        console.log(state.addRouters)
+        })
       })
     }
   },

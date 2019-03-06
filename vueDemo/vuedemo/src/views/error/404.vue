@@ -13,17 +13,17 @@
 
 <script>
 export default {
-  name: "Page404",
+  name: 'Page404',
   computed: {
     message() {
-      return "404";
+      return '404'
     }
   },
   methods: {
     logout() {
-      this.$store.dispatch("logout");
-      this.$router.replace("/login");
+      this.$store.dispatch('logout')
+      this.$router.replace('/login')
     }
   }
-};
+}
 </script>

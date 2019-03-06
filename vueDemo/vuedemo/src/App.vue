@@ -5,36 +5,36 @@
 </template>
 
 <script>
-import { constantRouter, dynamicRouter } from "@/router/index";
-import { getToken } from "@/utils/auth"; // getToken from cookie
-import store from "@/store";
+import { dynamicRouter } from '@/router/index'
+import { getToken } from '@/utils/auth' // getToken from cookie
+import store from '@/store'
 export default {
-  name: "app",
+  name: 'App',
+  components: {},
   created() {
     // this.judgeLogin();
   },
   methods: {
     judgeLogin() {
       // let isLogin = store.state.token.name;
-      let isLogin = getToken();
-      console.log(store.state.token);
+      const isLogin = getToken()
+      console.log(store.state.token)
       if (!isLogin) {
-        return this.$router.push("/login");
+        return this.$router.push('/login')
       } else {
-        let dR = new Array();
+        const dR = []
         for (let i = 0; i < dynamicRouter.length; i++) {
           for (let j = 0; j < dynamicRouter[i].meta.roles.length; j++) {
-            if (dynamicRouter[i].meta.roles[j] == isLogin) {
-              dR.push(dynamicRouter[i]);
+            if (dynamicRouter[i].meta.roles[j] === isLogin) {
+              dR.push(dynamicRouter[i])
             }
           }
         }
-        this.$router.addRoutes(dR);
+        this.$router.addRoutes(dR)
       }
     }
-  },
-  components: {}
-};
+  }
+}
 </script>
 
 <style>
