@@ -31,7 +31,7 @@ export default {
         if (valid) {
           if (this.user.name === 'admin' && this.user.pass === '123') {
             // dispatch采用Promise链式调用
-            this.$store.dispatch('login', this.user).then(() => {
+            this.$store.dispatch('LoginByUsername', this.user).then(() => {
               this.$router.push({ path: this.redirect || '/' })
             })
           } else {

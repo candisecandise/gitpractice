@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 
-export function menuList(query) {
+export function tableList(query) {
   return request({
-    url: '/test/routes',
-    method: 'post',
+    url: '/article/list',
+    method: 'get',
     params: query
   })
 }
