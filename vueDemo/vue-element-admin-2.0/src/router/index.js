@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+// import Home from '@/components/Home'
+import Layout from '@/views/layout/Layout'
 
 Vue.use(Router)
 
@@ -25,20 +26,27 @@ const router = new Router({
 
 export default router
 
-export const asyncRouterMap = [{
-  path: '/',
-  name: 'home',
-  component: Home,
-  redirect: 'FirstPart',
-  children: [{
-    path: 'FirstPart',
-    name: 'FirstPart',
-    component: () => import('@/components/HomeComponents/FirstPart')
-  },
+export const asyncRouterMap = [
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: Home,
+  //   redirect: 'FirstPart',
+  //   children: [{
+  //     path: 'FirstPart',
+  //     name: 'FirstPart',
+  //     component: () => import('@/components/HomeComponents/FirstPart')
+  //   },
+  //   {
+  //     path: 'SecondPart',
+  //     name: 'SecondPart',
+  //     component: () => import('@/components/HomeComponents/SecondPart')
+  //   }
+  //   ]
+  // },
   {
-    path: 'SecondPart',
-    name: 'SecondPart',
-    component: () => import('@/components/HomeComponents/SecondPart')
+    path: '/',
+    name: 'Layout',
+    component: Layout
   }
-  ]
-}]
+]

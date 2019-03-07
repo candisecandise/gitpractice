@@ -4,6 +4,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import store from './store'
+import '@/styles/index.scss' // global css
 import axios from 'axios'
 Vue.prototype.$axios = axios
 import './permission' // permission control

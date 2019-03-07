@@ -89,7 +89,7 @@ export default {
       this.$router.replace('/login')
     },
     logout() {
-      this.$store.dispatch('logout').then(() => {
+      this.$store.dispatch('LogOut').then(() => {
         this.$router.replace('/login')
       })
     },

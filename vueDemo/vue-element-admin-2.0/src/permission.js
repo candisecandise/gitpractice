@@ -15,7 +15,7 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       if (store.getters.roles.length === 0) {
-        store.dispatch('GetUserInfo2').then(res => {
+        store.dispatch('GetUserInfo').then(res => {
           // const roles = getToken()
           const roles = res.data.roles
           store.dispatch('GenerateRoutes', {

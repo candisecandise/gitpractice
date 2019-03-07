@@ -19,14 +19,13 @@ router.beforeEach((to, from, next) => {
         })
       } else {
         const roles = getToken()
+        console.log(111111111111)
+        console.log(store.getters.roles.length)
         if (store.getters.roles.length === 0) {
           store.dispatch('GetUserInfo').then(res => {
             store.dispatch('GenerateRoutes', {
               roles
             }).then(() => { // 根据roles权限生成可访问的路由表
-              console.log(1111111111)
-              console.log(store.getters.addRouters)
-              console.log(dynamicRouter)
               // router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
               router.addRoutes(dynamicRouter) // 动态添加可访问路由表
               // 仍然跳回原来路由，参数仍然是 to，但是通过...to 把参数都带过去了
@@ -37,7 +36,6 @@ router.beforeEach((to, from, next) => {
             })
           })
         } else {
-          console.log(router)
           next()
         }
       }

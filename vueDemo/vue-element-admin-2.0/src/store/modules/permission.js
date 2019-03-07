@@ -1,28 +1,26 @@
 import { asyncRouterMap, constantRouterMap } from '@/router'
 import { menuList } from '@/api/menu'
 
-const _import = require('@/router/_import_' + process.env.NODE_ENV) // 获取组件的方法
-import Home from '@/components/Home' // Layout 是架构组件，不在后台返回，在文件里单独引入
+// const _import = require('@/router/_import_' + process.env.NODE_ENV) // 获取组件的方法
+// import Home from '@/components/Home' // Layout 是架构组件，不在后台返回，在文件里单独引入
 
-function makeAsyncRouter(asyncRouterMap) { // 遍历后台传来的路由字符串，转换为组件对象
-  console.log(asyncRouterMap)
-  const accessedRouters = asyncRouterMap.filter(route => {
-    if (route.component) {
-      if (route.component === 'Home') { // Layout组件特殊处理
-        console.log('Home')
-        route.component = Home
-      } else {
-        route.component = _import(route.component)
-      }
-    }
-    if (route.children && route.children.length) {
-      route.children = makeAsyncRouter(route.children)
-    }
-    return true
-  })
+// function makeAsyncRouter(asyncRouterMap) { // 遍历后台传来的路由字符串，转换为组件对象
+//   const accessedRouters = asyncRouterMap.filter(route => {
+//     if (route.component) {
+//       if (route.component === 'Home') { // Layout组件特殊处理
+//         route.component = Home
+//       } else {
+//         route.component = _import(route.component)
+//       }
+//     }
+//     if (route.children && route.children.length) {
+//       route.children = makeAsyncRouter(route.children)
+//     }
+//     return true
+//   })
 
-  return accessedRouters
-}
+//   return accessedRouters
+// }
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
@@ -73,16 +71,14 @@ const permission = {
     GenerateRoutes({ commit, state }, data) {
       return new Promise((resolve, reject) => {
         const { roles } = data
+        const unfound = { path: '*', redirect: '/404', hidden: true }
         menuList(roles).then(response => {
-          console.log(response)
           let accessedRouters
           if (roles.includes('admin')) {
-            console.log('roles includes')
-            // accessedRouters = asyncRouterMap
-            console.log(asyncRouterMap)
-            accessedRouters = makeAsyncRouter(response.data.fatherRoutes)
-            console.log(accessedRouters)
+            accessedRouters = asyncRouterMap
+            // accessedRouters = makeAsyncRouter(response.data.fatherRoutes)
           }
+          accessedRouters.push(unfound)
           commit('SET_ROUTERS', accessedRouters)
           resolve(response)
         }).catch(error => {

@@ -5,8 +5,7 @@ import getters from './getters'
 import axios from 'axios'
 
 import {
-  constantRouter,
-  dynamicRouter
+  constantRouter
 } from '@/router'
 
 import {
@@ -87,9 +86,7 @@ const store = new Vuex.Store({
           if (roles.includes('admin')) {
             console.log('roles includes')
             // accessedRouters = dynamicRouter
-            console.log(dynamicRouter)
             accessedRouters = filterAsyncRouter(res.data.fatherRoutes)
-            console.log(accessedRouters)
           }
           commit('SET_ROUTERS', accessedRouters)
           resolve()
