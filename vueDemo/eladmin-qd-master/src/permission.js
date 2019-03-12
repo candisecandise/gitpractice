@@ -25,7 +25,6 @@ router.beforeEach((to, from, next) => {
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetInfo').then(res => { // 拉取user_info
           // 动态路由，拉取菜单
-          console.log('getinfo getmenu')
           loadMenus(next, to)
         }).catch((err) => {
           console.log(err)
@@ -35,7 +34,6 @@ router.beforeEach((to, from, next) => {
         })
       // 首次登录时未拉取 菜单，在此处拉取
       } else if (store.getters.loadMenus) {
-        console.log('loadmenus false getmenu')
         // loadMenus修改成false，防止死循环
         store.dispatch('updateLoadMenus').then(res => {})
         loadMenus(next, to)
@@ -55,7 +53,6 @@ router.beforeEach((to, from, next) => {
 })
 
 export const loadMenus = (next, to) => {
-  console.log('loadmenus')
   buildMenus().then(res => {
     res.push(asyncRouterMap)
     const asyncRouter = filterAsyncRouter(res)

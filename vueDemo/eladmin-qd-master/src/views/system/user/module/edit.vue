@@ -25,6 +25,8 @@ export default {
   },
   methods: {
     to() {
+      // this.$refs.form 调用子组件实例
+      // this.data 当前行传递过来的data
       const _this = this.$refs.form
       _this.roleIds = []
       _this.form = { id: this.data.id, username: this.data.username, email: this.data.email, enabled: this.data.enabled.toString(), roles: [] }

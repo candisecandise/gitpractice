@@ -203,6 +203,8 @@ export default {
         const permission = { id: data }
         role.permissions.push(permission)
       })
+      console.log('edit permissions')
+      console.log(role)
       editPermission(role).then(res => {
         this.$notify({
           title: '保存成功',
