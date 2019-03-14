@@ -5,13 +5,16 @@ import 'nprogress/nprogress.css'// progress bar style
 import { getToken } from '@/utils/auth' // getToken from cookie
 import { buildMenus } from '@/api/menu'
 import { filterAsyncRouter } from './store/modules/permission'
-import { asyncRouterMap } from '@/router'
+// import { asyncRouterMap } from '@/router'
 
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 
 const whiteList = ['/login']// no redirect whitelist
 
 router.beforeEach((to, from, next) => {
+  console.log('刷新')
+  console.log(store.getters.addRouters)
+  console.log(store.getters.roles)
   if (to.meta.title) {
     document.title = to.meta.title + ' - eladmin'
   }
@@ -23,6 +26,7 @@ router.beforeEach((to, from, next) => {
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
+        console.log('拉取用户信息')
         store.dispatch('GetInfo').then(res => { // 拉取user_info
           // 动态路由，拉取菜单
           loadMenus(next, to)
@@ -54,7 +58,7 @@ router.beforeEach((to, from, next) => {
 
 export const loadMenus = (next, to) => {
   buildMenus().then(res => {
-    res.push(asyncRouterMap)
+    // res.push(asyncRouterMap)
     const asyncRouter = filterAsyncRouter(res)
     asyncRouter.push({ path: '*', redirect: '/404', hidden: true })
     store.dispatch('GenerateRoutes', asyncRouter).then(() => { // 存储路由

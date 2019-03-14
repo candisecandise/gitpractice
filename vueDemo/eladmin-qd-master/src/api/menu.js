@@ -1,9 +1,17 @@
 import request from '@/utils/request'
+import request2 from '@/utils/request2'
 
 // 获取所有的菜单树
 export function getMenusTree() {
   return request({
     url: 'api/menus/tree',
+    method: 'get'
+  })
+}
+
+export function getMenusTree2() {
+  return request2({
+    url: 'test/menu/tree',
     method: 'get'
   })
 }

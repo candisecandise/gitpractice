@@ -16,8 +16,6 @@ export default {
         initData(this.url, this.params).then(res => {
           this.total = res.totalElements
           this.data = res.content
-          console.log('init')
-          console.log(this.data)
           setTimeout(() => {
             this.loading = false
           }, this.time)

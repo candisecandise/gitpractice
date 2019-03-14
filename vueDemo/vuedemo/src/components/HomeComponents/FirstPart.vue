@@ -35,8 +35,9 @@ export default {
   // }
   mounted() {
     this.$nextTick(function() {
-      this.$axios.get('/api/data').then(res => {
-        this.tableData = res.data.data
+      // this.$axios.get('/api/data').then(res => {
+      this.$axios.get('/a/test/list').then(res => {
+        this.tableData = res.data.lists
       })
     })
   }

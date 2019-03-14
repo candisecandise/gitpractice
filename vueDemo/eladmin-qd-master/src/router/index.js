@@ -84,18 +84,18 @@ export default new Router({
 
 export const asyncRouterMap =
   {
-    name: 'Example',
-    path: '/example',
-    redirect: 'noredirect',
-    component: 'Layout',
-    alwaysShow: true,
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        name: 'Table',
-        path: 'table',
-        component: 'table/index',
-        meta: { title: 'Table', icon: 'table' }
-      }
-    ]
+    // name: 'Example',
+    // path: '/example',
+    // redirect: 'noredirect',
+    // component: 'Layout',
+    // alwaysShow: true,
+    // meta: { title: 'Example', icon: 'example' },
+    // children: [
+    //   {
+    //     name: 'Table',
+    //     path: 'table',
+    //     component: 'table/index',
+    //     meta: { title: 'Table', icon: 'table' }
+    //   }
+    // ]
   }

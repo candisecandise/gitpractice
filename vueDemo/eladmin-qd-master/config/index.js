@@ -9,10 +9,27 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/aa': {
+        target: 'http://10.20.10.29:8000', // 接口的域名
+        // secure: false,  // 如果是https接口，需要配置这个参数
+        changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+        pathRewrite: {
+          '^/aa': ''
+        }
+      },
+      '/bb': {
+        target: 'http://rap2api.taobao.org/app/mock/127396/', // 接口的域名
+        // secure: false,  // 如果是https接口，需要配置这个参数
+        changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+        pathRewrite: {
+          '^/bb': '/aaaa'
+        }
+      }, 
+    },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '10.20.10.160', // can be overwritten by process.env.HOST
     port: 8013, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
